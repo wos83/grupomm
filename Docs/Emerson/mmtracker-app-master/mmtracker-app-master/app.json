@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "mmtracker-app",
+    "slug": "mmtracker-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./src/assets/images/splash_screen_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#014399"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyA_XNL9KL5Kyw2kGG7ToGSThr43BLoac48"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png"
+    }
+  }
+}

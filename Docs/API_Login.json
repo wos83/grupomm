@@ -1,0 +1,40 @@
+{
+    "status": 200,
+    "title": "Autenticação",
+    "detail": "O usuário foi devidamente autenticado no sistema",
+    "instance": "/api/login",
+    "id": 146,
+    "name": "William Santos",
+    "role": "Analista de Sistemas",
+    "groupid": 2,
+    "groupname": "Administrador Contratante",
+    "username": "william",
+    "phonenumber": "(11) 99679-2013",
+    "email": "m16@m16.com.br",
+    "expires": false,
+    "createdat": "2022-11-02 09:10:06",
+    "updatedat": "2022-11-02 09:52:16",
+    "lastlogin": "2022-11-12 22:37:30",
+    "forcenewpassword": true,
+    "entity": {
+        "id": 1,
+        "name": "M.S. de Miranda Rastreadores - EPP",
+        "entitytypeid": 1,
+        "entitytypename": "Pessoa jurídica",
+        "cooperative": false,
+        "juridicalperson": true,
+        "contractor": true,
+        "customer": false,
+        "supplier": false,
+        "serviceprovider": false,
+        "seller": false,
+        "contractorid": 1,
+        "blocked": false
+    },
+    "token": {
+        "type": "Bearer",
+        "credential": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgzMDM1NTQsImlzcyI6InZwczM1MDY3LnB1YmxpY2Nsb3VkLmNvbS5iciIsIm5iZiI6MTY2ODMwMzU1NCwiZXhwIjoxNjY4MzEwNzU0LCJjb250cmFjdG9yIjp7ImlkIjoxLCJuYW1lIjoiTS5TLiBkZSBNaXJhbmRhIFJhc3RyZWFkb3JlcyAtIEVQUCIsImVudGl0eXR5cGVpZCI6MSwiZW50aXR5dHlwZW5hbWUiOiJQZXNzb2EganVyXHUwMGVkZGljYSIsImNvb3BlcmF0aXZlIjpmYWxzZSwianVyaWRpY2FscGVyc29uIjp0cnVlLCJibG9ja2VkIjpmYWxzZSwidXVpZCI6IjgyN2Q4MzM4LTZkMGMtYmY4NS0zZWEyLWZmMWY2NmZkNzBkMyJ9LCJ1c2VyIjp7ImlkIjoxNDYsIm5hbWUiOiJXaWxsaWFtIFNhbnRvcyIsInVzZXJuYW1lIjoid2lsbGlhbSIsImdyb3VwSUQiOjJ9fQ.T0Bkuj9yU6Q2nbKIWPAjJOAO0TmT5utYQIbRSf5gQsY",
+        "emission": "2022-11-12 22:39:14",
+        "lifetime": 120
+    }
+}

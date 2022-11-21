@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": ["ES6", "es2020"],
+    "module": "commonjs",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "outDir": "build",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es6"
+  },
+  "exclude": ["node_modules", "build"],
+  "include": ["src", "src/services/.ts"],
+  "extends": "expo/tsconfig.base"
+}

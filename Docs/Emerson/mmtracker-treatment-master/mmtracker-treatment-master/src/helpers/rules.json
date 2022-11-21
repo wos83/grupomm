@@ -1,0 +1,238 @@
+[
+  {
+    "manufacturer": "ST",
+    "deviceModels": ["ST310", "ST340", "ST300HD", "ST350LC4"],
+    "protocolType": "ST300",
+    "discoverStringRule": {
+      "fieldToCheck": 0,
+      "initialBit": 5,
+      "finalBit": 8
+    },
+    "separator": ";",
+    "stringTypes": [
+      {
+        "type": "STT",
+        "name": "position",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "fwVersion": { "position": 3 },
+          "date": { "position": 4, "isDate": true },
+          "time": { "position": 5 },
+          "latitude": { "position": 7 },
+          "longitude": { "position": 8 },
+          "speed": { "position": 9 },
+          "course": { "position": 10 },
+          "satellite": { "position": 11 },
+          "odometer": { "position": 13 },
+          "mainBattery": { "position": 14 },
+          "ignition": { "position": 15, "isCheckBit": true, "bitPosition": 0 },
+          "inputOne": { "position": 15, "isCheckBit": true, "bitPosition": 1 },
+          "inputTwo": { "position": 15, "isCheckBit": true, "bitPosition": 2 },
+          "inputThree": {
+            "position": 15,
+            "isCheckBit": true,
+            "bitPosition": 2
+          },
+          "outputOne": { "position": 15, "isCheckBit": true, "bitPosition": 4 },
+          "outputTwo": { "position": 15, "isCheckBit": true, "bitPosition": 5 },
+          "backupBattery": { "position": 19 }
+        }
+      },
+      {
+        "type": "EVT",
+        "name": "event",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "fwVersion": { "position": 3 },
+          "date": { "position": 4, "isDate": true },
+          "time": { "position": 5 },
+          "latitude": { "position": 7 },
+          "longitude": { "position": 8 },
+          "speed": { "position": 9 },
+          "course": { "position": 10 },
+          "satellite": { "position": 11 },
+          "gpsFix": { "position": 12 },
+          "odometer": { "position": 13 },
+          "mainBattery": { "position": 14 },
+          "ignition": { "position": 15, "isCheckBit": true },
+          "inputOne": { "position": 15, "isCheckBit": true },
+          "inputTwo": { "position": 15, "isCheckBit": true },
+          "inputThree": { "position": 15, "isCheckBit": true },
+          "outputOne": { "position": 15, "isCheckBit": true },
+          "outputTwo": { "position": 15, "isCheckBit": true },
+          "evtId": { "position": 16 },
+          "hourimeter": { "position": 17 },
+          "backupBattery": { "position": 19 },
+          "isRealMessage": { "position": 20 }
+        }
+      },
+      {
+        "type": "CMD",
+        "name": "command_response",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 2 },
+          "commandName": { "position": 4 }
+        }
+      }
+    ]
+  },
+  {
+    "manufacturer": "ST",
+    "deviceModels": ["ST240", "ST215W"],
+    "protocolType": "SA200",
+    "discoverStringRule": {
+      "fieldToCheck": 0,
+      "initialBit": 5,
+      "finalBit": 8
+    },
+    "separator": ";",
+    "stringTypes": [
+      {
+        "type": "STT",
+        "name": "position",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "fwVersion": { "position": 2 },
+          "date": { "position": 3, "isDate": true },
+          "time": { "position": 4 },
+          "latitude": { "position": 6 },
+          "longitude": { "position": 7 },
+          "speed": { "position": 8 },
+          "course": { "position": 9 },
+          "satellite": { "position": 10 },
+          "odometer": { "position": 12 },
+          "mainBattery": { "position": 13 },
+          "ignition": { "position": 14, "isCheckBit": true },
+          "inputOne": { "position": 14, "isCheckBit": true },
+          "inputTwo": { "position": 14, "isCheckBit": true },
+          "inputThree": { "position": 14, "isCheckBit": true },
+          "outputOne": { "position": 14, "isCheckBit": true },
+          "outputTwo": { "position": 14, "isCheckBit": true }
+        }
+      }
+    ]
+  },
+  {
+    "manufacturer": "E3",
+    "deviceModels": ["E3", "E3+"],
+    "protocolType": "ET",
+    "separator": ",",
+    "discoverStringRule": {
+      "fieldToCheck": 2,
+      "initialBit": 0,
+      "finalBit": 2
+    },
+    "stringTypes": [
+      {
+        "type": "HB",
+        "name": "position",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "gpsFix": { "position": 3 },
+          "date": {
+            "position": 4,
+            "isChunkHexa": true,
+            "isDate": true,
+            "prevYear": "20"
+          },
+          "time": { "position": 5, "isChunkHexa": true, "isTime": true },
+          "latitude": {
+            "position": 6,
+            "isHexa": true,
+            "divideBy": 600000,
+            "checkCardinalDirection": "8"
+          },
+          "longitude": {
+            "position": 7,
+            "isHexa": true,
+            "divideBy": 600000,
+            "checkCardinalDirection": "8"
+          },
+          "speed": { "position": 8, "isChunkHexa": true },
+          "course": { "position": 9, "isHexa": true, "divideBy": 100 },
+          "ignition": {
+            "position": 10,
+            "isCheckBit": true,
+            "bitPosition": 2,
+            "bitValueCheck": 8
+          },
+          "outputOne": {
+            "position": 10,
+            "isCheckBit": true,
+            "bitPosition": 3,
+            "bitValueCheck": 8
+          },
+          "outputTwo": {
+            "position": 10,
+            "isCheckBit": true,
+            "bitPosition": 2,
+            "bitValueCheck": 1
+          },
+          "backupBatteryPercent": { "position": 12 },
+          "odometer": { "position": 14, "isHexa": true, "divideBy": 10 },
+          "mainBattery": { "position": 19 },
+          "satellite": { "position": 20, "lastItem": true }
+        }
+      },
+      {
+        "type": "TX",
+        "name": "keepalive",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "gpsFix": { "position": 3 },
+          "date": {
+            "position": 4,
+            "isChunkHexa": true,
+            "isDate": true,
+            "prevYear": "20"
+          },
+          "time": { "position": 5, "isChunkHexa": true, "isTime": true }
+        }
+      },
+      {
+        "type": "MQ",
+        "fields": {}
+      },
+      {
+        "type": "CX",
+        "fields": {}
+      },
+      {
+        "type": "AM",
+        "name": "event",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "gpsFix": { "position": 3 },
+          "date": {
+            "position": 4,
+            "isChunkHexa": true,
+            "isDate": true,
+            "prevYear": "20"
+          },
+          "time": { "position": 5, "isChunkHexa": true, "isTime": true },
+          "latitude": { "position": 6, "isHexa": true, "divideBy": 60000 },
+          "longitude": { "position": 7, "isHexa": true, "divideBy": 60000 },
+          "speed": { "position": 8, "isHexa": true, "divideBy": 100 },
+          "course": { "position": 9, "isHexa": true, "divideBy": 100 },
+          "mainBattery": { "position": 10 },
+          "odometer": { "position": 11, "isHexa": true, "divideBy": 10 }
+        }
+      },
+      {
+        "type": "FD",
+        "fields": {
+          "header": { "position": 0 },
+          "deviceId": { "position": 1 },
+          "outputMode": { "position": 2 }
+        }
+      }
+    ]
+  }
+]

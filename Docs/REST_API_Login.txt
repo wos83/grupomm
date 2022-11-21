@@ -1,0 +1,40 @@
+object RESTClient1: TRESTClient
+  BaseURL = 'http://vps35067.publiccloud.com.br/api/login'
+  Params = <>
+  SynchronizedEvents = False
+end
+object RESTRequest1: TRESTRequest
+  AssignedValues = [rvConnectTimeout, rvReadTimeout]
+  Client = RESTClient1
+  Method = rmPOST
+  Params = <
+    item
+      Kind = pkREQUESTBODY
+      Name = 'body71BEA32C91E24E318B3C6E2002EC35A1'
+      Value = 
+        '{"username":"william","password":"#h#p0te5YZ","uuid":"827d8338-6' +
+        'd0c-bf85-3ea2-ff1f66fd70d3"}'
+      ContentTypeStr = 'application/json'
+    end>
+  Response = RESTResponse1
+  SynchronizedEvents = False
+end
+object RESTResponse1: TRESTResponse
+end
+object RESTResponseDataSetAdapter1: TRESTResponseDataSetAdapter
+  Dataset = FDMemTable1
+  FieldDefs = <>
+  Response = RESTResponse1
+  TypesMode = Rich
+  NestedElements = True
+end
+object FDMemTable1: TFDMemTable
+  FetchOptions.AssignedValues = [evMode]
+  FetchOptions.Mode = fmAll
+  ResourceOptions.AssignedValues = [rvSilentMode]
+  ResourceOptions.SilentMode = True
+  UpdateOptions.AssignedValues = [uvUpdateChngFields, uvUpdateMode, uvLockMode, uvLockPoint, uvLockWait, uvRefreshMode, uvFetchGeneratorsPoint, uvCheckRequired, uvCheckReadOnly, uvCheckUpdatable]
+  UpdateOptions.LockWait = True
+  UpdateOptions.FetchGeneratorsPoint = gpNone
+  UpdateOptions.CheckRequired = False
+end

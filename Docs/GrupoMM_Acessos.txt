@@ -1,0 +1,148 @@
+
+Conta da Google (Desenvolvimento)
+
+Email: grupomm.dev@gmail.com
+Pwd: dxy6hnJH9ASK2VM!
+
+--------------------------------------------------
+
+Banco de Dados (PostgreSQL)
+
+$host = "trackererp.postgresql.dbaas.com.br";
+$port = "5432";
+$dbname = "trackererp";
+$user = "trackererp";
+$password = "Tr@ck3rERP";
+
+--------------------------------------------------
+
+https://www.google.com.br/maps/place/-22.0028,-47.4445/@-22.0028,-47.4445,17.79z
+
+--------------------------------------------------
+
+Test Online DB
+
+Server: heffalump.db.elephantsql.com (heffalump-01)
+Region: amazon-web-services::us-west-1
+Created at: 2022-11-02 02:21 UTC+00:00
+User & Default database: hzjkocul
+Password: 7--Y6p8lPGhI3X-3Z3X_QFfb0zQTjgIE 
+URL	postgres://hzjkocul:7--Y6p8lPGhI3X-3Z3X_QFfb0zQTjgIE@heffalump.db.elephantsql.com/hzjkocul 
+Current database size	
+
+Max database size	20 MB
+
+--------------------------------------------------
+
+Acesso do ERP
+
+https://www.grupomm.srv.br/erp
+
+Usuário: william
+Senha: #h#p0te5YZ
+
+--------------------------------------------------
+
+Acesso do App Mobile
+
+Login: allen
+Senha: senha01
+
+--------------------------------------------------
+
+Novo Rastreador, sera incluido no ERP sem vinculo a nenhum cliente.
+
+1 - Gateway
+2 - Comandos
+
+Usar o Maps do OpenStreetMap
+
+--------------------------------------------------
+
+Descrição:
+
+
+000 número # # número # # # (vincular três números de telefone)
+111 (pausa de 10 minutos de gravação de sms)
+222 (pausa de 5 minutos de gravação de voz)
+333 (telefone dial-back ativado por voz)
+444 (excluir todo o conteúdo da memória)
+555 (desligue todos os recursos)
+666 (alarme vibratório sms)
+777 (telefone de alarme vibratório)
+888 (reproduza a gravação de memória --- como a próxima reprodução, em seguida, pause após a transmissão --- se a tecla switch pressione rapidamente a pausar)
+999 (posicionamento coordenado sms)
+789 (carregar gravador de voz de 10 segundos para servidor ftp 365gps)
+123 #1/0 (abrir/fechar dados de localização de upload automático)
+Voz #1/voz #0 (detecção de som automática gravação de voz para servidor ftp ouvir no aplicativo 365gps, 1-abrir, 0 fechar)
+S3: zx303 400mah bateria
+
+--------------------------------------------------
+
+No Mobile, depois do login... 
+quem sou eu..
+te devolvo um token...
+carrega as ultimas posicoes de todos os veiculos...
+listar os veiculos, no mapa...
+consultar os ultimos evento.... que vou mostrar pro usuario..
+ao clicar no veiculo especifico, carregar as ultimas posicoes...
+tambem é possivel ler e enviar os eventos do veiculo...
+
+--------------------------------------------------
+
+Google Maps API (Mobile)
+Criada em 05/11/2022 - 14:07:16
+Chave: AIzaSyD-zfZlxdxcsnoTCYwt0Fen3ObY2EP8kfw
+
+--------------------------------------------------
+
+Google Maps API (Web)
+Criada em 15/11/2022 - 16:58:16
+Chave: AIzaSyB8Nc2NQIBhkNwj1-50zbPKUmIqxYq5BXY
+
+**TIVER QUE ASSOCIAR UM CARTAO DE CREDITO (USEI O MEU PICPAY)
+
+--------------------------------------------------
+
+API
+
+A API está hospedada provisoriamente em 
+http://vps35067.publiccloud.com.br/api
+
+/login permite autenticar-se e pegar o token. Você precisa apenas passar um json no body com os conteúdos do nome do usuário (username), senha (password) e um (uuid) que vai ser modificado posteriormente, mas que no momento vamos fixar como "827d8338-6d0c-bf85-3ea2-ff1f66fd70d3"
+
+
+[post]
+http://vps35067.publiccloud.com.br/api/login
+[body]
+{"username":"willian","password":"#h#p0te5YZ","uuid":"827d8338-6d0c-bf85-3ea2-ff1f66fd70d3"}
+
+Ultima Posicao
+[get]
+http://vps35067.publiccloud.com.br/api/position/last
+
+[headers]
+Content-Type: application/json
+Authentication: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyNzE2OTQsImlzcyI6InZwczM1MDY3LnB1YmxpY2Nsb3VkLmNvbS5iciIsIm5iZiI6MTY2ODI3MTY5NCwiZXhwIjoxNjY4Mjc4ODk0LCJjb250cmFjdG9yIjp7ImlkIjoxLCJuYW1lIjoiTS5TLiBkZSBNaXJhbmRhIFJhc3RyZWFkb3JlcyAtIEVQUCIsImVudGl0eXR5cGVpZCI6MSwiZW50aXR5dHlwZW5hbWUiOiJQZXNzb2EganVyXHUwMGVkZGljYSIsImNvb3BlcmF0aXZlIjpmYWxzZSwianVyaWRpY2FscGVyc29uIjp0cnVlLCJibG9ja2VkIjpmYWxzZSwidXVpZCI6IjgyN2Q4MzM4LTZkMGMtYmY4NS0zZWEyLWZmMWY2NmZkNzBkMyJ9LCJ1c2VyIjp7ImlkIjoxNDYsIm5hbWUiOiJXaWxsaWFtIFNhbnRvcyIsInVzZXJuYW1lIjoid2lsbGlhbSIsImdyb3VwSUQiOjJ9fQ.vJUEWquNQZpS9Vpc-ePYmMXvwVNtFCBYPTGn3zaqclY
+
+
+erpgrupomm=> SELECT * FROM erp.vehicletypes;
+ vehicletypeid |          name          |       singular        | fipename  
+---------------+------------------------+-----------------------+-----------
+             1 | Carros/Utilitários     | Carro/Utilitário      | carros
+             2 | Motos                  | Moto                  | motos
+             3 | Caminhões/Micro-ônibus | Caminhão/Micro-ônibus | caminhoes
+             4 | Maquinários pesados    | Maquinário pesado     | 
+             5 | Aeronaves              | Aeronave              | 
+             6 | Embarcações            | Embarcação            | 
+             7 | Outros                 | Outro                 | 
+(7 rows)
+
+
+
+
+
+
+
+
+
