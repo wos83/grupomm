@@ -1,0 +1,55 @@
+footer {
+  /* Altura do elemento. */
+  height: var(--footer-size);
+
+  background: var(--lt-color-gray-800);
+
+  /* Junção de flex-grow, flex-shrink e flex-basis.  */
+  /* flex-grow – Habilidade de um flex item crescer. */
+  /* flex-shrink - Capacidade de redução do item.    */
+  /* flex-basis – Tamanho inicial do item.           */
+  flex: 0 1 100vw;
+
+  align-items: center;
+  justify-content: stretch;
+
+  .copyright,
+  .privacity {
+    vertical-align: middle;
+    font-size: .8333333333rem;
+    line-height: 1.2em;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 0 0 .5em;
+  }
+  .copyright {
+    color: var(--theme-gray-500);
+  }
+  .privacity {
+    color: var(--theme-invertedlink-color);
+    text-decoration: none;
+    padding: 0 .5em;
+
+    &:hover {
+      color: var(--theme-invertedlink-hover-color);
+    }
+
+    @media (max-width: 440px) {
+      display: none;
+    }
+  }
+
+  .icon, .flag {
+    display: inline-block;
+    height: 10px;
+    vertical-align: baseline;
+    padding: 0 .2em;
+  }
+  .flag {
+    padding-left: .5em;
+  }
+
+  .icon {
+    fill: currentColor;
+  }
+}

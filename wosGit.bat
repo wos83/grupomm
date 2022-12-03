@@ -14,9 +14,7 @@ del /s /f /q "%CD%\*.skincfg"
 
 del /s /f /q "%CD%\iphist.dat"
 del /s /f /q "%CD%\grupomm*.map"
-del /s /f /q "%CD%\WeChat*.map"
-del /s /f /q "%CD%\DesktopBO*.map"
-del /s /f /q "%CD%\Migration*.map"
+del /s /f /q "%CD%\gmm*.map"
 
 for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
 

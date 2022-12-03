@@ -222,6 +222,15 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="..\Images\car-on-48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GMMTracker\assets\internal\images\</RemoteDir>
+            <RemoteName>car-on-48.png</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Android64\Debug\colors.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>GMMTracker\res\values\</RemoteDir>
             <RemoteName>colors.xml</RemoteName>
@@ -497,6 +506,15 @@
             <RemoteName>styles.xml</RemoteName>
             <DeployClass>AndroidSplashStyles</DeployClass>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="..\Images\car-off-48.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>GMMTracker\assets\internal\images\</RemoteDir>
+            <RemoteName>car-off-48.png</RemoteName>
+            <DeployClass>File</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>

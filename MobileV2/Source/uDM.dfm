@@ -1,38 +1,37 @@
 object DM: TDM
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 1080
-  Width = 1440
-  PixelsPerInch = 144
+  Height = 373
+  Width = 443
   object FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink
-    Left = 120
-    Top = 40
+    Left = 80
+    Top = 27
   end
   object FDGUIxWaitCursor: TFDGUIxWaitCursor
     Provider = 'FMX'
-    Left = 120
-    Top = 128
+    Left = 80
+    Top = 85
   end
   object FDConn: TFDConnection
     Params.Strings = (
       'DriverID=SQLite'
       'LockingMode=Normal')
     BeforeConnect = FDConnBeforeConnect
-    Left = 120
-    Top = 216
+    Left = 80
+    Top = 144
   end
   object FDQry: TFDQuery
     Connection = FDConn
-    Left = 120
-    Top = 304
+    Left = 80
+    Top = 203
   end
   object restDataPL: TRESTResponseDataSetAdapter
     Active = True
     Dataset = tblPL
     FieldDefs = <>
     Response = restRespPL
-    Left = 696
-    Top = 432
+    Left = 256
+    Top = 200
   end
   object tblPL: TFDMemTable
     Active = True
@@ -73,13 +72,13 @@ object DM: TDM
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 696
-    Top = 520
+    Left = 256
+    Top = 259
   end
   object restRespPL: TRESTResponse
     ContentType = 'application/json'
-    Left = 696
-    Top = 344
+    Left = 256
+    Top = 141
   end
   object restPL: TRESTClient
     Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
@@ -87,8 +86,8 @@ object DM: TDM
     BaseURL = 'http://vps35067.publiccloud.com.br/api/position/last'
     Params = <>
     SynchronizedEvents = False
-    Left = 696
-    Top = 168
+    Left = 256
+    Top = 24
   end
   object restReqPL: TRESTRequest
     Client = restPL
@@ -111,7 +110,7 @@ object DM: TDM
       end>
     Response = restRespPL
     SynchronizedEvents = False
-    Left = 696
-    Top = 264
+    Left = 256
+    Top = 88
   end
 end

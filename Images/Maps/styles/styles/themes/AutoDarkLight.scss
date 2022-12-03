@@ -1,0 +1,20 @@
+@import './mixins.scss';
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include spread-map($theme-map-light);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include spread-map($theme-map-dark);
+  }
+}
+
+[data-theme="light"] {
+  @include spread-map($theme-map-light);
+}
+
+[data-theme="dark"] {
+  @include spread-map($theme-map-dark);
+}

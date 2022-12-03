@@ -1,0 +1,391 @@
+//** OBJETIVOS DO APP
+
+[OK] Tela de login;
+[OK] Mapa;
+[OK] Veículos no mapa;
+[OK] Status da ignição;
+[OK] Eventos de bateria desconectada;
+[XX] Eventos de chave ligada (esse se o associado assim quiser).
+[XX] Histórico de posições;
+
+OBJETIVOS DO APP **//
+
+A API está hospedada provisoriamente em http://vps35067.publiccloud.com.br/api
+
+/login permite autenticar-se e pegar o token. Você precisa apenas passar um json no body com os conteúdos do nome do usuário (username), senha (password) e um (uuid) que vai ser modificado posteriormente, mas que no momento vamos fixar como "827d8338-6d0c-bf85-3ea2-ff1f66fd70d3"
+
+O sistema irá responder algo para você como abaixo
+
+{
+    "status": 200,
+    "title": "Autentica\u00e7\u00e3o",
+    "detail": "O usu\u00e1rio foi devidamente autenticado no sistema",
+    "instance": "/api/login",
+    "id": 2,
+    "name": "Emerson Cavalcanti",
+    "role": "Administrador do Sistema",
+    "groupid": 2,
+    "groupname": "Administrador Contratante",
+    "username": "emerson",
+    "phonenumber": "(11) 98450-3639",
+    "email": "emersoncavalcanti@gmail.com",
+    "expires": false,
+    "createdat": "2020-07-30 16:35:58",
+    "updatedat": "2022-10-18 16:30:05",
+    "lastlogin": "2022-11-11 20:27:07",
+    "forcenewpassword": false,
+    "entity": {
+        "id": 1,
+        "name": "M.S. de Miranda Rastreadores - EPP",
+        "entitytypeid": 1,
+        "entitytypename": "Pessoa jur\u00eddica",
+        "cooperative": false,
+        "juridicalperson": true,
+        "contractor": true,
+        "customer": false,
+        "supplier": false,
+        "serviceprovider": false,
+        "seller": false,
+        "contractorid": 1,
+        "blocked": false
+    },
+    "token": {
+        "type": "Bearer",
+        "credential": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMTI2NDQsImlzcyI6InZwczM1MDY3LnB1YmxpY2Nsb3VkLmNvbS5iciIsIm5iZiI6MTY2ODIxMjY0NCwiZXhwIjoxNjY4MjE5ODQ0LCJjb250cmFjdG9yIjp7ImlkIjoxLCJuYW1lIjoiTS5TLiBkZSBNaXJhbmRhIFJhc3RyZWFkb3JlcyAtIEVQUCIsImVudGl0eXR5cGVpZCI6MSwiZW50aXR5dHlwZW5hbWUiOiJQZXNzb2EganVyXHUwMGVkZGljYSIsImNvb3BlcmF0aXZlIjpmYWxzZSwianVyaWRpY2FscGVyc29uIjp0cnVlLCJibG9ja2VkIjpmYWxzZSwidXVpZCI6IjgyN2Q4MzM4LTZkMGMtYmY4NS0zZWEyLWZmMWY2NmZkNzBkMyJ9LCJ1c2VyIjp7ImlkIjoyLCJuYW1lIjoiRW1lcnNvbiBDYXZhbGNhbnRpIiwidXNlcm5hbWUiOiJlbWVyc29uIiwiZ3JvdXBJRCI6Mn19.uLh9O2XuoABoZSfHMC5GpbFD8KnNRwJYfgtOd7kizac",
+        "emission": "2022-11-11 21:24:04",
+        "lifetime": 120
+    }
+}
+
+o token vai estar em "token"->"credential"; Mas você tem vários atributos ai, como o nome da empresa que depois falamos
+E tem o nome do usuário para você mostrar
+Guarde o tokem pois nas demais requisições você vai utilizar isto no cabeçalho
+
+Para obter as últimas mensagens, basta você requisitar na api /position/last
+
+No cabeçalho passar o header de autenticação, no caso: Authorization: Bearer {token}, onde o token é o que você recebeu no login
+
+O sistema irá responder algo como
+
+{
+    "status": 200,
+    "title": "Sucesso",
+    "detail": "",
+    "instance": "/api/position/last",
+    "data": {
+        "0": {
+            "id": 1446,
+            "type": "Static",
+            "equipmentid": 3249,
+            "terminalid": "0357789642345067",
+            "firmwareversion": null,
+            "vehicleid": null,
+            "plate": null,
+            "vehicletypeid": null,
+            "vehicletypename": null,
+            "vehiclesubtypeid": 0,
+            "vehiclesubtypename": "N\u00e3o informado",
+            "vehiclebrandid": null,
+            "vehiclebrandname": null,
+            "vehiclemodelid": null,
+            "vehiclemodelname": null,
+            "vehiclecolorid": null,
+            "vehiclecolor": null,
+            "customerid": null,
+            "subsidiaryid": null,
+            "customername": null,
+            "eventdate": "2022-11-11T23:32:47.000000Z",
+            "systemdate": "2022-11-11T23:32:49.264161Z",
+            "latitude": -23.336178,
+            "longitude": -46.753458,
+            "satellites": 11,
+            "course": 0,
+            "ignitionstatus": false,
+            "speed": 0,
+            "odometer": 0,
+            "horimeter": 7770,
+            "powervoltage": 13.01,
+            "charge": true,
+            "batteryvoltage": 3.9,
+            "gsmsignalstrength": 62,
+            "inputs": [],
+            "outputs": [],
+            "alarms": "None",
+            "address": null
+        },
+        "1": {
+            "id": 1447,
+            "type": "Static",
+            "equipmentid": 3250,
+            "terminalid": "0359510081341955",
+            "firmwareversion": null,
+            "vehicleid": null,
+            "plate": null,
+            "vehicletypeid": null,
+            "vehicletypename": null,
+            "vehiclesubtypeid": 0,
+            "vehiclesubtypename": "N\u00e3o informado",
+            "vehiclebrandid": null,
+            "vehiclebrandname": null,
+            "vehiclemodelid": null,
+            "vehiclemodelname": null,
+            "vehiclecolorid": null,
+            "vehiclecolor": null,
+            "customerid": null,
+            "subsidiaryid": null,
+            "customername": null,
+            "eventdate": "2022-11-11T23:57:00.000000Z",
+            "systemdate": "2022-11-11T23:57:01.990809Z",
+            "latitude": -23.559851,
+            "longitude": -46.806333,
+            "satellites": 10,
+            "course": 177,
+            "ignitionstatus": false,
+            "speed": 0,
+            "odometer": 212,
+            "horimeter": 1116,
+            "powervoltage": 12.26,
+            "charge": true,
+            "batteryvoltage": 4,
+            "gsmsignalstrength": 78,
+            "inputs": [],
+            "outputs": [],
+            "alarms": "None",
+            "address": null
+        }
+    }
+}
+
+
+Aqui tem algumas informações relevantes, todos os dados estão codificados em UTF8
+
+As matrizes possuem nomes dos campos para facilitar
+
+vehicletype irá conter o tipo do veículo (carro, moto, caminhão, etc). Vamos conversar sobre este assunto na segunda, se possível, para alinharmos a questão de exibição
+
+Tem a marca, modelo e cor do veículo e o nome do cliente "dono" do veículo se o rastreador estiver vinculado
+
+-------------------------------------------------------------------------------
+
+O método é GET e a URL é:
+http://vps35067.publiccloud.com.br/api/position/history/{id}/{type}/{parm1}[/parm2]
+
+1. ID do equipamento
+2. Informações do período desejado, cujos parâmetros são:
+ - type: o tipo do período desejado, cujos valores podem ser:   'hours': para uma quantidade de horas à partir da hora atual,  'days': para uma quantidade de dias à partir da hora atual, 'period': para um período especificado
+ - start: a quantidade de tempo a ser considerada (no caso de estarmos solicitando um período de horas ou dias) ou a data inicial do período, - end: a data final do período
+ 
+ Exemplo: obter o histórico de duas últimas horas
+ 
+ A URL usada foi http://vps35067.publiccloud.com.br/api/position/history/3250/hours/2 
+ 
+ 
+ {
+    "status": 200,
+    "title": "Sucesso",
+    "detail": "",
+    "instance": "/api/position/history/3250/hours/2",
+    "data": {
+        "0": {
+            "id": 9734,
+            "type": "Static",
+            "equipmentid": 3250,
+            "equipmentmodelid": 60,
+            "equipmentmodelname": "NT20",
+            "equipmentbrandid": 26,
+            "equipmentbrandname": "X3Tech",
+            "terminalid": "0359510081341955",
+            "firmwareversion": null,
+            "vehicleid": 3392,
+            "plate": "AAA2222",
+            "vehicletypeid": 1,
+            "vehicletypename": "Carros/Utilit\u00e1rios",
+            "vehiclesubtypeid": 1,
+            "vehiclesubtypename": "Carro",
+            "vehiclebrandid": 73,
+            "vehiclebrandname": "Honda",
+            "vehiclemodelid": 2530,
+            "vehiclemodelname": "Civic Coupe EX/ EXS 1.6 16V 2p",
+            "vehiclecolorid": 3,
+            "vehiclecolor": "bege",
+            "customerid": 1646,
+            "subsidiaryid": 1569,
+            "customername": "Cliente Teste",
+            "eventdate": "2022-12-03 18:23:16",
+            "systemdate": "2022-12-03 18:23:18",
+            "latitude": -23.559798,
+            "longitude": -46.806449,
+            "satellites": 9,
+            "course": 164,
+            "ignitionstatus": false,
+            "speed": 0,
+            "odometer": 3225,
+            "horimeter": 6962,
+            "powervoltage": 12.26,
+            "charge": true,
+            "batteryvoltage": 4,
+            "gsmsignalstrength": 84,
+            "inputs": [],
+            "outputs": [],
+            "alarms": "None",
+            "address": null
+        },
+        "1": {
+            "id": 9735,
+            "type": "Tracking",
+            "equipmentid": 3250,
+            "equipmentmodelid": 60,
+            "equipmentmodelname": "NT20",
+            "equipmentbrandid": 26,
+            "equipmentbrandname": "X3Tech",
+            "terminalid": "0359510081341955",
+            "firmwareversion": null,
+            "vehicleid": 3392,
+            "plate": "AAA2222",
+            "vehicletypeid": 1,
+            "vehicletypename": "Carros/Utilit\u00e1rios",
+            "vehiclesubtypeid": 1,
+            "vehiclesubtypename": "Carro",
+            "vehiclebrandid": 73,
+            "vehiclebrandname": "Honda",
+            "vehiclemodelid": 2530,
+            "vehiclemodelname": "Civic Coupe EX/ EXS 1.6 16V 2p",
+            "vehiclecolorid": 3,
+            "vehiclecolor": "bege",
+            "customerid": 1646,
+            "subsidiaryid": 1569,
+            "customername": "Cliente Teste",
+            "eventdate": "2022-12-03 19:06:58",
+            "systemdate": "2022-12-03 19:07:00",
+            "latitude": -23.559753,
+            "longitude": -46.806407,
+            "satellites": 11,
+            "course": 164,
+            "ignitionstatus": true,
+            "speed": 0,
+            "odometer": 3225,
+            "horimeter": 6962,
+            "powervoltage": 12.26,
+            "charge": true,
+            "batteryvoltage": 4,
+            "gsmsignalstrength": 50,
+            "inputs": [],
+            "outputs": [],
+            "alarms": "None",
+            "address": null
+        },
+...
+        "25": {
+            "id": 9761,
+            "type": "Alarm",
+            "equipmentid": 3250,
+            "equipmentmodelid": 60,
+            "equipmentmodelname": "NT20",
+            "equipmentbrandid": 26,
+            "equipmentbrandname": "X3Tech",
+            "terminalid": "0359510081341955",
+            "firmwareversion": null,
+            "vehicleid": 3392,
+            "plate": "AAA2222",
+            "vehicletypeid": 1,
+            "vehicletypename": "Carros/Utilit\u00e1rios",
+            "vehiclesubtypeid": 1,
+            "vehiclesubtypename": "Carro",
+            "vehiclebrandid": 73,
+            "vehiclebrandname": "Honda",
+            "vehiclemodelid": 2530,
+            "vehiclemodelname": "Civic Coupe EX/ EXS 1.6 16V 2p",
+            "vehiclecolorid": 3,
+            "vehiclecolor": "bege",
+            "customerid": 1646,
+            "subsidiaryid": 1569,
+            "customername": "Cliente Teste",
+            "eventdate": "2022-12-03 19:43:10",
+            "systemdate": "2022-12-03 19:43:20",
+            "latitude": -23.559658,
+            "longitude": -46.806391,
+            "satellites": 8,
+            "course": 114,
+            "ignitionstatus": false,
+            "speed": 1,
+            "odometer": 3227,
+            "horimeter": 6982,
+            "powervoltage": 13.23,
+            "charge": true,
+            "batteryvoltage": 4,
+            "gsmsignalstrength": 68,
+            "inputs": [],
+            "outputs": [],
+            "alarms": "None",
+            "address": null
+        }
+    },
+    "page": 1,
+    "itemsPerPage": 100,
+    "numberOfPages": 1
+}
+
+
+Eu coloquei '...' no meio para limitar o que eu envio, pois são 1150 linhas no total
+
+Está paginado, e a quantidade de itens por página está em 100
+
+Mudei a url para
+http://vps35067.publiccloud.com.br/api/position/history/3250/days/1 
+
+Aqui estou pedindo as últimas 24 horas
+
+{
+    "status": 200,
+    "title": "Sucesso",
+    "detail": "",
+    "instance": "/api/position/history/3250/days/1",
+    "data": {},
+    "page": 1,
+    "itemsPerPage": 100,
+    "numberOfPages": 4,
+    "nextPage": "http://vps35067.publiccloud.com.br/api/position/history/3250/days/1?page=2"
+}
+
+O começo muda a URL e o final acrescenta a opção para você solicitar a segunda página
+
+},
+    "page": 2,
+    "itemsPerPage": 100,
+    "numberOfPages": 4,
+    "previousPage": "http://vps35067.publiccloud.com.br/api/position/history/3250/days/1?page=1",
+    "nextPage": "http://vps35067.publiccloud.com.br/api/position/history/3250/days/1?page=3"
+}
+
+
+Ou seja, na primeira vc têm "nextPage" mas não têm "previousPage". Nas do meio vc têm ambos e na última vc tem apenas o url para voltar
+
+Se for por período, a URL fica
+
+http://vps35067.publiccloud.com.br/api/position/history/3250/period/2022-12-02%2008%3A00%3A00/2022-12-02%2012%3A00%3A00 
+
+
+Aqui estou solicitando o mesmo equipamento, do período de 2022-12-02 08:00:00 às 2022-12-02 12:00:00
+
+Tome o cuidado de usar o URL encoder para fazer a codificação da data. A data tem que estar no formado YYYY-MM-DD HH:MM:SS
+
+O padrão do sql
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+

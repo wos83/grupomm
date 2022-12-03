@@ -1,0 +1,26 @@
+@import './mixedins/flexbox.scss';
+
+.notification-indicator-number {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  @include alignItems(center);
+  @include justifyContent(center);
+  position: absolute;
+  right: 0.025rem;
+  top: 0.2rem;
+  height: 1.1rem;
+  width: 1.1rem;
+  font-size: 0.57rem;
+  color: #fff;
+  font-weight: 500;
+
+  border-radius: 50%;
+
+  &.orange {
+    background-color: #f5803e;
+  }
+  &.blue {
+    background-color: #2c7be5;
+  }
+}

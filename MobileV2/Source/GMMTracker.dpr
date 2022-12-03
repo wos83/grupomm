@@ -2,18 +2,18 @@
 
 uses
   {$IFDEF MSWINDOWS}
-  madExcept,
   madLinkDisAsm,
   madListHardware,
   madListProcesses,
   madListModules,
+  madExcept,
   {$ENDIF }
   System.StartUpCopy,
   System.IOUtils,
   FMX.Forms,
   uConsts in 'uConsts.pas',
   uLibrary in 'uLibrary.pas',
-  uDM in 'uDM.pas' {DM: TDataModule} ,
+  uDM in 'uDM.pas' {DM: TDataModule},
   uFrmMain in 'uFrmMain.pas' {FrmMain};
 
 {$R *.res}
@@ -24,7 +24,7 @@ var
 begin
   {$IFDEF DEBUG}
   {$IFDEF MSWINDOWS}
-  ReportMemoryLeaksOnShutdown := True;
+  //ReportMemoryLeaksOnShutdown := True;
   {$ENDIF}
   {$ENDIF}
   Application.Initialize;

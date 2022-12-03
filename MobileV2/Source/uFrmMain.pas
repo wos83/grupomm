@@ -90,20 +90,22 @@ uses
   FMX.TMSFNCUtils,
   FMX.TMSFNCWebBrowser,
   //
-  System.Math,
-  System.Generics.Collections,
   System.Actions,
+  System.AnsiStrings,
   System.Classes,
+  System.Generics.Collections,
+  System.ImageList,
   System.IOUtils,
+  System.Math,
   System.Permissions,
   System.Sensors,
   System.Sensors.Components,
+  System.StrUtils,
   System.SysUtils,
   System.Types,
   System.UIConsts,
   System.UITypes,
   System.Variants,
-  System.ImageList,
   //
   uConsts,
   uLibrary,
@@ -155,8 +157,10 @@ type
     FPanelMap: TPanel;
     FTimerPositionLast: TTimer;
     FTimerDrawOnMap: TTimer;
-    FImageCar48: string;
-    FImageCar128: string;
+
+    FImageCarOn48: string;
+    FImageCarOff48: string;
+
     {$IFDEF ANDROID}
     procedure PermissionMessage(Sender: TObject; const APermissions: TClassicStringDynArray; const APostRationaleProc: TProc);
     procedure PermissionResult(Sender: TObject; const APermissions: TClassicStringDynArray; const AGrantResults: TClassicPermissionStatusDynArray);
@@ -422,11 +426,13 @@ var
   LAddress: string;
 
   LIgnitionStatus: Boolean;
+  LIgnitionStatus_: string;
   LSpeed: Integer;
   LOdometer: Integer;
   LHorimeter: Integer;
   LPowerVoltage: double;
   LCharge: Boolean;
+  LCharge_: string;
   LBatteryVoltage: Integer;
   LGsmSignalStrength: Integer;
   LAlarms: string;
@@ -502,33 +508,54 @@ begin
                 LSatellites := FQry.FindField('SATELLITES').AsInteger;
                 LLatitude := FQry.FindField('LATITUDE').AsFloat;
                 LLongitude := FQry.FindField('LONGITUDE').AsFloat;
-                // LCourse := FQry.FindField('COURSE').AsInteger;
+                LCourse := FQry.FindField('COURSE').AsInteger;
                 LAddress := FQry.FindField('ADDRESS').AsString;
 
                 LIgnitionStatus := FQry.FindField('IGNITION_STATUS').AsBoolean;
+
+                if LIgnitionStatus then
+                begin
+                  LIgnitionStatus_ := cIgnitionOnText;
+                end
+                else
+                begin
+                  LIgnitionStatus_ := cIgnitionOffText;
+                end;
+
                 LSpeed := FQry.FindField('SPEED').AsInteger;
                 LOdometer := FQry.FindField('ODOMETER').AsInteger;
                 LHorimeter := FQry.FindField('HORIMETER').AsInteger;
                 LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
+
                 LCharge := FQry.FindField('CHARGE').AsBoolean;
+
+                if LCharge then
+                begin
+                  LCharge_ := cBatteryOnText;
+                end
+                else
+                begin
+                  LCharge_ := cBatteryOffText;
+                end;
+
                 LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
                 LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
                 LAlarms := FQry.FindField('ALARMS').AsString;
 
                 LTitle := //
-                   'Placa: ' + LPlate + sLineBreak + //
-                   'Cliente: ' + IntToStr(LCustomerId) + ' - ' + LCustomerName;
+                   RosaDosVentos(LCourse, True) + ' ' + LPlate;
 
                 LData := //
-                   '<br>Terminal ID: ' + LTerminalId + sLineBreak + //
-                   '<br>Marca Equip.: ' + LEquipmentBrandName + sLineBreak + //
-                   '<br>Modelo Equip.: ' + LEquipmentModelName + sLineBreak + //
-                   '<br>Marca Veíc.: ' + LVehicleBrandName + sLineBreak + //
-                   '<br>Modelo Veíc.: ' + LVehicleModelName + sLineBreak + //
-                   '<br>Últ. Posição: ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
-                   '<br>Qtd. Sat.: ' + IntToStr(LSatellites) + sLineBreak + //
-                   '<br>Odometro: ' + IntToStr(LOdometer) + sLineBreak + //
-                   '<br>Horimetro: ' + IntToStr(LHorimeter) + sLineBreak + //
+                   '<br><b>Cliente: </b>' + LCustomerName + sLineBreak + //
+                   '<br><b>Placa: </b>' + LPlate + sLineBreak + //
+                   '<br><b>Marca Veíc.: </b>' + LVehicleBrandName + sLineBreak + //
+                   '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
+                   '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
+                   '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
+                   '<br><b>Últ. Posição: </b> ⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+                   '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
+                   '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
+                   '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
                    '';
                 { todo -o@WOS83:Posição Atual no Mapa }
                 Map.BeginUpdate;
@@ -543,10 +570,22 @@ begin
                 LMarker.DataString := LData;
 
                 {$IFDEF MSWINDOWS}
-                LMarker.IconURL := EmptyStr;
+                if LIgnitionStatus then
+                begin
+                  LMarker.IconURL := FImageCarOn48;
+                  // LMarker.Cluster.ImagePath := FImageCarOn48;
+                end
+                else
+                begin
+                  LMarker.IconURL := FImageCarOff48;
+                  // LMarker.Cluster.ImagePath := FImageCarOff48;
+                end;
                 {$ENDIF}
                 {$IFDEF ANDROID}
-                LMarker.IconURL := FImageCar48;
+                if LIgnitionStatus then
+                  LMarker.IconURL := FImageCarOn48
+                else
+                  LMarker.IconURL := FImageCarOff48;
                 {$ENDIF}
                 LOverlayView := Map.AddOverlayView;
                 LOverlayView.Clickable := True;
@@ -566,23 +605,15 @@ begin
                 if LIgnitionStatus then
                 begin
                   LOverlayView.Font.Color := TAlphaColorRec.White;
-                  LOverlayView.BackgroundColor := TAlphaColorRec.Green;
+                  LOverlayView.BackgroundColor := cIgnitionColor;
                 end
                 else
                 begin
-                  LOverlayView.Font.Color := TAlphaColorRec.Yellow;
-                  LOverlayView.BackgroundColor := TAlphaColorRec.Red;
+                  LOverlayView.Font.Color := TAlphaColorRec.White;
+                  LOverlayView.BackgroundColor := cIgnitionColor;
                 end;
 
                 LOverlayView.Visible := True;
-
-                // if not Assigned(Map.Markers[Pred(FQry.RecNo)].OverlayView) then
-                // Map.Markers[Pred(FQry.RecNo)].OverlayView := LOverlayView;
-
-                // LMarker.DisplayName := LTerminalId;
-                // LMarker.Title := //
-                // 'Placa: ' + LPlate + sLineBreak + //
-                // 'Cliente: ' + IntToStr(LCustomerId) + ' - ' + LCustomerName;
 
                 Map.EndUpdate;
                 //
@@ -759,13 +790,22 @@ begin
   lytListaVeiculos.Visible := False;
 
   {$IFDEF MSWINDOWS}
-  LFile := 'file:///' + StringReplace(ExtractFilePath(ParamStr(0)), '\', '/', [rfReplaceAll]);
+  // LFile := 'file://' + StringReplace(ExtractFilePath(ParamStr(0)), '\', '/', [rfReplaceAll]);
+  FImageCarOn48 := cImageUrlCarOn48;
+  FImageCarOff48 := cImageUrlCarOff48;
   {$ENDIF}
   {$IFDEF ANDROID}
   LFile := 'file://' + TPath.GetDocumentsPath;
-  {$ENDIF}
-  FImageCar48 := TPath.Combine(LFile, cImageCar48);
 
+  FImageCarOn48 := TPath.Combine(LFile, cImageCarOn48);
+  if not FileExists(FImageCarOn48) then
+    FImageCarOn48 := cImageUrlCarOn48;
+
+  FImageCarOff48 := TPath.Combine(LFile, cImageCarOff48);
+  if not FileExists(FImageCarOff48) then
+    FImageCarOff48 := cImageUrlCarOff48;
+
+  {$ENDIF}
   FTimerPositionLast := TTimer.Create(Self);
   FTimerPositionLast.Interval := 1000;
   FTimerPositionLast.Enabled := False;

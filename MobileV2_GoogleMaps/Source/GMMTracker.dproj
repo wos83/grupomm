@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>693267</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>GMMTracker.dpr</MainSource>
@@ -303,13 +303,15 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1046</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.67;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
-        <VerInfo_Build>67</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.70;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
+        <VerInfo_Build>70</VerInfo_Build>
         <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
+        <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>

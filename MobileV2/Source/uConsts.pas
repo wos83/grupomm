@@ -14,11 +14,24 @@ const
 
   cConnDef = 'FDConnectionDefs.ini';
 
-  //cImageCar48 = 'images' + PathDelim + 'car-48.png';
-  cImageCar48 = 'images/car-48.png';
+  cImageCarOn48 = 'images/car-on-48.png';
+  cImageCarOff48 = 'images/car-off-48.png';
 
-  //cImageCar128 = 'images' + PathDelim + 'car-128.png';
-  cImageCar128 = 'images/car-128.png';
+  cImageUrlCarOn48 = 'http://i.imgur.com/Hd62TQK.png';
+  cImageUrlCarOff48 = 'http://i.imgur.com/KCYhik5.png';
+
+  cIgnitionColor = $FF344050;
+  cIgnitionOnColor = $FF196F3D;
+  cIgnitionOffColor = $FFC0392B;
+
+  cIgnitionOnText = '🟢 Ligado';
+  cIgnitionOffText = '🔴 Desligado';
+
+  cBatteryOnColor = $FF196F3D;
+  cBatteryOffColor = $FFC0392B;
+
+  cBatteryOnText = '🟢 Conectada';
+  cBatteryOffText = '🔴 Desconectada';
 
 implementation
 

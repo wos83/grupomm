@@ -1,0 +1,1538 @@
+date/time          : 2022-11-30, 16:33:27, 396ms
+computer name      : X99RS9
+user name          : User <admin>
+registered owner   : Usuário do Windows
+operating system   : Windows 10 x64 build 22621
+system language    : Portuguese
+system up time     : 10 hours 41 minutes
+program up time    : 766 milliseconds
+processors         : 24x Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+physical memory    : 8165/16228 MB (free/total)
+free disk space    : (C:) 170,98 GB
+display mode       : 1920x1080, 32 bit
+process id         : $73c
+allocated memory   : 74,80 MB
+largest free block : 1,01 GB
+executable         : GMMTracker.exe
+exec. date/time    : 2022-11-30 16:33
+version            : 2022.11.2.67
+compiled with      : Delphi 11
+madExcept version  : 5.1.2
+callstack crc      : $d016a7cd, $f8a70c6d, $f8a70c6d
+exception number   : 1
+exception class    : ESQLiteNativeException
+exception message  : [FireDAC][Phys][SQLite] ERROR: index IDX_POSITIONS_LAST_ID_POSITION_LAST already exists.
+
+main thread ($3068):
+016383ee +046 GMMTracker.exe FireDAC.Phys.SQLiteWrapper  1937   +5 TSQLiteHandle.Check
+0163e63d +0b1 GMMTracker.exe FireDAC.Phys.SQLiteWrapper  4515  +19 TSQLiteStatement.PrepareBase
+0163e885 +02d GMMTracker.exe FireDAC.Phys.SQLiteWrapper  4570   +6 TSQLiteStatement.Prepare
+0163e82d +039 GMMTracker.exe FireDAC.Phys.SQLiteWrapper  4559   +2 TSQLiteStatement.Prepare
+0164d88e +0e6 GMMTracker.exe FireDAC.Phys.SQLite         1982  +22 TFDPhysSQLiteCommand.InternalPrepare
+01620260 +210 GMMTracker.exe FireDAC.Phys                6873  +33 TFDPhysCommand.Prepare
+01626196 +0c6 GMMTracker.exe FireDAC.Phys                8567  +17 TFDPhysCommand.ExecuteBase
+01624cc1 +009 GMMTracker.exe FireDAC.Phys                8147   +0 TFDPhysCommandAsyncExecute.Execute
+01700be8 +054 GMMTracker.exe FireDAC.Stan.Async           173   +6 TFDStanAsyncExecutor.ExecuteOperation
+01700f2e +06e GMMTracker.exe FireDAC.Stan.Async           268  +12 TFDStanAsyncExecutor.Run
+0161f504 +0d0 GMMTracker.exe FireDAC.Phys                6629  +13 TFDPhysCommand.ExecuteTask
+0161f555 +121 GMMTracker.exe FireDAC.Phys                6637  +21 TFDPhysCommand.ExecuteTask
+016264c7 +05b GMMTracker.exe FireDAC.Phys                8645   +2 TFDPhysCommand.Execute
+015086b4 +060 GMMTracker.exe FireDAC.Comp.Client         5323   +4 TFDCustomConnection.ExecSQL
+01508743 +023 GMMTracker.exe FireDAC.Comp.Client         5335   +2 TFDCustomConnection.ExecSQL
+018119f6 +09a GMMTracker.exe uDM                          941 +115 TDM.doCreateDB
+01887f63 +0df GMMTracker.exe uFrmMain                     740  +23 TFrmMain.FormCreate
+013fc5ed +02d GMMTracker.exe FMX.Forms                   2924   +5 TCommonCustomForm.AfterConstruction
+00e8964d +01d GMMTracker.exe System                     19302   +2 @AfterConstruction
+0140725d +021 GMMTracker.exe FMX.Forms                   6008   +2 TCustomForm.Create
+013f6dbe +05a GMMTracker.exe FMX.Forms                   1485   +6 TApplication.CreateForm
+013f6fb1 +075 GMMTracker.exe FMX.Forms                   1532  +10 TApplication.RealCreateForms
+0139e648 +018 GMMTracker.exe FMX.Platform.Win             726   +2 TPlatformWin.Run
+013fa267 +03f GMMTracker.exe FMX.Forms                   2203   +3 TApplication.Run
+0189ffbd +079 GMMTracker.exe GMMTracker                    33   +9 initialization
+76517ba7 +017 KERNEL32.DLL                                         BaseThreadInitThunk
+
+thread $3b88:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $15a4:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $2f64:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $c14:
+771e1d6c +4c USER32.dll               MsgWaitForMultipleObjectsEx
+771f143a +1a USER32.dll               MsgWaitForMultipleObjects
+00f35b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f35be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f35c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76517ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($3068) at:
+7251743b +00 gdiplus.dll
+
+thread $238c:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $2fb4:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $38d0:
+763d1aa9 +189 KERNELBASE.dll           WaitForMultipleObjectsEx
+00f35b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f35be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f35c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76517ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($3068) at:
+76f9d84e +000 combase.dll
+
+thread $31ec:
+763cfc92 +82 KERNELBASE.dll           WaitForSingleObjectEx
+763cfbfd +0d KERNELBASE.dll           WaitForSingleObject
+00f35b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f35be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f35c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76517ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($3068) at:
+6a502823 +00 atidxx32.dll
+
+thread $27a0:
+763cfc92 +82 KERNELBASE.dll           WaitForSingleObjectEx
+763cfbfd +0d KERNELBASE.dll           WaitForSingleObject
+00f35b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f35be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f35c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76517ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($3068) at:
+6a502823 +00 atidxx32.dll
+
+thread $e68:
+76517ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+modules:
+00e80000 GMMTracker.exe            2022.11.2.67        C:\Desenvolvimento\GrupoMM\MobileV2_GoogleMaps\Source\Win32\Debug
+50210000 d2d1.dll                  10.0.22621.608      C:\Windows\SYSTEM32
+52430000 DWRITE.DLL                10.0.22621.608      C:\Windows\SYSTEM32
+52d80000 d3d10_1core.dll           10.0.22621.608      C:\Windows\SYSTEM32
+52db0000 d3d10_1.dll               10.0.22621.608      C:\Windows\SYSTEM32
+534a0000 FaultRep.dll              10.0.22621.608      C:\Windows\SYSTEM32
+68950000 propsys.dll               7.0.22621.608       C:\Windows\system32
+69560000 netutils.dll              10.0.22621.674      C:\Windows\SYSTEM32
+69570000 srvcli.dll                10.0.22621.1        C:\Windows\SYSTEM32
+69590000 iertutil.dll              11.0.22621.674      C:\Windows\SYSTEM32
+697c0000 SHFolder.dll              10.0.22621.1        C:\Windows\SYSTEM32
+69800000 URLMON.DLL                11.0.22621.819      C:\Windows\SYSTEM32
+69b60000 atidxx32.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+6d9f0000 CoreUIComponents.dll      10.0.22621.608      C:\Windows\SYSTEM32
+6dc80000 CoreMessaging.dll         10.0.22621.608      C:\Windows\SYSTEM32
+6e700000 d3d11.dll                 10.0.22621.608      C:\Windows\SYSTEM32
+6e940000 twinapi.appcore.dll       10.0.22621.755      C:\Windows\system32
+70610000 directxdatabasehelper.dll 10.0.22621.608      C:\Windows\SYSTEM32
+70650000 dxcore.dll                10.0.22621.608      C:\Windows\SYSTEM32
+70680000 d3d9.dll                  10.0.22621.755      C:\Windows\SYSTEM32
+709a0000 aticfx32.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+70b30000 D3DSCache.dll             10.0.22621.608      C:\Windows\SYSTEM32
+70cf0000 textinputframework.dll    10.0.22621.608      C:\Windows\SYSTEM32
+70de0000 dxgi.dll                  10.0.22621.608      C:\Windows\SYSTEM32
+70eb0000 dataexchange.dll          10.0.22621.608      C:\Windows\system32
+70f00000 atiuxpag.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+71000000 TextShaping.dll           10.0.22621.608      C:\Windows\SYSTEM32
+71240000 amdihk32.dll              2.0.0.1788          C:\Windows\SYSTEM32
+71280000 USERENV.dll               10.0.22621.1        C:\Windows\SYSTEM32
+712e0000 wsock32.dll               10.0.22621.1        C:\Windows\SYSTEM32
+71420000 dwmapi.dll                10.0.22621.608      C:\Windows\SYSTEM32
+714f0000 windowscodecs.dll         10.0.22621.608      C:\Windows\system32
+71650000 uxtheme.dll               10.0.22621.819      C:\Windows\system32
+71ad0000 ntmarta.dll               10.0.22621.1        C:\Windows\SYSTEM32
+71b20000 wintypes.dll              10.0.22621.755      C:\Windows\SYSTEM32
+71bf0000 windows.storage.dll       10.0.22621.819      C:\Windows\SYSTEM32
+722c0000 winspool.drv              10.0.22621.819      C:\Windows\SYSTEM32
+72350000 SspiCli.dll               10.0.22621.674      C:\Windows\SYSTEM32
+72390000 winhttp.dll               10.0.22621.608      C:\Windows\SYSTEM32
+724a0000 gdiplus.dll               10.0.22621.819      C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.22621.819_none_21dd7a56301966e7
+72610000 cfgmgr32.DLL              10.0.22621.755      C:\Windows\SYSTEM32
+72650000 COMCTL32.dll              6.10.22621.608      C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.608_none_f0f1837ed587d923
+72940000 winmm.dll                 10.0.22621.608      C:\Windows\SYSTEM32
+73500000 CRYPTBASE.DLL             10.0.22621.1        C:\Windows\SYSTEM32
+75210000 version.dll               10.0.22621.1        C:\Windows\SYSTEM32
+75220000 kernel.appcore.dll        10.0.22621.1        C:\Windows\SYSTEM32
+75330000 ole32.dll                 10.0.22621.608      C:\Windows\System32
+75540000 WS2_32.dll                10.0.22621.1        C:\Windows\System32
+755a0000 SETUPAPI.dll              10.0.22621.755      C:\Windows\System32
+759f0000 msvcp_win.dll             10.0.22621.608      C:\Windows\System32
+75b30000 MSCTF.dll                 10.0.22621.755      C:\Windows\System32
+75c10000 win32u.dll                10.0.22621.608      C:\Windows\System32
+75c30000 SHELL32.dll               10.0.22621.755      C:\Windows\System32
+76290000 KERNELBASE.dll            10.0.22621.819      C:\Windows\System32
+76500000 KERNEL32.DLL              10.0.22621.755      C:\Windows\System32
+76870000 bcryptPrimitives.dll      10.0.22621.1        C:\Windows\System32
+768e0000 IMM32.DLL                 10.0.22621.755      C:\Windows\System32
+76910000 msvcrt.dll                7.0.22621.608       C:\Windows\System32
+769e0000 oleaut32.dll              10.0.22621.608      C:\Windows\System32
+76a80000 gdi32full.dll             10.0.22621.674      C:\Windows\System32
+76bc0000 RPCRT4.dll                10.0.22621.1        C:\Windows\System32
+76c80000 ucrtbase.dll              10.0.22621.608      C:\Windows\System32
+76da0000 clbcatq.dll               2001.12.10941.16384 C:\Windows\System32
+76e30000 advapi32.dll              10.0.22621.608      C:\Windows\System32
+76eb0000 combase.dll               10.0.22621.755      C:\Windows\System32
+77130000 sechost.dll               10.0.22621.608      C:\Windows\System32
+771c0000 USER32.dll                10.0.22621.755      C:\Windows\System32
+77390000 gdi32.dll                 10.0.22621.608      C:\Windows\System32
+773c0000 shcore.dll                10.0.22621.608      C:\Windows\System32
+77480000 comdlg32.dll              10.0.22621.755      C:\Windows\System32
+775a0000 SHLWAPI.dll               10.0.22621.608      C:\Windows\System32
+77600000 ntdll.dll                 10.0.22621.755      C:\Windows\SYSTEM32
+
+processes:
+0000 Idle                        0 0    0
+0004 System                      0 0    0
+0114 Registry                    0 0    0
+0348 smss.exe                    0 0    0
+03ec csrss.exe                   0 0    0
+0468 wininit.exe                 0 0    0
+0470 csrss.exe                   1 0    0
+04b0 services.exe                0 0    0
+04c8 lsass.exe                   0 0    0   normal       C:\Windows\System32
+053c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0558 fontdrvhost.exe             0 0    0   normal       C:\Windows\System32
+05a0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+05d4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0610 winlogon.exe                1 5    0   high         C:\Windows\System32
+0648 fontdrvhost.exe             1 0    0   normal       C:\Windows\System32
+06a4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+06d8 dwm.exe                     1 10   4   high         C:\Windows\System32
+072c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0774 svchost.exe                 0 0    0   normal       C:\Windows\System32
+07b8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+07c0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0008 svchost.exe                 0 0    0   normal       C:\Windows\System32
+05d0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+075c svchost.exe                 0 0    0   normal       C:\Windows\System32
+083c svchost.exe                 0 0    0   normal       C:\Windows\System32
+088c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0894 amdfendrsr.exe              0 0    0   normal       C:\Windows\System32
+08a0 atiesrxx.exe                0 0    0   normal       C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+08e8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+09e0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a38 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a48 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a78 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0afc svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b94 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b9c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ba4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0bd0 atieclxx.exe                1 2    15  normal       C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+09a0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0908 Memory Compression          0 0    0
+0c18 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0c20 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0c7c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0c84 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ce8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d08 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d3c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d44 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d4c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0e28 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ea8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ed0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0f38 spoolsv.exe                 0 0    0   normal       C:\Windows\System32
+0f50 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1050 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1058 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1060 svchost.exe                 0 0    0   normal       C:\Windows\System32
+106c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1074 svchost.exe                 0 0    0   normal       C:\Windows\System32
+107c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1084 svchost.exe                 0 0    0   normal       C:\Windows\System32
+108c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1090 svchost.exe                 0 0    0   normal       C:\Windows\System32
+10a0 launcher-x64.exe            0 0    0   normal       C:\Program Files (x86)\WinFsp\SxS\sxs.20221129T174920Z\bin
+10b0 AnyDesk.exe                 0 0    0   high         C:\Program Files (x86)\AnyDesk
+10a8 IpOverUsbSvc.exe            0 0    0   normal       C:\Program Files (x86)\Common Files\Microsoft Shared\Phone Tools\CoreCon\11.0\bin
+1118 MsMpEng.exe                 0 0    0
+119c svchost.exe                 0 0    0   normal       C:\Windows\System32
+124c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1298 conhost.exe                 0 0    0   normal       C:\Windows\System32
+12d8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+13a4 wlanext.exe                 0 0    0   normal       C:\Windows\System32
+13ac conhost.exe                 0 0    0   normal       C:\Windows\System32
+0ec4 AggregatorHost.exe          0 0    0   normal       C:\Windows\System32
+1644 svchost.exe                 0 0    0   normal       C:\Windows\System32
+16b8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+17c0 NisSrv.exe                  0 0    0
+14c8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+07e8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a54 sihost.exe                  1 0    8   normal       C:\Windows\System32
+0c0c svchost.exe                 1 0    1   normal       C:\Windows\System32
+0c94 svchost.exe                 1 0    1   normal       C:\Windows\System32
+0f58 svchost.exe                 1 4    4   normal       C:\Windows\System32
+1658 taskhostw.exe               1 10   6   normal       C:\Windows\System32
+1870 AUEPMaster.exe              1 15   19  above normal C:\Program Files\AMD\Performance Profile Client
+18cc svchost.exe                 0 0    0   normal       C:\Windows\System32
+192c svchost.exe                 0 0    0   normal       C:\Windows\System32
+197c explorer.exe                1 748  826 normal       C:\Windows
+1894 svchost.exe                 1 0    13  normal       C:\Windows\System32
+1730 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1d1c SearchHost.exe              1 18   101 normal       C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy
+1d34 StartMenuExperienceHost.exe 1 7    18  normal       C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy
+1d5c Widgets.exe                 1 9    26  normal       C:\Program Files\WindowsApps\MicrosoftWindows.Client.WebExperience_421.20070.765.0_x64__cw5n1h2txyewy\Dashboard
+1dac RuntimeBroker.exe           1 41   7   normal       C:\Windows\System32
+1dec RuntimeBroker.exe           1 43   19  normal       C:\Windows\System32
+1e64 svchost.exe                 1 0    1   normal       C:\Windows\System32
+1f3c dllhost.exe                 1 0    3   normal       C:\Windows\System32
+209c WhatsApp.exe                1 0    7   normal       C:\Program Files\WindowsApps\5319275A.WhatsAppDesktop_2.2245.5.0_x64__cv1g1gvanyjgm
+20b8 ShellExperienceHost.exe     1 13   53  normal       C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy
+21c8 RuntimeBroker.exe           1 40   6   normal       C:\Windows\System32
+2334 RuntimeBroker.exe           1 0    1   normal       C:\Windows\System32
+2060 ctfmon.exe                  1 2    23  high         C:\Windows\System32
+2194 SearchIndexer.exe           0 0    0   normal       C:\Windows\System32
+1bc0 SecurityHealthSystray.exe   1 7    5   normal       C:\Windows\System32
+1be8 SecurityHealthService.exe   0 0    0
+1b34 OneDrive.exe                1 218  84  normal       C:\Users\User\AppData\Local\Microsoft\OneDrive
+2480 RuntimeBroker.exe           1 0    1   normal       C:\Windows\System32
+25d8 AnyDesk.exe                 1 108  25  normal       C:\Program Files (x86)\AnyDesk
+266c RadeonSoftware.exe          1 41   72  normal       C:\Program Files\AMD\CNext\CNext
+2890 svchost.exe                 0 0    0   normal       C:\Windows\System32
+25ec cncmd.exe                   1 0    1   normal       C:\Program Files\AMD\CNext\CNext
+2a20 cmd.exe                     1 0    1   normal       C:\Windows\System32
+2a2c conhost.exe                 1 10   3   normal       C:\Windows\System32
+09d0 AMDRSServ.exe               1 7    13  normal       C:\Program Files\AMD\CNext\CNext
+0df8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+28f0 amdow.exe                   1 3    34  normal       C:\Program Files\AMD\CNext\CNext
+26c8 svchost.exe                 1 0    1   normal       C:\Windows\System32
+1948 AUEPDU.exe                  0 0    0   normal       C:\Program Files\AMD\Performance Profile Client
+29f4 svchost.exe                 0 0    0
+2380 SgrmBroker.exe              0 0    0
+26c4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+239c svchost.exe                 0 0    0   normal       C:\Windows\System32
+10e4 svchost.exe                 0 0    0
+2080 svchost.exe                 0 0    0   normal       C:\Windows\System32
+17f0 ApplicationFrameHost.exe    1 28   17  normal       C:\Windows\System32
+1c68 AMDRSSrcExt.exe             1 8    9   normal       C:\Program Files\AMD\CNext\CNext
+2468 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1de4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d34 svchost.exe                 1 0    4   normal       C:\Windows\System32
+08f4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+11e0 Taskmgr.exe                 1 1662 621 normal       C:\Windows\System32
+1924 SystemSettings.exe          1 14   34  normal       C:\Windows\ImmersiveControlPanel
+298c brave.exe                   1 130  100 normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+13ec brave.exe                   1 0    3   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1448 brave.exe                   1 11   34  above normal C:\Program Files\BraveSoftware\Brave-Browser\Application
+1164 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2388 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1740 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1864 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+23c4 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1a60 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+0f20 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1318 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+28d8 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+0b34 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2c0c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2c7c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2cb0 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2cdc brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2ffc brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3088 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+2c50 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+3238 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+2c4c brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1c9c WWAHost.exe                 1 7    52  normal       C:\Windows\System32
+2fd8 RuntimeBroker.exe           1 36   1   normal       C:\Windows\System32
+35f0 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+34d8 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2fa4 Git-2.38.1-64-bit.exe       1 0    3   normal       C:\Users\User\Downloads
+1be0 Git-2.38.1-64-bit.tmp       1 30   24  normal       C:\Windows\Temp\is-MEV52.tmp
+36fc Git-2.38.1-64-bit.exe       1 0    3   normal       C:\Users\User\Downloads
+20e8 Git-2.38.1-64-bit.tmp       1 94   140 normal       C:\Windows\Temp\is-OL8AO.tmp
+3780 CHXSmartScreen.exe          1 7    48  normal       C:\Windows\SystemApps\Microsoft.Windows.AppRep.ChxApp_cw5n1h2txyewy
+28bc RuntimeBroker.exe           1 0    1   normal       C:\Windows\System32
+3058 audiodg.exe                 0 0    0   normal       C:\Windows\System32
+0b0c brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+1ee8 msteams.exe                 1 12   21  normal       C:\Program Files\WindowsApps\MicrosoftTeams_22287.702.1670.9453_x64__8wekyb3d8bbwe
+37dc msedgewebview2.exe          1 25   48  normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+17dc msedgewebview2.exe          1 0    3   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+0dd0 msedgewebview2.exe          1 6    44  above normal C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2450 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+3394 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2790 msedgewebview2.exe          1 0    0   idle         C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+332c msedgewebview2.exe          1 18   45  normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+0b04 msedgewebview2.exe          1 0    3   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+0c28 msedgewebview2.exe          1 3    22  above normal C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+052c msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+3484 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2938 msedgewebview2.exe          1 0    0   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+1e80 PortableAppsPlatform.exe    1 247  131 normal       C:\App\PortableApps\PortableApps.com
+1244 Lightshot.exe               1 86   21  normal       C:\App\PortableApps\LightShotPortable
+1b6c TransmissionPortable.exe    1 14   5   normal       C:\App\PortableApps\TransmissionPortable
+246c transmission-qt.exe         1 85   40  normal       C:\App\PortableApps\TransmissionPortable\App\Transmission
+0724 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+2fc8 TreeSize.exe                1 482  141 normal       C:\App\PortableApps\TreeSizePortable
+11d4 Notepad.exe                 1 35   51  normal       C:\Program Files\WindowsApps\Microsoft.WindowsNotepad_11.2209.6.0_x64__8wekyb3d8bbwe\Notepad
+2ba0 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+3b50 msedge.exe                  1 2    40  normal       C:\Program Files (x86)\Microsoft\Edge\Application
+1b00 msedge.exe                  1 0    3   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+2984 msedge.exe                  1 1    6   above normal C:\Program Files (x86)\Microsoft\Edge\Application
+1270 msedge.exe                  1 0    1   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+3158 msedge.exe                  1 0    1   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+2b2c msedge.exe                  1 0    0   idle         C:\Program Files (x86)\Microsoft\Edge\Application
+2760 msedge.exe                  1 0    0   idle         C:\Program Files (x86)\Microsoft\Edge\Application
+3b9c dllhost.exe                 1 0    4   normal       C:\Windows\System32
+113c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1848 AnyDesk.exe                 1 211  128 normal       C:\Program Files (x86)\AnyDesk
+3888 svchost.exe                 0 0    0
+27d0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+2b34 SearchProtocolHost.exe      0 0    0   normal       C:\Windows\System32
+1494 explorer.exe                1 305  165 normal       C:\Windows
+3194 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1464 svchost.exe                 0 0    0   normal       C:\Windows\System32
+2874 smartscreen.exe             1 0    1   normal       C:\Windows\System32
+36b0 cmd.exe                     1 0    1   normal       C:\Windows\System32
+35dc conhost.exe                 1 22   20  normal       C:\Windows\System32
+2934 adb.exe                     1 0    5   normal       C:\Embarcadero\Studio\22.0\CatalogRepository\AndroidSDK-2525-22.0.46141.0937\platform-tools
+3b94 SearchFilterHost.exe        0 0    0   normal       C:\Windows\System32
+35c0 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+39dc brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+27ac bds.exe                     1 3790 905 normal       C:\Embarcadero\Studio\22.0\bin
+366c DelphiLSP.exe               1 0    7   normal       C:\Embarcadero\Studio\22.0\bin
+06a0 conhost.exe                 1 11   9   normal       C:\Windows\System32
+0594 DelphiLSP.exe               1 0    1   normal       C:\Embarcadero\Studio\22.0\bin
+2218 DelphiLSP.exe               1 0    1   normal       C:\Embarcadero\Studio\22.0\bin
+33d8 WmiPrvSE.exe                0 0    0   normal       C:\Windows\System32\wbem
+073c GMMTracker.exe              1 42   43  normal       C:\Desenvolvimento\GrupoMM\MobileV2_GoogleMaps\Source\Win32\Debug
+
+hardware:
++ {1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}
+  - Fila de Impressão da Raiz
+  - Microsoft Print to PDF
++ {36fc9e60-c465-11cf-8056-444553540000}
+  - Generic USB Hub
+  - Generic USB Hub
+  - Generic USB Hub
+  - Intel(R) 8 Series/C220 Series USB EHCI #1 - 8C26 (driver 9.4.0.1025)
+  - Intel(R) 8 Series/C220 Series USB EHCI #2 - 8C2D (driver 9.4.0.1025)
+  - Intel(R) USB 3.0 eXtensible Host Controller - 1.0 (Microsoft)
+  - USB Composite Device
+  - USB Composite Device
+  - USB Root Hub
+  - USB Root Hub
+  - USB Root Hub (USB 3.0)
++ {4d36e966-e325-11ce-bfc1-08002be10318}
+  - Default string Default string
+  - PC ACPI de base x64
++ {4d36e967-e325-11ce-bfc1-08002be10318}
+  - P3-256
+  - WDC WD10JPVX-22JC3T0
++ {4d36e968-e325-11ce-bfc1-08002be10318}
+  - Radeon RX 570 Series (driver 31.0.12029.7019)
++ {4d36e96b-e325-11ce-bfc1-08002be10318}
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Teclado Padrão PS/2
++ {4d36e96c-e325-11ce-bfc1-08002be10318}
+  - AMD High Definition Audio Device (driver 10.0.1.24)
+  - AMD Streaming Audio Device (driver 1.0.0.8)
+  - Dispositivo de High Definition Audio
++ {4d36e96e-e325-11ce-bfc1-08002be10318}
+  - Generic Monitor (2D HD LG TV)
++ {4d36e96f-e325-11ce-bfc1-08002be10318}
+  - Microsoft PS/2 Mouse
+  - Mouse compatível com HID
+  - Mouse compatível com HID
++ {4d36e972-e325-11ce-bfc1-08002be10318}
+  - Broadcom 802.11ac Network Adapter (driver 7.35.352.0)
+  - Microsoft Kernel Debug Network Adapter
+  - Microsoft Wi-Fi Direct Virtual Adapter
+  - Microsoft Wi-Fi Direct Virtual Adapter #3
+  - Realtek PCIe GbE Family Controller (driver 10.62.824.2022)
+  - TP-Link Wireless Nano USB Adapter (driver 1030.44.531.2021)
++ {4d36e97b-e325-11ce-bfc1-08002be10318}
+  - Controlador de Espaços de Armazenamento da Microsoft
+  - Intel(R) C220 series chipset SATA AHCI Controller (driver 6.2.0.1238)
+  - Intel(R) VROC Virtual Controller (driver 7.8.0.1026)
++ {4d36e97d-e325-11ce-bfc1-08002be10318}
+  - Alto-falante do sistema
+  - AMD Crash Defender (driver 22.20.0.2)
+  - AMD Link Controller Emulation (driver 22.20.0.7)
+  - Barramento da Câmera da Área de Trabalho Remota
+  - Barramento do Redirecionador de Dispositivos de Área de Trabalho Remota
+  - Barramento PCI
+  - Botão de Recurso fixo ACPI
+  - CMOS do sistema/relógio em tempo real
+  - Controlador de acesso direto à memória
+  - Controlador de High Definition Audio
+  - Controlador de interrupção programável
+  - Controlador de interrupção programável avançado
+  - desligar ACPI
+  - Dispositivo de Módulo ACPI
+  - Driver de Infraestrutura de Virtualização Microsoft Hyper-V
+  - Driver de Renderização Básico da Microsoft
+  - Driver de Vídeo Básico da Microsoft
+  - ELAN SMBus Driver (driver 15.21.1.21)
+  - Enumerador de Adaptador de Rede Virtual NDIS
+  - Enumerador de Barramento de Composição
+  - Enumerador de Barramento de Raiz UMBus
+  - Enumerador de Dispositivos de Software Plug and Play
+  - Enumerador de Unidade Virtual Microsoft
+  - Enumerador UMBus
+  - Enumerador UMBus
+  - Enumerador UMBus
+  - Gerenciador de Volumes
+  - High Definition Audio Bus (driver 22.20.0.1)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10 (driver 10.1.1.45)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #3 - 8C14 (driver 10.1.1.45)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #4 - 8C16 (driver 10.1.1.45)
+  - Intel(R) B85 LPC Controller - 8C50 (driver 10.1.1.45)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Address Map VTd_Misc System Management - 2F28 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FF8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FF9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FFA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FFB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBC (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBD (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBF (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FB8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FB9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FBA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FBB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Channel 0/1 Broadcast - 2FAE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Channel 2/3 Broadcast - 2F6E (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Global Broadcast - 2F6F (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Global Broadcast - 2FAF (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DMI2 - 2F00 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 0 - 2F30 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 0 - 2FA0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 1 - 2F38 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 1 - 2F60 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Hot Plug - 2F29 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 I/O APIC - 2F2C (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 0 ERROR Registers - 2FB2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 0 Thermal Control - 2FB0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 1 ERROR Registers - 2FB3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 1 Thermal Control - 2FB1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel Target Address Decoder - 2FAA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel Target Address Decoder - 2FAB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Target Address / Thermal / RAS Registers - 2F71 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Target Address / Thermal / RAS Registers - 2FA8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 0 ERROR Registers - 2FD2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 0 Thermal Control - 2FD0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 1 ERROR Registers - 2FD3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 1 Thermal Control - 2FD1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel Target Address Decoder - 2F6A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel Target Address Decoder - 2F6B (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Target Address / Thermal / RAS Registers - 2F68 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Target Address / Thermal / RAS Registers - 2F79 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 1 - 2F02 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 1 - 2F03 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 3 - 2F08 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCIe Ring Interface - 2F1D (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCIe Ring Interface - 2F34 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F98 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F99 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F9A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2FC0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F36 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F37 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F81 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 RAS Control Status and Global Errors - 2F2A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F1E (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F1F (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F7D (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFC (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFD (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE4 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE5 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE6 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE7 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FEA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FEB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 VCU - 2F88 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 VCU - 2F8A (driver 10.1.2.80)
+  - Interface de Gerenciamento do Microsoft Windows para ACPI
+  - Microsoft ACPI-Compliant System
+  - Microsoft System Management BIOS Driver
+  - Pci Bus (driver 22.20.0.1)
+  - Processador de dados numéricos
+  - Recursos da placa-mãe
+  - Recursos da placa-mãe
+  - Remote Desktop USB Hub
+  - Sistema Microsoft Compatível com UEFI
+  - Timer de eventos de alta precisão
+  - Timer do sistema
++ {50127dc3-0f36-415e-a6cc-4cb3be910b65}
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
++ {62f9c741-b25a-46ce-b54c-9bccce08b6f2}
+  - Microsoft Device Association Root Enumerator
+  - Microsoft GS Wavetable Synth
+  - Microsoft Radio Device Enumeration Bus
+  - Wi-Fi
+  - Wi-Fi 3
++ {745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+  - Controlador de sistema compatível com HID
+  - Controlador de sistema compatível com HID
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - HID-compliant consumer control device
+  - HID-compliant consumer control device
++ {c166523c-fe0c-4a94-a586-f1a80cfbbf3e}
+  - 4 - 2D HD LG TV (AMD High Definition Audio Device)
+  - Microphone (High Definition Audio Device)
++ {f2e7dd72-6468-4e36-b6f1-6488f42c1b52}
+  - Firmware do Sistema
+
+cpu registers:
+eax = 0eaee208
+ebx = 00000000
+ecx = 00000000
+edx = 00d6ac38
+esi = 01610078
+edi = 0eaee208
+eip = 016383ee
+esp = 00aff2c8
+ebp = 00aff320
+
+stack dump:
+00aff2c8  ee 83 63 01 de fa ed 0e - 01 00 00 00 07 00 00 00  ..c.............
+00aff2d8  dc f2 af 00 ee 83 63 01 - 08 e2 ae 0e 00 00 00 00  ......c.........
+00aff2e8  78 00 61 01 08 e2 ae 0e - 20 f3 af 00 f8 f2 af 00  x.a..... .......
+00aff2f8  34 f3 af 00 30 a4 e8 00 - 20 f3 af 00 ff ff ff ff  4...0... .......
+00aff308  00 2a 33 04 01 00 00 00 - 08 e2 ae 0e 00 00 00 00  .*3.............
+00aff318  00 00 00 00 00 00 00 00 - 64 f3 af 00 ee 83 63 01  ........d.....c.
+00aff328  01 00 00 00 02 00 00 00 - 42 e6 63 01 40 f3 af 00  ........B.c.@...
+00aff338  0f a6 e8 00 64 f3 af 00 - 74 f3 af 00 30 a4 e8 00  ....d...t...0...
+00aff348  64 f3 af 00 ff ff ff ff - 1c 1d b7 0e 00 2a 33 04  d............*3.
+00aff358  a8 29 33 01 7f 13 00 00 - 00 2a 33 04 8c f3 af 00  .)3......*3.....
+00aff368  8a e8 63 01 00 2a 33 04 - 32 e8 63 01 94 f3 af 00  ..c..*3.2.c.....
+00aff378  30 a4 e8 00 8c f3 af 00 - 00 2a 33 04 20 91 2a 04  0........*3. .*.
+00aff388  00 00 00 00 c8 f3 af 00 - 93 d8 64 01 d0 f3 af 00  ..........d.....
+00aff398  30 a4 e8 00 c8 f3 af 00 - a0 04 b4 0e 01 f4 af 00  0...............
+00aff3a8  bc 94 64 01 c8 f3 af 00 - 00 00 00 00 00 00 00 00  ..d.............
+00aff3b8  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+00aff3c8  40 f4 af 00 63 02 62 01 - dc f3 af 00 0f a6 e8 00  @...c.b.........
+00aff3d8  40 f4 af 00 e8 f3 af 00 - 0f a6 e8 00 40 f4 af 00  @...........@...
+00aff3e8  f4 f3 af 00 30 a4 e8 00 - 40 f4 af 00 48 f4 af 00  ....0...@...H...
+00aff3f8  30 a4 e8 00 40 f4 af 00 - ff ff ff ff a0 04 b4 0e  0...@...........
+
+disassembling:
+[...]
+016383de        call    +$11 ($16383f4)        ; FireDAC.Phys.SQLiteWrapper.TSQLiteHandle.GetTracing
+016383e3        mov     ecx, eax
+016383e5        mov     eax, [esi+$10]
+016383e8        pop     edx
+016383e9        call    -$1c95ba ($146ee34)    ; FireDAC.Stan.Error.FDException
+016383ee 1937 > pop     esi
+016383ef        pop     ebx
+016383f0        ret
+
+date/time          : 2022-11-30, 22:50:48, 377ms
+computer name      : X99RS9
+user name          : User <admin>
+registered owner   : Usuário do Windows
+operating system   : Windows 10 x64 build 22621
+system language    : Portuguese
+system up time     : 1 hour
+program up time    : 19 minutes 52 seconds
+processors         : 24x Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+physical memory    : 8432/16228 MB (free/total)
+free disk space    : (C:) 170,56 GB
+display mode       : 1920x1080, 32 bit
+process id         : $21e4
+allocated memory   : 101,92 MB
+largest free block : 1,01 GB
+executable         : GMMTracker.exe
+exec. date/time    : 2022-11-30 22:30
+version            : 2022.11.2.69
+compiled with      : Delphi 11
+madExcept version  : 5.1.2
+callstack crc      : $eaffb942, $789f9785, $c3297612
+exception number   : 1
+exception class    : EArgumentOutOfRangeException
+exception message  : Argument out of range.
+
+main thread ($2b1c):
+01013c46 +00e GMMTracker.exe System.Classes          6397  +1 TCollection.GetItem
+01849bea +00a GMMTracker.exe REST.Client             2437  +1 TRESTRequestParameterList.GetItem
+0186e477 +363 GMMTracker.exe uDM                      384 +87 TDM.doPositionLast
+018e6fbf +017 GMMTracker.exe uFrmMain                 362  +1 TFrmMain.doUpdatePositionLast$ActRec.$0$Body
+0102a2a1 +085 GMMTracker.exe System.Classes         16493  +8 TThread.Synchronize
+0102a094 +05c GMMTracker.exe System.Classes         16433  +4 TThread.Queue
+018e7014 +04c GMMTracker.exe uFrmMain                 359  +1 TFrmMain.doUpdatePositionLast
+0142ee4d +015 GMMTracker.exe FMX.Types               5431  +2 TTimer.DoOnTimer
+0142edf8 +014 GMMTracker.exe FMX.Types               5417  +1 TTimer.Timer
+013e81dd +089 GMMTracker.exe FMX.Platform.Timer.Win   171 +11 TWinTimerService.TimerCallback
+767b15db +00b USER32.dll                                      DispatchMessageW
+013fe8d1 +051 GMMTracker.exe FMX.Platform.Win         837 +10 TPlatformWin.HandleMessage
+014597ff +03b GMMTracker.exe FMX.Forms               1875  +3 TApplication.HandleMessage
+013fe69a +06a GMMTracker.exe FMX.Platform.Win         741 +17 TPlatformWin.Run
+0145a267 +03f GMMTracker.exe FMX.Forms               2203  +3 TApplication.Run
+018fffbd +079 GMMTracker.exe GMMTracker                33  +9 initialization
+76a17ba7 +017 KERNEL32.DLL                                    BaseThreadInitThunk
+
+main thread ($2b1c), inner exception level 1:
+>> ERESTException, REST request failed: Error sending data: (12007) O nome ou o endereço do servidor não pôde ser resolvido
+0184de08 +760 GMMTracker.exe REST.Client             3300 +148 TCustomRESTRequest.Execute
+0186e2e3 +1cf GMMTracker.exe uDM                      334  +37 TDM.doPositionLast
+018e6fbf +017 GMMTracker.exe uFrmMain                 362   +1 TFrmMain.doUpdatePositionLast$ActRec.$0$Body
+0102a2a1 +085 GMMTracker.exe System.Classes         16493   +8 TThread.Synchronize
+0102a094 +05c GMMTracker.exe System.Classes         16433   +4 TThread.Queue
+018e7014 +04c GMMTracker.exe uFrmMain                 359   +1 TFrmMain.doUpdatePositionLast
+0142ee4d +015 GMMTracker.exe FMX.Types               5431   +2 TTimer.DoOnTimer
+0142edf8 +014 GMMTracker.exe FMX.Types               5417   +1 TTimer.Timer
+013e81dd +089 GMMTracker.exe FMX.Platform.Timer.Win   171  +11 TWinTimerService.TimerCallback
+767b15db +00b USER32.dll                                       DispatchMessageW
+013fe8d1 +051 GMMTracker.exe FMX.Platform.Win         837  +10 TPlatformWin.HandleMessage
+014597ff +03b GMMTracker.exe FMX.Forms               1875   +3 TApplication.HandleMessage
+013fe69a +06a GMMTracker.exe FMX.Platform.Win         741  +17 TPlatformWin.Run
+0145a267 +03f GMMTracker.exe FMX.Forms               2203   +3 TApplication.Run
+018fffbd +079 GMMTracker.exe GMMTracker                33   +9 initialization
+76a17ba7 +017 KERNEL32.DLL                                     BaseThreadInitThunk
+
+main thread ($2b1c), inner exception level 2:
+>> ENetHTTPClientException, Error sending data: (12007) O nome ou o endereço do servidor não pôde ser resolvido
+017e41d2 +126 GMMTracker.exe System.Net.HttpClient.Win  1538 +21 TWinHTTPClient.HandleExecuteError
+017e440b +1ff GMMTracker.exe System.Net.HttpClient.Win  1593 +37 TWinHTTPClient.DoExecuteRequest
+01019504 +014 GMMTracker.exe System.Classes             9847  +2 TMemoryStream.SetSize
+017f3c92 +1ea GMMTracker.exe System.Net.HttpClient      1251 +56 THTTPClient.ExecuteHTTP
+00ee964d +01d GMMTracker.exe System                    19302  +2 @AfterConstruction
+017f2fe0 +0f0 GMMTracker.exe System.Net.HttpClient      1009  +9 THTTPClient.Execute
+01816bfe +0e2 GMMTracker.exe REST.HttpClient             586 +13 TRESTHTTP.Execute
+0181650b +00f GMMTracker.exe REST.HttpClient             388  +1 TRESTHTTP.Get
+0184db65 +4bd GMMTracker.exe REST.Client                3238 +86 TCustomRESTRequest.Execute
+0186e2e3 +1cf GMMTracker.exe uDM                         334 +37 TDM.doPositionLast
+018e6fbf +017 GMMTracker.exe uFrmMain                    362  +1 TFrmMain.doUpdatePositionLast$ActRec.$0$Body
+0102a2a1 +085 GMMTracker.exe System.Classes            16493  +8 TThread.Synchronize
+0102a094 +05c GMMTracker.exe System.Classes            16433  +4 TThread.Queue
+018e7014 +04c GMMTracker.exe uFrmMain                    359  +1 TFrmMain.doUpdatePositionLast
+0142ee4d +015 GMMTracker.exe FMX.Types                  5431  +2 TTimer.DoOnTimer
+0142edf8 +014 GMMTracker.exe FMX.Types                  5417  +1 TTimer.Timer
+013e81dd +089 GMMTracker.exe FMX.Platform.Timer.Win      171 +11 TWinTimerService.TimerCallback
+767b15db +00b USER32.dll                                         DispatchMessageW
+013fe8d1 +051 GMMTracker.exe FMX.Platform.Win            837 +10 TPlatformWin.HandleMessage
+014597ff +03b GMMTracker.exe FMX.Forms                  1875  +3 TApplication.HandleMessage
+013fe69a +06a GMMTracker.exe FMX.Platform.Win            741 +17 TPlatformWin.Run
+0145a267 +03f GMMTracker.exe FMX.Forms                  2203  +3 TApplication.Run
+018fffbd +079 GMMTracker.exe GMMTracker                   33  +9 initialization
+76a17ba7 +017 KERNEL32.DLL                                       BaseThreadInitThunk
+
+thread $1184:
+767b1d6c +4c USER32.dll               MsgWaitForMultipleObjectsEx
+767c143a +1a USER32.dll               MsgWaitForMultipleObjects
+00f95b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+729f743b +00 gdiplus.dll
+
+thread $1b20:
+7741fc92 +82 KERNELBASE.dll           WaitForSingleObjectEx
+7741fbfd +0d KERNELBASE.dll           WaitForSingleObject
+00f95b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +00 atidxx32.dll
+
+thread $58c:
+7741fc92 +82 KERNELBASE.dll           WaitForSingleObjectEx
+7741fbfd +0d KERNELBASE.dll           WaitForSingleObject
+00f95b81 +0d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +32 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +17 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +00 atidxx32.dll
+
+thread $1d10: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1524: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2344: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $ae8: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2c48: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1fc8: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2f90: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2828: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $3b7c: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1588: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2fd4: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1abc: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1630: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $3b0c: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $2434: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $3808: <priority:-2>
+77acbff8 +138 ntdll.dll                RtlSleepConditionVariableCS
+774db7fa +01a KERNELBASE.dll           SleepConditionVariableCS
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by main thread ($2b1c) at:
+53f32823 +000 atidxx32.dll
+
+thread $1fbc:
+77421aa9 +189 KERNELBASE.dll           WaitForMultipleObjectsEx
+77421903 +013 KERNELBASE.dll           WaitForMultipleObjects
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by thread $176c at:
+535616af +000 amdihk32.dll
+
+thread $c94:
+77421aa9 +189 KERNELBASE.dll           WaitForMultipleObjectsEx
+77421903 +013 KERNELBASE.dll           WaitForMultipleObjects
+00f95b81 +00d GMMTracker.exe madExcept CallThreadProcSafe
+00f95be6 +032 GMMTracker.exe madExcept ThreadExceptFrame
+00f95c5c +0a8 GMMTracker.exe madExcept ThreadExceptFrame
+76a17ba7 +017 KERNEL32.DLL             BaseThreadInitThunk
+>> created by thread $176c at:
+53561704 +000 amdihk32.dll
+
+thread $774:
+76a17ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $2630:
+76a17ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+thread $20f0:
+77a705f4 +e4 ntdll.dll       RtlDelayExecution
+773fb299 +49 KERNELBASE.dll  SleepEx
+773fb23a +0a KERNELBASE.dll  Sleep
+76a17ba7 +17 KERNEL32.DLL    BaseThreadInitThunk
+
+thread $3658:
+76a17ba7 +17 KERNEL32.DLL  BaseThreadInitThunk
+
+modules:
+00ee0000 GMMTracker.exe            2022.11.2.69        C:\Desenvolvimento\GrupoMM\MobileV2_GoogleMaps\Source\Win32\Debug
+53040000 d2d1.dll                  10.0.22621.608      C:\Windows\SYSTEM32
+53530000 D3DSCache.dll             10.0.22621.608      C:\Windows\SYSTEM32
+53560000 amdihk32.dll              2.0.0.1788          C:\Windows\SYSTEM32
+53590000 atidxx32.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+55020000 atiuxpag.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+55050000 aticfx32.dll              31.0.12029.7019     C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+551c0000 directxdatabasehelper.dll 10.0.22621.608      C:\Windows\SYSTEM32
+55200000 dxgi.dll                  10.0.22621.608      C:\Windows\SYSTEM32
+552d0000 d3d10_1core.dll           10.0.22621.608      C:\Windows\SYSTEM32
+552e0000 d3d11.dll                 10.0.22621.608      C:\Windows\SYSTEM32
+55520000 d3d10_1.dll               10.0.22621.608      C:\Windows\SYSTEM32
+55600000 DWRITE.DLL                10.0.22621.608      C:\Windows\SYSTEM32
+649d0000 twinapi.appcore.dll       10.0.22621.755      C:\Windows\system32
+64ba0000 dataexchange.dll          10.0.22621.608      C:\Windows\system32
+64bf0000 WINNSI.DLL                10.0.22621.1        C:\Windows\SYSTEM32
+64c00000 webio.dll                 10.0.22621.1        C:\Windows\SYSTEM32
+65230000 CoreUIComponents.dll      10.0.22621.608      C:\Windows\SYSTEM32
+654c0000 CoreMessaging.dll         10.0.22621.608      C:\Windows\SYSTEM32
+65590000 textinputframework.dll    10.0.22621.608      C:\Windows\SYSTEM32
+6a640000 dxcore.dll                10.0.22621.608      C:\Windows\SYSTEM32
+6a670000 d3d9.dll                  10.0.22621.755      C:\Windows\SYSTEM32
+6b650000 dwmapi.dll                10.0.22621.608      C:\Windows\SYSTEM32
+6c370000 propsys.dll               7.0.22621.608       C:\Windows\system32
+6c440000 TextShaping.dll           10.0.22621.608      C:\Windows\SYSTEM32
+6d070000 srvcli.dll                10.0.22621.1        C:\Windows\SYSTEM32
+6d090000 iertutil.dll              11.0.22621.674      C:\Windows\SYSTEM32
+6d2c0000 URLMON.DLL                11.0.22621.819      C:\Windows\SYSTEM32
+712a0000 USERENV.dll               10.0.22621.1        C:\Windows\SYSTEM32
+71510000 netutils.dll              10.0.22621.674      C:\Windows\SYSTEM32
+71540000 SHFolder.dll              10.0.22621.1        C:\Windows\SYSTEM32
+71560000 FaultRep.dll              10.0.22621.608      C:\Windows\SYSTEM32
+716a0000 wsock32.dll               10.0.22621.1        C:\Windows\SYSTEM32
+718d0000 windowscodecs.dll         10.0.22621.608      C:\Windows\system32
+71a30000 uxtheme.dll               10.0.22621.819      C:\Windows\system32
+71b40000 rasadhlp.dll              10.0.22621.1        C:\Windows\System32
+71b50000 fwpuclnt.dll              10.0.22621.608      C:\Windows\System32
+71c00000 DNSAPI.dll                10.0.22621.1        C:\Windows\SYSTEM32
+71cf0000 dhcpcsvc.DLL              10.0.22621.674      C:\Windows\SYSTEM32
+71d30000 dhcpcsvc6.DLL             10.0.22621.674      C:\Windows\SYSTEM32
+71eb0000 ntmarta.dll               10.0.22621.1        C:\Windows\SYSTEM32
+71f00000 wintypes.dll              10.0.22621.755      C:\Windows\SYSTEM32
+71fd0000 windows.storage.dll       10.0.22621.819      C:\Windows\SYSTEM32
+726a0000 winspool.drv              10.0.22621.819      C:\Windows\SYSTEM32
+72730000 SspiCli.dll               10.0.22621.674      C:\Windows\SYSTEM32
+72770000 winhttp.dll               10.0.22621.608      C:\Windows\SYSTEM32
+72850000 IPHLPAPI.DLL              10.0.22621.1        C:\Windows\SYSTEM32
+72880000 cfgmgr32.DLL              10.0.22621.755      C:\Windows\SYSTEM32
+72980000 gdiplus.dll               10.0.22621.819      C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.22621.819_none_21dd7a56301966e7
+72af0000 COMCTL32.dll              6.10.22621.608      C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.22621.608_none_f0f1837ed587d923
+72d30000 mswsock.dll               10.0.22621.1        C:\Windows\system32
+72de0000 winmm.dll                 10.0.22621.608      C:\Windows\SYSTEM32
+738e0000 CRYPTBASE.DLL             10.0.22621.1        C:\Windows\SYSTEM32
+755f0000 version.dll               10.0.22621.1        C:\Windows\SYSTEM32
+75600000 kernel.appcore.dll        10.0.22621.1        C:\Windows\SYSTEM32
+757b0000 SHELL32.dll               10.0.22621.755      C:\Windows\System32
+75e10000 SHLWAPI.dll               10.0.22621.608      C:\Windows\System32
+75e60000 bcryptPrimitives.dll      10.0.22621.1        C:\Windows\System32
+75ed0000 WS2_32.dll                10.0.22621.1        C:\Windows\System32
+76050000 combase.dll               10.0.22621.755      C:\Windows\System32
+762d0000 oleaut32.dll              10.0.22621.608      C:\Windows\System32
+76370000 GDI32.dll                 10.0.22621.608      C:\Windows\System32
+763a0000 ole32.dll                 10.0.22621.608      C:\Windows\System32
+764f0000 MSCTF.dll                 10.0.22621.755      C:\Windows\System32
+765d0000 clbcatq.dll               2001.12.10941.16384 C:\Windows\System32
+76790000 USER32.dll                10.0.22621.755      C:\Windows\System32
+76940000 IMM32.DLL                 10.0.22621.755      C:\Windows\System32
+76970000 sechost.dll               10.0.22621.608      C:\Windows\System32
+76a00000 KERNEL32.DLL              10.0.22621.755      C:\Windows\System32
+76af0000 win32u.dll                10.0.22621.608      C:\Windows\System32
+76b10000 shcore.dll                10.0.22621.608      C:\Windows\System32
+76bd0000 SETUPAPI.dll              10.0.22621.755      C:\Windows\System32
+77080000 gdi32full.dll             10.0.22621.674      C:\Windows\System32
+772e0000 KERNELBASE.dll            10.0.22621.819      C:\Windows\System32
+77550000 msvcp_win.dll             10.0.22621.608      C:\Windows\System32
+775d0000 ucrtbase.dll              10.0.22621.608      C:\Windows\System32
+776f0000 RPCRT4.dll                10.0.22621.1        C:\Windows\System32
+777b0000 msvcrt.dll                7.0.22621.608       C:\Windows\System32
+77880000 advapi32.dll              10.0.22621.608      C:\Windows\System32
+77900000 NSI.dll                   10.0.22621.1        C:\Windows\System32
+77920000 comdlg32.dll              10.0.22621.755      C:\Windows\System32
+779e0000 ntdll.dll                 10.0.22621.755      C:\Windows\SYSTEM32
+
+processes:
+0000 Idle                        0 0    0
+0004 System                      0 0    0
+0114 Registry                    0 0    0
+033c smss.exe                    0 0    0
+03e0 csrss.exe                   0 0    0
+046c wininit.exe                 0 0    0
+0474 csrss.exe                   1 0    0
+04b4 services.exe                0 0    0
+04cc lsass.exe                   0 0    0   normal       C:\Windows\System32
+0544 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0560 fontdrvhost.exe             0 0    0   normal       C:\Windows\System32
+05a4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+05dc svchost.exe                 0 0    0   normal       C:\Windows\System32
+0618 winlogon.exe                1 5    0   high         C:\Windows\System32
+064c fontdrvhost.exe             1 0    0   normal       C:\Windows\System32
+0698 svchost.exe                 0 0    0   normal       C:\Windows\System32
+06c0 dwm.exe                     1 8    4   high         C:\Windows\System32
+0704 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0744 svchost.exe                 0 0    0   normal       C:\Windows\System32
+076c svchost.exe                 0 0    0   normal       C:\Windows\System32
+07a0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+07c8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+07e8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+04d8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+080c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0850 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0858 amdfendrsr.exe              0 0    0   normal       C:\Windows\System32
+0860 atiesrxx.exe                0 0    0   normal       C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+0878 svchost.exe                 0 0    0   normal       C:\Windows\System32
+099c svchost.exe                 0 0    0   normal       C:\Windows\System32
+09a4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a08 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0a34 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ad0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b14 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b64 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b6c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b74 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ba4 atieclxx.exe                1 2    14  normal       C:\Windows\System32\DriverStore\FileRepository\u0385749.inf_amd64_adf299d144273fde\B385520
+0bd0 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0bf8 Memory Compression          0 0    0
+08ac svchost.exe                 0 0    0   normal       C:\Windows\System32
+0c2c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0c34 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0cac svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ccc svchost.exe                 0 0    0   normal       C:\Windows\System32
+0cf4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0cfc svchost.exe                 0 0    0   normal       C:\Windows\System32
+0d04 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0e10 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0e90 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ec4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ed0 audiodg.exe                 0 0    0   normal       C:\Windows\System32
+0f14 spoolsv.exe                 0 0    0   normal       C:\Windows\System32
+0f3c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0cc4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0e28 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0b30 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1004 svchost.exe                 0 0    0   normal       C:\Windows\System32
+100c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1014 svchost.exe                 0 0    0   normal       C:\Windows\System32
+101c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1024 svchost.exe                 0 0    0   normal       C:\Windows\System32
+102c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1040 AnyDesk.exe                 0 0    0   high         C:\Program Files (x86)\AnyDesk
+106c launcher-x64.exe            0 0    0   normal       C:\Program Files (x86)\WinFsp\SxS\sxs.20221129T174920Z\bin
+1090 IpOverUsbSvc.exe            0 0    0   normal       C:\Program Files (x86)\Common Files\Microsoft Shared\Phone Tools\CoreCon\11.0\bin
+10b4 MsMpEng.exe                 0 0    0
+1128 svchost.exe                 0 0    0   normal       C:\Windows\System32
+11b8 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1250 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1284 conhost.exe                 0 0    0   normal       C:\Windows\System32
+13ac wlanext.exe                 0 0    0   normal       C:\Windows\System32
+13b4 conhost.exe                 0 0    0   normal       C:\Windows\System32
+12bc AggregatorHost.exe          0 0    0   normal       C:\Windows\System32
+15bc svchost.exe                 0 0    0   normal       C:\Windows\System32
+14cc svchost.exe                 0 0    0   normal       C:\Windows\System32
+16e0 NisSrv.exe                  0 0    0
+0b80 AUEPDU.exe                  0 0    0   normal       C:\Program Files\AMD\Performance Profile Client
+0c8c svchost.exe                 0 0    0   normal       C:\Windows\System32
+0408 svchost.exe                 0 0    0   normal       C:\Windows\System32
+035c svchost.exe                 0 0    0
+1064 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1148 SgrmBroker.exe              0 0    0
+0ea4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+173c svchost.exe                 0 0    0   normal       C:\Windows\System32
+07dc svchost.exe                 0 0    0
+0d24 SearchIndexer.exe           0 0    0   normal       C:\Windows\System32
+0734 svchost.exe                 0 0    0   normal       C:\Windows\System32
+0ff4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+157c sihost.exe                  1 0    8   normal       C:\Windows\System32
+0694 svchost.exe                 1 0    1   normal       C:\Windows\System32
+0cdc svchost.exe                 1 0    1   normal       C:\Windows\System32
+1454 svchost.exe                 1 0    4   normal       C:\Windows\System32
+1908 taskhostw.exe               1 8    6   normal       C:\Windows\System32
+09bc AUEPMaster.exe              1 13   19  above normal C:\Program Files\AMD\Performance Profile Client
+1c04 svchost.exe                 1 0    12  normal       C:\Windows\System32
+1c38 svchost.exe                 0 0    0   normal       C:\Windows\System32
+1ea0 Widgets.exe                 1 0    21  normal       C:\Program Files\WindowsApps\MicrosoftWindows.Client.WebExperience_421.20070.765.0_x64__cw5n1h2txyewy\Dashboard
+1ea8 RuntimeBroker.exe           1 41   4   normal       C:\Windows\System32
+1ee4 RuntimeBroker.exe           1 0    9   normal       C:\Windows\System32
+1f5c svchost.exe                 1 0    1   normal       C:\Windows\System32
+1d3c dllhost.exe                 1 0    3   normal       C:\Windows\System32
+05f0 WhatsApp.exe                1 13   28  normal       C:\Program Files\WindowsApps\5319275A.WhatsAppDesktop_2.2245.5.0_x64__cv1g1gvanyjgm
+22e4 RuntimeBroker.exe           1 0    1   normal       C:\Windows\System32
+23a8 ctfmon.exe                  1 2    23  high         C:\Windows\System32
+1cac SecurityHealthSystray.exe   1 7    5   normal       C:\Windows\System32
+1c8c SecurityHealthService.exe   0 0    0
+1e70 OneDrive.exe                1 219  94  normal       C:\Users\User\AppData\Local\Microsoft\OneDrive
+2234 msedge.exe                  1 2    46  normal       C:\Program Files (x86)\Microsoft\Edge\Application
+2314 msedge.exe                  1 0    3   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+0ce8 ConEmu64.exe                1 63   30  normal       C:\App\PortableApps\ConEmuPortable
+1864 msedge.exe                  1 1    6   above normal C:\Program Files (x86)\Microsoft\Edge\Application
+1bf8 msedge.exe                  1 0    1   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+1438 msedge.exe                  1 0    1   normal       C:\Program Files (x86)\Microsoft\Edge\Application
+2560 svchost.exe                 0 0    0   normal       C:\Windows\System32
+26f4 msedge.exe                  1 0    0   idle         C:\Program Files (x86)\Microsoft\Edge\Application
+27cc msedge.exe                  1 0    0   idle         C:\Program Files (x86)\Microsoft\Edge\Application
+245c svchost.exe                 0 0    0   normal       C:\Windows\System32
+24f0 msteams.exe                 1 12   28  normal       C:\Program Files\WindowsApps\MicrosoftTeams_22287.702.1670.9453_x64__8wekyb3d8bbwe
+2900 RuntimeBroker.exe           1 0    1   normal       C:\Windows\System32
+296c msedgewebview2.exe          1 18   52  normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+29a4 msedgewebview2.exe          1 0    3   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2a84 msedgewebview2.exe          1 3    22  above normal C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2a90 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2ab4 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2b34 msedgewebview2.exe          1 0    0   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2bf0 AnyDesk.exe                 1 105  15  normal       C:\Program Files (x86)\AnyDesk
+2bf8 RadeonSoftware.exe          1 41   73  normal       C:\Program Files\AMD\CNext\CNext
+09ac cncmd.exe                   1 0    1   normal       C:\Program Files\AMD\CNext\CNext
+2c08 cmd.exe                     1 0    1   normal       C:\Windows\System32
+2c10 conhost.exe                 1 10   3   normal       C:\Windows\System32
+2d10 AMDRSServ.exe               1 5    13  normal       C:\Program Files\AMD\CNext\CNext
+104c amdow.exe                   1 3    34  normal       C:\Program Files\AMD\CNext\CNext
+1b64 ApplicationFrameHost.exe    1 54   31  normal       C:\Windows\System32
+2220 svchost.exe                 1 0    1   normal       C:\Windows\System32
+0b84 svchost.exe                 0 0    0   normal       C:\Windows\System32
+2cbc svchost.exe                 0 0    0   normal       C:\Windows\System32
+292c svchost.exe                 0 0    0   normal       C:\Windows\System32
+1c0c svchost.exe                 1 0    1   normal       C:\Windows\System32
+0e44 msedgewebview2.exe          1 18   48  normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+0344 msedgewebview2.exe          1 0    3   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2f08 msedgewebview2.exe          1 6    43  above normal C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2974 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+1b90 msedgewebview2.exe          1 0    1   normal       C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2ff4 msedgewebview2.exe          1 0    0   idle         C:\Program Files (x86)\Microsoft\EdgeWebView\Application\107.0.1418.56
+2f80 brave.exe                   1 59   72  normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2fbc brave.exe                   1 0    3   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+20d0 brave.exe                   1 11   40  above normal C:\Program Files\BraveSoftware\Brave-Browser\Application
+1990 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1b28 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2bd8 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+271c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1260 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+206c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1f18 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+2d34 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+15d8 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+302c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3060 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+30f0 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3148 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3720 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+37f0 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+1784 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+385c cmd.exe                     1 0    0   normal       C:\Windows\System32
+3868 conhost.exe                 1 22   19  normal       C:\Windows\System32
+3920 bds.exe                     1 3822 918 normal       C:\Embarcadero\Studio\22.0\bin
+33d0 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+37cc brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3944 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+1f1c DelphiLSP.exe               1 0    5   normal       C:\Embarcadero\Studio\22.0\bin
+3b6c conhost.exe                 1 11   9   normal       C:\Windows\System32
+2580 DelphiLSP.exe               1 0    1   normal       C:\Embarcadero\Studio\22.0\bin
+2454 DelphiLSP.exe               1 0    1   normal       C:\Embarcadero\Studio\22.0\bin
+3558 adb.exe                     1 0    5   normal       C:\Embarcadero\Studio\22.0\CatalogRepository\AndroidSDK-2525-22.0.46141.0937\platform-tools
+37e0 AMDRSSrcExt.exe             1 8    9   normal       C:\Program Files\AMD\CNext\CNext
+3298 SystemSettings.exe          1 11   34  normal       C:\Windows\ImmersiveControlPanel
+2518 brave.exe                   1 0    1   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+3a68 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1848 explorer.exe                1 182  218 normal       C:\Windows
+2f70 SearchHost.exe              1 14   85  normal       C:\Windows\SystemApps\MicrosoftWindows.Client.CBS_cw5n1h2txyewy
+31f4 StartMenuExperienceHost.exe 1 0    12  normal       C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy
+1104 ShellExperienceHost.exe     1 13   39  normal       C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy
+384c RuntimeBroker.exe           1 4    5   normal       C:\Windows\System32
+2c6c brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+21e4 GMMTracker.exe              1 42   53  normal       C:\Desenvolvimento\GrupoMM\MobileV2_GoogleMaps\Source\Win32\Debug
+0e6c brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+0d80 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+1c50 brave.exe                   1 0    0   idle         C:\Program Files\BraveSoftware\Brave-Browser\Application
+174c svchost.exe                 0 0    0
+25e4 svchost.exe                 0 0    0   normal       C:\Windows\System32
+21a0 SearchProtocolHost.exe      0 0    0   normal       C:\Windows\System32
+3674 brave.exe                   1 0    0   normal       C:\Program Files\BraveSoftware\Brave-Browser\Application
+
+hardware:
++ {1ed2bbf9-11f0-4084-b21f-ad83a8e6dcdc}
+  - Fila de Impressão da Raiz
+  - Microsoft Print to PDF
++ {36fc9e60-c465-11cf-8056-444553540000}
+  - Generic USB Hub
+  - Generic USB Hub
+  - Generic USB Hub
+  - Intel(R) 8 Series/C220 Series USB EHCI #1 - 8C26 (driver 9.4.0.1025)
+  - Intel(R) 8 Series/C220 Series USB EHCI #2 - 8C2D (driver 9.4.0.1025)
+  - Intel(R) USB 3.0 eXtensible Host Controller - 1.0 (Microsoft)
+  - USB Composite Device
+  - USB Composite Device
+  - USB Root Hub
+  - USB Root Hub
+  - USB Root Hub (USB 3.0)
++ {4d36e966-e325-11ce-bfc1-08002be10318}
+  - Default string Default string
+  - PC ACPI de base x64
++ {4d36e967-e325-11ce-bfc1-08002be10318}
+  - P3-256
+  - WDC WD10JPVX-22JC3T0
++ {4d36e968-e325-11ce-bfc1-08002be10318}
+  - Radeon RX 570 Series (driver 31.0.12029.7019)
++ {4d36e96b-e325-11ce-bfc1-08002be10318}
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Dispositivo de teclado HID
+  - Teclado Padrão PS/2
++ {4d36e96c-e325-11ce-bfc1-08002be10318}
+  - AMD High Definition Audio Device (driver 10.0.1.24)
+  - AMD Streaming Audio Device (driver 1.0.0.8)
+  - Dispositivo de High Definition Audio
++ {4d36e96e-e325-11ce-bfc1-08002be10318}
+  - Generic Monitor (2D HD LG TV)
++ {4d36e96f-e325-11ce-bfc1-08002be10318}
+  - Microsoft PS/2 Mouse
+  - Mouse compatível com HID
+  - Mouse compatível com HID
++ {4d36e972-e325-11ce-bfc1-08002be10318}
+  - Broadcom 802.11ac Network Adapter (driver 7.35.352.0)
+  - Microsoft Kernel Debug Network Adapter
+  - Microsoft Wi-Fi Direct Virtual Adapter
+  - Microsoft Wi-Fi Direct Virtual Adapter #3
+  - Realtek PCIe GbE Family Controller (driver 10.62.824.2022)
+  - TP-Link Wireless Nano USB Adapter (driver 1030.44.531.2021)
++ {4d36e97b-e325-11ce-bfc1-08002be10318}
+  - Controlador de Espaços de Armazenamento da Microsoft
+  - Intel(R) C220 series chipset SATA AHCI Controller (driver 6.2.0.1238)
+  - Intel(R) VROC Virtual Controller (driver 7.8.0.1026)
++ {4d36e97d-e325-11ce-bfc1-08002be10318}
+  - Alto-falante do sistema
+  - AMD Crash Defender (driver 22.20.0.2)
+  - AMD Link Controller Emulation (driver 22.20.0.7)
+  - Barramento da Câmera da Área de Trabalho Remota
+  - Barramento do Redirecionador de Dispositivos de Área de Trabalho Remota
+  - Barramento PCI
+  - Botão de Recurso fixo ACPI
+  - CMOS do sistema/relógio em tempo real
+  - Controlador de acesso direto à memória
+  - Controlador de High Definition Audio
+  - Controlador de interrupção programável
+  - Controlador de interrupção programável avançado
+  - desligar ACPI
+  - Dispositivo de Módulo ACPI
+  - Driver de Infraestrutura de Virtualização Microsoft Hyper-V
+  - Driver de Renderização Básico da Microsoft
+  - Driver de Vídeo Básico da Microsoft
+  - ELAN SMBus Driver (driver 15.21.1.21)
+  - Enumerador de Adaptador de Rede Virtual NDIS
+  - Enumerador de Barramento de Composição
+  - Enumerador de Barramento de Raiz UMBus
+  - Enumerador de Dispositivos de Software Plug and Play
+  - Enumerador de Unidade Virtual Microsoft
+  - Enumerador UMBus
+  - Enumerador UMBus
+  - Enumerador UMBus
+  - Gerenciador de Volumes
+  - High Definition Audio Bus (driver 22.20.0.1)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #1 - 8C10 (driver 10.1.1.45)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #3 - 8C14 (driver 10.1.1.45)
+  - Intel(R) 8 Series/C220 Series PCI Express Root Port #4 - 8C16 (driver 10.1.1.45)
+  - Intel(R) B85 LPC Controller - 8C50 (driver 10.1.1.45)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Address Map VTd_Misc System Management - 2F28 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FF8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FF9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FFA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Buffered Ring Agent - 2FFB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBC (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBD (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 0 & 1 - 2FBF (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FB8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FB9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FBA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO (VMSE) 2 & 3 - 2FBB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Channel 0/1 Broadcast - 2FAE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Channel 2/3 Broadcast - 2F6E (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Global Broadcast - 2F6F (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DDRIO Global Broadcast - 2FAF (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 DMI2 - 2F00 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 0 - 2F30 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 0 - 2FA0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 1 - 2F38 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Home Agent 1 - 2F60 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Hot Plug - 2F29 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 I/O APIC - 2F2C (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 0 ERROR Registers - 2FB2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 0 Thermal Control - 2FB0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 1 ERROR Registers - 2FB3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel 1 Thermal Control - 2FB1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel Target Address Decoder - 2FAA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Channel Target Address Decoder - 2FAB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Target Address / Thermal / RAS Registers - 2F71 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 0 Target Address / Thermal / RAS Registers - 2FA8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 0 ERROR Registers - 2FD2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 0 Thermal Control - 2FD0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 1 ERROR Registers - 2FD3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel 1 Thermal Control - 2FD1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel Target Address Decoder - 2F6A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Channel Target Address Decoder - 2F6B (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Target Address / Thermal / RAS Registers - 2F68 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Integrated Memory Controller 1 Target Address / Thermal / RAS Registers - 2F79 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 1 - 2F02 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 1 - 2F03 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCI Express Root Port 3 - 2F08 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCIe Ring Interface - 2F1D (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 PCIe Ring Interface - 2F34 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F98 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F99 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2F9A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Power Control Unit - 2FC0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F36 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F37 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 R3 QPI Link 0 & 1 Monitoring - 2F81 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 RAS Control Status and Global Errors - 2F2A (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F1E (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F1F (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Scratchpad & Semaphore Registers - 2F7D (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFC (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFD (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 System Address Decoder & Broadcast Registers - 2FFE (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE0 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE1 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE2 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE3 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE4 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE5 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE6 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE7 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE8 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FE9 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FEA (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 Unicast Registers - 2FEB (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 VCU - 2F88 (driver 10.1.2.80)
+  - Intel(R) Xeon(R) E7 v3/Xeon(R) E5 v3/Core i7 VCU - 2F8A (driver 10.1.2.80)
+  - Interface de Gerenciamento do Microsoft Windows para ACPI
+  - Microsoft ACPI-Compliant System
+  - Microsoft System Management BIOS Driver
+  - Pci Bus (driver 22.20.0.1)
+  - Processador de dados numéricos
+  - Recursos da placa-mãe
+  - Recursos da placa-mãe
+  - Remote Desktop USB Hub
+  - Sistema Microsoft Compatível com UEFI
+  - Timer de eventos de alta precisão
+  - Timer do sistema
++ {50127dc3-0f36-415e-a6cc-4cb3be910b65}
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
+  - Intel(R) Xeon(R) CPU E5-2670 v3 @ 2.30GHz
++ {62f9c741-b25a-46ce-b54c-9bccce08b6f2}
+  - Microsoft Device Association Root Enumerator
+  - Microsoft GS Wavetable Synth
+  - Microsoft Radio Device Enumeration Bus
+  - Wi-Fi
+  - Wi-Fi 3
++ {745a17a0-74d3-11d0-b6fe-00a0c90f57da}
+  - Controlador de sistema compatível com HID
+  - Controlador de sistema compatível com HID
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo de Entrada USB
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - Dispositivo definido pelo fornecedor compatível com HID
+  - HID-compliant consumer control device
+  - HID-compliant consumer control device
++ {c166523c-fe0c-4a94-a586-f1a80cfbbf3e}
+  - 4 - 2D HD LG TV (AMD High Definition Audio Device)
+  - Microphone (High Definition Audio Device)
++ {f2e7dd72-6468-4e36-b6f1-6488f42c1b52}
+  - Firmware do Sistema
+
+cpu registers:
+eax = 115a9840
+ebx = 00002ee7
+ecx = 00000000
+edx = 04443938
+esi = 0f181de0
+edi = 0f181eb0
+eip = 017e41d7
+esp = 040ff528
+ebp = 040ff58c
+
+stack dump:
+040ff528  d7 41 7e 01 de fa ed 0e - 01 00 00 00 07 00 00 00  .A~.............
+040ff538  3c f5 0f 04 d7 41 7e 01 - 40 98 5a 11 e7 2e 00 00  <....A~.@.Z.....
+040ff548  e0 1d 18 0f b0 1e 18 0f - 8c f5 0f 04 58 f5 0f 04  ............X...
+040ff558  94 f5 0f 04 30 a4 ee 00 - 8c f5 0f 04 a8 f6 0f 04  ....0...........
+040ff568  e0 1d 18 0f 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+040ff578  e7 2e 00 00 00 00 00 00 - 1c 00 09 06 11 00 00 00  ................
+040ff588  28 fc 77 01 f0 f5 0f 04 - 10 44 7e 01 fc f5 0f 04  (.w......D~.....
+040ff598  30 a4 ee 00 f0 f5 0f 04 - e0 1d 18 0f 14 15 7e 01  0.............~.
+040ff5a8  00 00 00 00 00 00 00 00 - 00 00 00 00 01 00 00 00  ................
+040ff5b8  00 00 00 00 60 9e 6c 11 - 00 00 00 00 00 00 00 00  ....`.l.........
+040ff5c8  b0 1e 18 0f 07 95 01 01 - a8 f6 0f 00 54 f6 0f 04  ............T...
+040ff5d8  b0 1e 18 0f e0 1d 18 0f - 00 00 00 00 00 00 00 00  ................
+040ff5e8  00 00 00 00 00 00 00 00 - ac f6 0f 04 95 3c 7f 01  .............<..
+040ff5f8  60 9e 6c 11 08 f6 0f 04 - 30 a4 ee 00 ac f6 0f 04  `.l.....0.......
+040ff608  b8 f6 0f 04 30 a4 ee 00 - ac f6 0f 04 a8 f9 0f 04  ....0...........
+040ff618  20 65 81 01 14 15 7e 01 - e0 ad 10 06 00 00 00 00   e....~.........
+040ff628  b6 a0 7f 01 50 96 ee 00 - 54 f6 0f 04 00 00 00 00  ....P...T.......
+040ff638  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00  ................
+040ff648  00 00 00 00 70 f6 0f 04 - 90 f1 51 11 e0 ad 10 06  ....p.....Q.....
+040ff658  b0 1e 18 0f 60 9e 6c 11 - 00 00 00 00 00 00 00 00  ....`.l.........
+
+disassembling:
+[...]
+017e41c1        push    1
+017e41c3        mov     ecx, [ebp-4]
+017e41c6        mov     dl, 1
+017e41c8        mov     eax, [$17ec4a4]
+017e41cd        call    -$8a4d92 ($f3f440)     ; System.SysUtils.Exception.CreateResFmt
+017e41d2      > call    -$8f9c83 ($eea554)     ; System.@RaiseExcept
+017e41d7 1540   xor     eax, eax
+017e41d9        pop     edx
+017e41da        pop     ecx
+017e41db        pop     ecx
+017e41dc        mov     fs:[eax], edx
+[...]
+

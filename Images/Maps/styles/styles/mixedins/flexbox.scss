@@ -1,0 +1,45 @@
+/**
+ * Alinhamento Flexbox.
+ * 
+ * Exemplo de uso:
+ * @include alignItems(center);
+ */
+@mixin alignItems($align){
+  -webkit-box-align: $align;
+  -ms-flex-align: $align;
+  align-items: $align;
+}
+
+/**
+ * Justificação Flexbox.
+ * 
+ * Exemplo de uso:
+ * @include justifyContent(center);
+ */
+@mixin justifyContent($position){
+  -webkit-box-pack: $position;
+  -ms-flex-pack: $position;
+  justify-content: $position;
+}
+
+/**
+ * Direção Flexbox.
+ * 
+ * Exemplo de uso:
+ * div.preload {
+ *   @include direction(column);
+ * }
+ */
+ @mixin direction($direction) {
+  @if $direction == column {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  } @else {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+  }
+}

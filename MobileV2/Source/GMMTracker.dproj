@@ -302,8 +302,8 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1046</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.75;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
-        <VerInfo_Build>75</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.106;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
+        <VerInfo_Build>106</VerInfo_Build>
         <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>
@@ -342,11 +342,11 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCCReference Include="uFrmMain.pas">
             <Form>FrmMain</Form>
         </DCCReference>
-        <JavaReference Include="C:\Embarcadero\Studio\22.0\Components\TMSFNCMaps\Android Support\JavascriptHelper\JavaScriptHelper.jar">
+        <JavaReference Include="..\Data\FNCWebChromeClient-dexed.jar">
             <ContainerId>ClassesdexFile64</ContainerId>
             <Disabled/>
         </JavaReference>
-        <JavaReference Include="C:\Embarcadero\Studio\22.0\Components\TMSFNCMaps\Android Support\WebChromeClient\FNCWebChromeClient.jar">
+        <JavaReference Include="..\Data\JavaScriptHelper-dexed.jar">
             <ContainerId>ClassesdexFile64</ContainerId>
             <Disabled/>
         </JavaReference>
@@ -667,6 +667,20 @@ $(PreBuildEvent)]]></PreBuildEvent>
                     <Platform Name="Android64">
                         <RemoteDir>.\assets\internal\images\</RemoteDir>
                         <RemoteName>car-64.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\Images\car-off-48.png" Configuration="Debug" Class="File">
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\images\</RemoteDir>
+                        <RemoteName>car-off-48.png</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\Images\car-on-48.png" Configuration="Debug" Class="File">
+                    <Platform Name="Android64">
+                        <RemoteDir>.\assets\internal\images\</RemoteDir>
+                        <RemoteName>car-on-48.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

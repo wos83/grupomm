@@ -1,0 +1,115 @@
+@import 'mixedins/shadow.scss';
+
+// O container <div> necessário para posicionar o conteúdo suspenso
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  // O conteúdo suspenso (escondido por padrão)
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 10rem;
+    margin-top: 0.325rem;
+    z-index: var(--theme-dropdown-zindex);
+    font-size: .8rem;
+    line-height: 1.5;
+
+    color: var(--theme-dropdown-color);
+    
+    background: var(--theme-dropdown-bg);
+    background-clip: padding-box;
+    
+    @include shadow(var(--theme-box-shadow-sm));
+
+    border: 1px solid var(--theme-border-color);
+    border-radius: .375rem;
+
+    text-align: left;
+
+    overflow: visible;
+
+    padding-top: .3rem;
+
+    &.show {
+      display: block;
+    }
+
+    // Links dentro do conteúdo suspenso que funcionam como opções de
+    // menu
+    span.item {
+      color: var(--theme-dropdown-color);
+      background: var(--theme-dropdown-bg);
+      padding: .78571429em 1.14285714em !important;
+      text-decoration: none;
+      display: block;
+      font-size: 1em;
+      font-weight: 500;
+
+      text-align: left;
+
+      // Alterar a cor dos links suspensos ao passar o mouse
+      &:hover {
+        color: var(--theme-dropdown-hover-color);
+        text-decoration: none;
+        background-color: var(--theme-dropdown-hover-bg);
+      }
+    }
+
+    .divider {
+      border-top: 1px solid rgba(34,36,38,.15);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: -.8rem;
+      border-bottom: 12px solid var(--theme-border-color);
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: calc(-.8rem + 2px);
+      border-bottom: 11px solid var(--theme-dropdown-caret-bg);
+      border-left: 11px solid transparent;
+      border-right: 11px solid transparent;
+    }
+  }
+
+  // Mostrar o conteúdo suspenso ao passar o mouse
+  &:hover .dropdown-content {
+    display: block;
+  }
+
+  &.show  .dropdown-content {
+    display: block;
+  }
+
+  &[side=left] .dropdown-content {
+    left: -0.1rem;
+
+    &::before {
+      left: 0.55rem;
+    }
+    &::after {
+      left: calc(0.55rem + 1px);
+    }
+  }
+  &[side=right] .dropdown-content {
+    left: auto;
+    right: -.1rem;
+
+    &::before {
+      left: auto;
+      right: 0.55rem;
+    }
+
+    &::after {
+      left: auto;
+      right: calc(0.55rem + 1px);
+    }
+  }
+}

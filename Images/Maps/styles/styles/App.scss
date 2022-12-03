@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+@import './variables';
+@import './lib/reset.scss';
+@import './lib/responsive.scss';
+@import './fonts/inter.scss';
+@import './themes/AutoDarkLight.scss';
+
+:root{
+  color-scheme: light;
+  accent-color: magenta;
+}
+
+:root {
+  font-family: 'Inter', sans-serif;
+
+  --footer-size: 30px;
+  --header-size: 40px;
+  --theme-dropdown-zindex: 1100;
+}
+
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Inter var', sans-serif; }
+}
+
+* {
+  /* Remove a margem externa de todos os lados do elemento. */
+  margin: 0;
+
+  /* Remove o espaçamento interno de todos os lados do elemento. */
+  padding: 0;
+
+  /* Inclui o preenchimento e a borda na largura e altura. */
+  box-sizing: border-box;
+}
+
+body {
+  // Exibição flexível
+  // Torna o elemento um flex container e os seus
+  // elementos internos em flex-itens
+  display: flex;
+
+  // Quebra de linha quando os itens não couberem na
+  // largura da tela
+  flex-wrap: wrap;
+
+  // Junção de flex-grow, flex-shrink e flex-basis
+  //   flex-grow – Habilidade de um flex item crescer
+  //   flex-shrink - Capacidade de redução do item
+  //   flex-basis – Tamanho inicial do item
+  flex: 1 1 100vw;
+
+  // Ajusta a margem e o tamanho mínimo
+  margin: 0px;
+  min-width: 100vw;
+
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: 'Inter var', sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var($--theme-heading-color);
+}
+h1,
+.h1 {
+  font-size: calc(1.373832rem + 1.485984vw);
+}
+@media (min-width: 1200px) {
+  h1,
+  .h1 {
+    font-size: 2.48832rem;
+  }
+}
+h2,
+.h2 {
+  font-size: calc(1.33236rem + 0.98832vw);
+}
+@media (min-width: 1200px) {
+  h2,
+  .h2 {
+    font-size: 2.0736rem;
+  }
+}
+h3,
+.h3 {
+  font-size: calc(1.2978rem + 0.5736vw);
+}
+@media (min-width: 1200px) {
+  h3,
+  .h3 {
+    font-size: 1.728rem;
+  }
+}
+h4,
+.h4 {
+  font-size: calc(1.269rem + 0.228vw);
+}
+@media (min-width: 1200px) {
+  h4,
+  .h4 {
+    font-size: 1.44rem;
+  }
+}
+h5,
+.h5 {
+  font-size: 1.2rem;
+}
+h6,
+.h6 {
+  font-size: 0.8333333333rem;
+}
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var($--theme-link-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var($--theme-link-hover-color);
+  text-decoration: underline;
+}
+
+pre {
+  margin: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+strong {
+  font-weight: 600;
+}
+label {
+  font-weight: 500 !important;
+  margin-bottom: 0.5rem;
+}
+pre,
+code,
+kbd,
+samp {
+  font-size: 0.875rem;
+}
+[dir="rtl"] pre,
+[dir="rtl"] code,
+[dir="rtl"] kbd,
+[dir="rtl"] samp {
+  direction: rtl;
+}
+
+#root {
+  display: flex;
+
+  /* Margem de todos os lados. */
+  margin: 0px;
+
+  /* Quebra de linha quando os itens não couberem na largura da tela. */
+  flex-wrap: nowrap;
+}
+
+.container {
+  /* Exibição flexível.                          */
+  /* Torna o elemento um flex container          */
+  /* e os seus elementos internos em flex-itens. */
+  display: flex;
+
+  /* Quebra de linha quando os itens não couberem na largura da tela. */
+  flex-wrap: wrap;
+
+  flex: 1 1 100vw;
+
+  /* Margem de todos os lados. */
+  margin: 0px;
+
+  min-width: 320px;
+}
+
+/* Formatação comum entre os elementos. */
+header.navbar, nav.menu, aside, map, footer, section {
+  /* Margem externa de todos os lados. */
+  margin: 0px;
+}
+
+header, nav, footer, main {
+  /* Exibição flexível.                          */
+  /* Torna o elemento um flex container          */
+  /* e os seus elementos internos em flex-itens. */
+  display: flex;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.toolbox {
+  height:40px;
+  padding:0 0;
+  border-top:1px solid var(--theme-border-color);
+  border-bottom:1px solid var(--theme-border-color);
+  flex:1 1 100vw;
+  background-color:var(--theme-bg-navbar-glass)
+}
+.toolbox .menu {
+  height:40px;
+  padding:0 0;
+  border-bottom:1px solid var(--theme-border-color);
+  flex:1 1 100vw;
+  background-color:var(--theme-bg-navbar-glass);
+  align-items:center;
+  justify-content:flex-end;
+  gap:5px;
+  display:flex;
+  padding-right:5px
+}
+.toolbox .menu button {
+  flex:0 1 40px;
+  color:var(--theme-nav-link-color);
+  font-size:.8333333333rem;
+  font-weight:600;
+  min-width:40px;
+  height:40px;
+  padding:.5em .5em;
+  background-color:transparent;
+  border:none;
+  cursor:pointer;
+  -webkit-transition:color 0.2s ease-in-out,background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  -moz-transition:color 0.2s ease-in-out,background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  -ms-transition:color 0.2s ease-in-out,background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  -o-transition:color 0.2s ease-in-out,background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition:color 0.2s ease-in-out,background-color 0.2s ease-in-out,border-color 0.2s ease-in-out
+}
+.toolbox .menu button svg {
+  position:relative;
+  display:block;
+  flex-shrink:0;
+  height:100%;
+  fill:currentColor;
+  transition:fill .3s
+}
+.toolbox .menu button:hover {
+  color:var(--theme-nav-link-hover-color);
+  background-color:var(--theme-bg-navbar-glass-hover)
+}

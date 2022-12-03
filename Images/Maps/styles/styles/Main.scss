@@ -1,0 +1,53 @@
+main {
+  /* Realizar a subtração de 100% da altura vertical menos a soma    */
+  /* da altura dos elementos ( 400px ) com as suas margens ( 36px ). */
+  height: calc(100vh - var(--header-size) - var(--footer-size));
+
+  /* Junção de flex-grow, flex-shrink e flex-basis.  */
+  /* flex-grow – Habilidade de um flex item crescer. */
+  /* flex-shrink - Capacidade de redução do item.    */
+  /* flex-basis – Tamanho inicial do item.           */
+  flex: 20 1 auto;
+
+  /* Alinha os itens na vertical. */
+  justify-content: center;
+
+  /* Dispõe os itens em coluna. */
+  flex-direction: column;
+
+  /* O conteúdo não será quebrado */
+  flex-wrap: nowrap;
+}
+
+main div.map-tiles,
+main aside {
+ margin: 0px;
+}
+
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+main div.leaflet-container {
+  /* Junção de flex-grow, flex-shrink e flex-basis.  */
+  /* flex-grow – Habilidade de um flex item crescer. */
+  /* flex-shrink - Capacidade de redução do item.    */
+  /* flex-basis – Tamanho inicial do item.           */
+  flex: 6 1 65%;
+
+  display: flex;
+}
+
+main aside {
+  /* Altura do elemento. */
+  /*height: 300px;*/
+
+  /* Junção de flex-grow, flex-shrink e flex-basis.  */
+  /* flex-grow – Habilidade de um flex item crescer. */
+  /* flex-shrink - Capacidade de redução do item.    */
+  /* flex-basis – Tamanho inicial do item.           */
+  flex: 4 1 35%;
+  overflow: auto;
+  width: 100%;
+}

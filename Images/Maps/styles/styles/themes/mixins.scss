@@ -1,0 +1,8 @@
+/*
+   Realiza o mapeamento de cores do thema
+ */
+@mixin spread-map($map: ()) {
+  @each $key, $value in $map {
+    #{$key}: $value;
+  }
+}

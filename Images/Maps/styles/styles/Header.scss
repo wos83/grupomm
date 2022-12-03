@@ -1,0 +1,50 @@
+@import './mixedins/effects.scss';
+
+/* Seletores para formatação individual. */
+header.toolbar {
+  height: var(--header-size);
+  padding: 0 0;
+  border-bottom: 1px solid var(--theme-border-color);
+
+  /* Junção de flex-grow, flex-shrink e flex-basis.  */
+  /* flex-grow – Habilidade de um flex item crescer. */
+  /* flex-shrink - Capacidade de redução do item.    */
+  /* flex-basis – Tamanho inicial do item.           */
+  flex: 1 1 100vw;
+
+  background-color: var(--theme-bg-navbar-glass);
+
+  align-items: center;
+  justify-content: stretch;
+
+  nav.menu {
+    flex: 1 1 100vw;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    display: flex;
+    padding-right: 5px;
+  }
+
+  #logo {
+    /* Exibição flexível.                          */
+    /* Torna o elemento um flex container          */
+    /* e os seus elementos internos em flex-itens. */
+    display: flex;
+
+    /* Junção de flex-grow, flex-shrink e flex-basis.  */
+    /* flex-grow – Habilidade de um flex item crescer. */
+    /* flex-shrink - Capacidade de redução do item.    */
+    /* flex-basis – Tamanho inicial do item.           */
+    flex: 0 0 150px;
+
+    /* Cor do fundo. */
+    background: var(--theme-bg-navbar-glass-hover); //#c9c9c920;
+
+    /* Alinha os itens na vertical. */
+    justify-content: center;
+
+    /* Alinha os itens na horizontal. */
+    align-items: center;
+  }
+}

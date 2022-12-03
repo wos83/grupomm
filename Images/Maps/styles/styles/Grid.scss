@@ -1,0 +1,197 @@
+table.grid {
+  width: 100%;
+  border-collapse:collapse;
+  background-color: var(--theme-table-bg);
+
+  tr {
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    -webkit-transition: background .1s ease,color .1s ease;
+    transition: background .1s ease,color .1s ease;
+
+    td, th { 
+      padding: .5em .7em;
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--theme-table-border-color);
+      border-left-width: 0;
+      border-top-width: 0;
+      color: var(--theme-table-color);
+      font-weight: 300;
+      font-size: .8em;
+      /* flex-grow – Habilidade de um flex item crescer. */
+      flex-grow: 1;
+      /* flex-shrink - Capacidade de redução do item.    */
+      flex-shrink: 1;
+      /* flex-basis – Tamanho inicial do item.           */
+      flex-basis: 100px;
+      justify-content: center;
+      align-items: center;
+      
+      &.counter {
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 60px;
+        text-align: center;
+        display: inherit;
+      }
+      &.plate {
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 90px;
+
+        display: inline-flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding: 0;
+        justify-content: center;
+        align-content: center;
+
+        .plateLabel,
+        .denominationLabel {
+          ////* flex-grow – Habilidade de um flex item crescer. */
+          //flex-grow: 1;
+          ////* flex-shrink - Capacidade de redução do item.    */
+          //flex-shrink: 1;
+          ////* flex-basis – Tamanho inicial do item.           */
+          //flex-basis: 0%;
+          //flex: 1;
+          text-align: center;
+          padding: auto;
+          flex-grow: 0;
+          flex-basis: 100%;
+          width: 90px;
+        }
+        .plateLabel {
+          font-weight: 500;
+        }
+        .denominationLabel {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: .9em;
+          color: var(--theme-primary);
+          min-width: 0;
+        }
+      }
+      &.datetime {
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 130px;
+        text-align: center;
+        display: inherit;
+      }
+      &.speed {
+        /* flex-grow – Habilidade de um flex item crescer. */
+        flex-grow: 1;
+        /* flex-shrink - Capacidade de redução do item.    */
+        flex-shrink: 0;
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 40px;
+        text-align: center;
+        display: flex;
+      }
+      &.odometer,
+      &.horimeter {
+        /* flex-grow – Habilidade de um flex item crescer. */
+        flex-grow: 1;
+        /* flex-shrink - Capacidade de redução do item.    */
+        flex-shrink: 0;
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 90px;
+        text-align: center;
+        display: flex;
+      }
+      &.statuscol {
+        /* flex-grow – Habilidade de um flex item crescer. */
+        flex-grow: 0;
+        /* flex-shrink - Capacidade de redução do item.    */
+        flex-shrink: 0;
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 35px;
+        text-align: center;
+        display: inherit;
+      }
+      &.battery {
+        /* flex-grow – Habilidade de um flex item crescer. */
+        flex-grow: 0;
+        /* flex-shrink - Capacidade de redução do item.    */
+        flex-shrink: 0;
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 76px;
+        text-align: center;
+        display: flex;
+      }
+      &.address {
+        /* flex-grow – Habilidade de um flex item crescer. */
+        flex-grow: 20;
+        /* flex-shrink - Capacidade de redução do item.    */
+        flex-shrink: 1;
+        /* flex-basis – Tamanho inicial do item.           */
+        flex-basis: 250px;
+        display: flex;
+        text-align: left;
+        justify-content: left;
+      }
+
+      svg {
+        /* Deixe o ícone assumir a cor que o pai tiver. */
+        fill: currentColor;
+
+        height: 1rem;
+      }
+
+      span[data-tooltip] {
+        position: relative;
+      }
+    }
+
+    th {
+      background-color: var(--theme-table-header-bg);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    td {
+      height: 38.4px;
+    }
+
+    &.row {
+      &:nth-of-type(even) {
+        background: var(--theme-table-row-even-bg);
+      }
+    }
+
+    &.row:hover {
+      background: var(--theme-table-row-hover-bg);
+
+      > td {
+        color: var(--theme-table-row-hover-color);
+      }
+    }
+
+    @media screen and (max-width: 1042px) {
+      border-bottom: 1px solid var(--theme-table-row-border-color);
+    }
+  }
+
+  thead tr:first-child {
+    border-top: 1px solid var(--theme-table-border-color);
+  }
+}
+
+.status {
+  &.off,
+  &.disarmed,
+  &.unblocked {
+    color: var(--theme-off);
+  }
+  &.on {
+    color: var(--theme-on);
+  }
+  &.blocked,
+  &.armed {
+    color: var(--theme-danger);
+  }
+  &.none {
+    color: var(--theme-gray-700);
+  }
+}
