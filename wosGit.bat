@@ -38,7 +38,8 @@ git branch -M main
 
 git add .
 git commit -m "%1 %appName% Update Source %dateNow% %timeNow%"
-git remote add origin https://wos83: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@github.com/wos83/grupomm.git
-git remote add main https://wos83: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@github.com/wos83/grupomm.git
-git remote set-url origin https://wos83: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@github.com/wos83/grupomm.git
+rem git remote add origin https://wos83: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@github.com/wos83/grupomm.git
+rem git remote add main https://wos83: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@github.com/wos83/grupomm.git
+rem git remote set-url origin https://wos83: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@github.com/wos83/grupomm.git
+git remote set-url origin https://github.com/wos83/grupomm.git
 git push -v -u -f origin main
