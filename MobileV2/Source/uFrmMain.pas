@@ -648,70 +648,208 @@ end;
 
 procedure TFrmMain.listarVeiculos;
 var
-  LCol: Integer;
-  LRow: Integer;
-
+  FQry: TFDQuery;
   LSQL: string;
 
-  LInt: Integer;
+  bExists: Boolean;
+  iTotal: Integer;
 
-  LField: string;
-  LValue: string;
+  LCaracter: Integer;
 
-  LItem: TListItemView;
+  LMarker: TTMSFNCGoogleMapsMarker;
+  LOverlayView: TTMSFNCGoogleMapsOverlayView;
 
-  LDeviceId: string;
-  LNome: string;
-  LPlaca: string;
-  LLatitude: string;
-  LLongitude: string;
-  LDirection: string;
-  LUltPos: string;
-  LEvent1: string;
-  LEvent2: string;
+  LContent: string;
+
+  LTerminalId: string;
+  LEquipmentBrandName: string;
+  LEquipmentModelName: string;
+
+  LCustomerId: Integer;
+  LCustomerName: string;
+  LPlate: string;
+  LVehicleBrandName: string;
+  LVehicleModelName: string;
+  LVehicleColorId: Integer;
+  LVehicleColor: string;
+
+  LEventDate: TDateTime;
+  LSatellites: Integer;
+  LLatitude: double;
+  LLongitude: double;
+  LCourse: Integer;
+  LAddress: string;
+
+  LIgnitionStatus: Boolean;
+  LIgnitionStatus_: string;
+  LSpeed: Integer;
+  LOdometer: Integer;
+  LHorimeter: Integer;
+  LPowerVoltage: double;
+  LCharge: Boolean;
+  LCharge_: string;
+  LBatteryVoltage: Integer;
+  LGsmSignalStrength: Integer;
+  LAlarms: string;
+
+  LTitle: string;
+  LData: string;
+
+const
+  cCaracter = 80;
 begin
-  lstvListaVeiculos.Items.Clear;
+  LSQL := //
+     'SELECT *' + sLineBreak + //
+     'FROM POSITIONS_LAST' + sLineBreak + //
+     'WHERE 1 = 1' + sLineBreak + //
+     'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
+     'ORDER BY ID_POSITION_LAST DESC';
 
-  // if not(FUltimaPosicao = nil) then
-  // begin
-  // for LRow := Low(FUltimaPosicao) to High(FUltimaPosicao) do
-  // begin
-  // for LCol := Low(FUltimaPosicao[LRow]) to High(FUltimaPosicao[LRow]) do
-  // begin
-  // Application.ProcessMessages;
-  //
-  // LDeviceId := FUltimaPosicao[LRow, 0];
-  // LNome := FUltimaPosicao[LRow, 1];
-  // LPlaca := FUltimaPosicao[LRow, 2];
-  //
-  // LLatitude := FUltimaPosicao[LRow, 3];
-  // LLongitude := FUltimaPosicao[LRow, 4];
-  // LDirection := FUltimaPosicao[LRow, 5];
-  //
-  // LUltPos := FUltimaPosicao[LRow, 6];
-  // LEvent1 := FUltimaPosicao[LRow, 7];
-  // LEvent2 := FUltimaPosicao[LRow, 8];
-  //
-  // with lstvListaVeiculos.Items.add do
-  // begin
-  // Height := 50;
-  // TagString := LDeviceId;
-  //
-  // TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlaca;
-  // TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
-  //
-  // TListItemText(Objects.FindDrawable('lblDescricao')).Text := LNome;
-  // TListItemText(Objects.FindDrawable('lblDescricao')).Font.Size := 9;
-  //
-  // TListItemText(Objects.FindDrawable('lblEvent1')).Text := LEvent1;
-  // TListItemText(Objects.FindDrawable('lblEvent1')).Font.Size := 9;
-  //
-  // TListItemText(Objects.FindDrawable('lblEvent2')).Text := LEvent2;
-  // TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
-  // end;
-  // end;
-  // end;
-  // end;
+  {$IFDEF DEBUG}
+  // LogApp('DEBUG', EmptyStr, LSQL);
+  {$ENDIF}
+  FQry := TFDQuery.Create(nil);
+  try
+    FQry.Connection := DM.FDConn;
+
+    try
+      FQry.Open(LSQL);
+
+      {$REGION 'Carregar Veiculos'}
+      if not FQry.IsEmpty then
+      begin
+        bExists := not FQry.IsEmpty;
+        iTotal := FQry.RecordCount;
+
+        if not bExists then
+        begin
+          LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
+          Exit;
+        end;
+
+        if (iTotal = 0) then
+        begin
+          LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
+          Exit;
+        end;
+
+        lstvListaVeiculos.Items.Clear;
+
+        while not FQry.Eof do
+        begin
+          Application.ProcessMessages;
+
+          {$REGION 'Carregar Vriaveis'}
+          //
+          LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
+          LEquipmentBrandName := FQry.FindField('EQUIPMENT_BRAND_NAME').AsString;
+          LEquipmentModelName := FQry.FindField('EQUIPMENT_MODEL_NAME').AsString;
+
+          LCustomerId := FQry.FindField('CUSTOMER_ID').AsInteger;
+          LCustomerName := FQry.FindField('CUSTOMER_NAME').AsString;
+          LPlate := FQry.FindField('PLATE').AsString;
+          LVehicleBrandName := FQry.FindField('VEHICLE_BRAND_NAME').AsString;
+          LVehicleModelName := FQry.FindField('VEHICLE_MODEL_NAME').AsString;
+          LVehicleColorId := FQry.FindField('VEHICLE_COLOR_ID').AsInteger;
+          LVehicleColor := FQry.FindField('VEHICLE_COLOR').AsString;
+
+          LEventDate := FQry.FindField('EVENT_DATE').AsDateTime;
+          LSatellites := FQry.FindField('SATELLITES').AsInteger;
+          LLatitude := FQry.FindField('LATITUDE').AsFloat;
+          LLongitude := FQry.FindField('LONGITUDE').AsFloat;
+          LCourse := FQry.FindField('COURSE').AsInteger;
+          LAddress := FQry.FindField('ADDRESS').AsString;
+
+          LIgnitionStatus := FQry.FindField('IGNITION_STATUS').AsBoolean;
+
+          if LIgnitionStatus then
+          begin
+            LIgnitionStatus_ := cIgnitionOnText;
+          end
+          else
+          begin
+            LIgnitionStatus_ := cIgnitionOffText;
+          end;
+
+          LSpeed := FQry.FindField('SPEED').AsInteger;
+          LOdometer := FQry.FindField('ODOMETER').AsInteger;
+          LHorimeter := FQry.FindField('HORIMETER').AsInteger;
+          LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
+
+          LCharge := FQry.FindField('CHARGE').AsBoolean;
+
+          if LCharge then
+          begin
+            LCharge_ := cBatteryOnText;
+          end
+          else
+          begin
+            LCharge_ := cBatteryOffText;
+          end;
+
+          LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
+          LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
+          LAlarms := FQry.FindField('ALARMS').AsString;
+
+          //
+          {$ENDREGION}
+          FQry.Next;
+        end;
+      end;
+      {$ENDREGION}
+    except
+      on E: Exception do
+      begin
+        LogApp( //
+           'TFrmMain.carregarVeiculos' //
+           , E.ClassName + '. ' + E.Message //
+           , LSQL);
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    FreeAndNil(FQry);
+    {$ENDIF}
+    {$IFDEF ANDROID}
+    FQry.DisposeOf;
+    {$ENDIF}
+  end;
+
+  if not(DM.FPositionLast = nil) then
+  begin
+    if not DM.FPositionLast.Active then
+      Exit;
+
+    while not DM.FPositionLast.Eof do
+    begin
+      Application.ProcessMessages;
+
+      LPlaca := DM.FPositionLast.FindField('plate').AsString;
+      LNome := DM.FPositionLast.FindField('customer_name').AsString;
+      LIgnicaoStatus := DM.FPositionLast.FindField('customer_name').AsString;
+
+      with lstvListaVeiculos.Items.Add do
+      begin
+        Height := 50;
+        TagString := LDeviceId;
+
+        TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlaca;
+        TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
+
+        TListItemText(Objects.FindDrawable('lblDescricao')).Text := LNome;
+        TListItemText(Objects.FindDrawable('lblDescricao')).Font.Size := 9;
+
+        TListItemText(Objects.FindDrawable('lblEvent1')).Text := LIgnicaoStatus;
+        TListItemText(Objects.FindDrawable('lblEvent1')).Font.Size := 9;
+
+        TListItemText(Objects.FindDrawable('lblEvent2')).Text := LBateriaStatus;
+        TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
+      end;
+
+      DM.FPositionLast.Next;
+    end;
+
+  end;
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
@@ -807,12 +945,12 @@ begin
 
   {$ENDIF}
   FTimerPositionLast := TTimer.Create(Self);
-  FTimerPositionLast.Interval := 1000;
+  FTimerPositionLast.Interval := 10000;
   FTimerPositionLast.Enabled := False;
   FTimerPositionLast.OnTimer := doUpdatePositionLast;
 
   FTimerDrawOnMap := TTimer.Create(Self);
-  FTimerDrawOnMap.Interval := 2000;
+  FTimerDrawOnMap.Interval := 20000;
   FTimerDrawOnMap.Enabled := False;
   FTimerDrawOnMap.OnTimer := doUpdateDrawOnMap;
 
