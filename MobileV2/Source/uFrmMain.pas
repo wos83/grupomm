@@ -488,7 +488,7 @@ begin
 
               while not FQry.Eof do
               begin
-                Application.ProcessMessages;
+                // Application.ProcessMessages;
 
                 {$REGION 'Carregar Vriaveis'}
                 //
@@ -651,6 +651,8 @@ var
   FQry: TFDQuery;
   LSQL: string;
 
+  LItem: TListViewItem;
+
   bExists: Boolean;
   iTotal: Integer;
 
@@ -737,9 +739,9 @@ begin
 
         while not FQry.Eof do
         begin
-          Application.ProcessMessages;
+          // Application.ProcessMessages;
 
-          {$REGION 'Carregar Vriaveis'}
+          {$REGION 'Carregar Variaveis'}
           //
           LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
           LEquipmentBrandName := FQry.FindField('EQUIPMENT_BRAND_NAME').AsString;
@@ -790,8 +792,54 @@ begin
           LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
           LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
           LAlarms := FQry.FindField('ALARMS').AsString;
-
           //
+
+          LItem := lstvListaVeiculos.Items.Add;
+
+          with LItem do
+          begin
+            Height := 50;
+            TagString := LTerminalId;
+
+            LItem.Data['TERMINAL_ID'] := LTerminalId;
+            LItem.Data['EQUIPMENT_BRAND_NAME'] := LEquipmentBrandName;
+            LItem.Data['EQUIPMENT_MODEL_NAME'] := LEquipmentModelName;
+            LItem.Data['CUSTOMER_ID'] := LCustomerId;
+            LItem.Data['CUSTOMER_NAME'] := LCustomerName;
+            LItem.Data['PLATE'] := LPlate;
+            LItem.Data['VEHICLE_BRAND_NAME'] := LVehicleBrandName;
+            LItem.Data['VEHICLE_MODEL_NAME'] := LVehicleModelName;
+            LItem.Data['VEHICLE_COLOR_ID'] := LVehicleColorId;
+            LItem.Data['VEHICLE_COLOR'] := LVehicleColor;
+            LItem.Data['EVENT_DATE'] := LEventDate;
+            LItem.Data['SATELLITES'] := LSatellites;
+            LItem.Data['LATITUDE'] := LLatitude;
+            LItem.Data['LONGITUDE'] := LLongitude;
+            LItem.Data['COURSE'] := LCourse;
+            LItem.Data['ADDRESS'] := LAddress;
+            LItem.Data['IGNITION_STATUS'] := LIgnitionStatus;
+            LItem.Data['SPEED'] := LSpeed;
+            LItem.Data['ODOMETER'] := LOdometer;
+            LItem.Data['HORIMETER'] := LHorimeter;
+            LItem.Data['POWER_VOLTAGE'] := LPowerVoltage;
+            LItem.Data['CHARGE'] := LCharge;
+            LItem.Data['BATTERY_VOLTAGE'] := LBatteryVoltage;
+            LItem.Data['GSM_SIGNAL_STRENGTH'] := LGsmSignalStrength;
+            LItem.Data['ALARMS'] := LAlarms;
+
+            TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlate;
+            TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
+
+            TListItemText(Objects.FindDrawable('lblDescricao')).Text := LCustomerName;
+            TListItemText(Objects.FindDrawable('lblDescricao')).Font.Size := 9;
+
+            TListItemText(Objects.FindDrawable('lblEvent1')).Text := LIgnitionStatus_;
+            TListItemText(Objects.FindDrawable('lblEvent1')).Font.Size := 9;
+
+            TListItemText(Objects.FindDrawable('lblEvent2')).Text := LCharge_;
+            TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
+          end;
+
           {$ENDREGION}
           FQry.Next;
         end;
@@ -813,42 +861,6 @@ begin
     {$IFDEF ANDROID}
     FQry.DisposeOf;
     {$ENDIF}
-  end;
-
-  if not(DM.FPositionLast = nil) then
-  begin
-    if not DM.FPositionLast.Active then
-      Exit;
-
-    while not DM.FPositionLast.Eof do
-    begin
-      Application.ProcessMessages;
-
-      LPlaca := DM.FPositionLast.FindField('plate').AsString;
-      LNome := DM.FPositionLast.FindField('customer_name').AsString;
-      LIgnicaoStatus := DM.FPositionLast.FindField('customer_name').AsString;
-
-      with lstvListaVeiculos.Items.Add do
-      begin
-        Height := 50;
-        TagString := LDeviceId;
-
-        TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlaca;
-        TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
-
-        TListItemText(Objects.FindDrawable('lblDescricao')).Text := LNome;
-        TListItemText(Objects.FindDrawable('lblDescricao')).Font.Size := 9;
-
-        TListItemText(Objects.FindDrawable('lblEvent1')).Text := LIgnicaoStatus;
-        TListItemText(Objects.FindDrawable('lblEvent1')).Font.Size := 9;
-
-        TListItemText(Objects.FindDrawable('lblEvent2')).Text := LBateriaStatus;
-        TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
-      end;
-
-      DM.FPositionLast.Next;
-    end;
-
   end;
 end;
 
@@ -884,7 +896,7 @@ begin
   if not DirectoryExists(LDir) then
     ForceDirectories(LDir);
 
-  Application.ProcessMessages;
+  // Application.ProcessMessages;
 
   tbcMain.ActiveTab := tbiLogin;
 
@@ -945,12 +957,12 @@ begin
 
   {$ENDIF}
   FTimerPositionLast := TTimer.Create(Self);
-  FTimerPositionLast.Interval := 10000;
+  FTimerPositionLast.Interval := 1000;
   FTimerPositionLast.Enabled := False;
   FTimerPositionLast.OnTimer := doUpdatePositionLast;
 
   FTimerDrawOnMap := TTimer.Create(Self);
-  FTimerDrawOnMap.Interval := 20000;
+  FTimerDrawOnMap.Interval := 2000;
   FTimerDrawOnMap.Enabled := False;
   FTimerDrawOnMap.OnTimer := doUpdateDrawOnMap;
 
@@ -993,18 +1005,13 @@ begin
   lytListaVeiculos.Visible := True;
 end;
 
-procedure TFrmMain.lstvListaVeiculosItemClickEx(
-
-   const Sender: TObject; ItemIndex: Integer; //
-
-const LocalClickPos: TPointF;
-
-const ItemObject: TListItemDrawable);
+procedure TFrmMain.lstvListaVeiculosItemClickEx(const Sender: TObject; ItemIndex: Integer; const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
 begin
   Map.Opacity := 1;
   Map.Visible := True;
   lytListaVeiculos.SendToBack;
   lytListaVeiculos.Visible := False;
+
 end;
 
 end.

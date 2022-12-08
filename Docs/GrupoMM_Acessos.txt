@@ -6,6 +6,14 @@ Pwd: dxy6hnJH9ASK2VM!
 
 --------------------------------------------------
 
+Conta da Microsoft (Desenvolvimento)
+
+Email: grupomm.dev@outlook.com
+Pwd: dxy6hnJH9ASK2VM!
+
+--------------------------------------------------
+
+
 Banco de Dados (PostgreSQL)
 
 $host = "trackererp.postgresql.dbaas.com.br";
