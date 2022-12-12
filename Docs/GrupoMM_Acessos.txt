@@ -146,6 +146,12 @@ erpgrupomm=> SELECT * FROM erp.vehicletypes;
              7 | Outros                 | Outro                 | 
 (7 rows)
 
+Open Street Maps
+Open Layers
+Api Keys: cff72305f0eb430eb174a1ab4af0bff9
+Create: 11/12/2022 14:07:16
+
+
 
 
 

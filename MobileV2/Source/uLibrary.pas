@@ -11,6 +11,7 @@ uses
    System.SysConst,
    System.SysUtils,
    System.StrUtils,
+   System.NetEncoding,
    //
    {$IFDEF ANDROID}
    Androidapi.Helpers,
@@ -24,6 +25,7 @@ uses
    FMX.Platform.Android,
    {$ENDIF}
    //
+   FMX.Graphics,
    FMX.DialogService;
 
 procedure LogApp(ARegistro, AErro: string); overload;
@@ -40,6 +42,9 @@ function JSONDateToDatetime(AJSONDate: string): TDatetime;
 function SpaceBlank(ACount: Integer): string;
 function RosaDosVentos(ACourse: Integer; AOnlyIcon: boolean): string; overload;
 function RosaDosVentos(ACourse: Integer): string; overload;
+
+function Base64FromBitmap(Bitmap: TBitmap): string;
+procedure BitmapFromBase64(Base64: string; Bitmap: TBitmap);
 
 implementation
 
@@ -415,6 +420,47 @@ begin
       338 .. 360:
          Result := '⬆️ ' + ACourse.ToString + '° N';
    end;
+end;
+
+function Base64FromBitmap(Bitmap: TBitmap): string;
+var
+  Stream: TBytesStream;
+  Encoding: TBase64Encoding;
+begin
+  Stream := TBytesStream.Create;
+  try
+    Bitmap.SaveToStream(Stream);
+    Encoding := TBase64Encoding.Create(0);
+    try
+      Result := Encoding.EncodeBytesToString(Copy(Stream.Bytes, 0, Stream.Size));
+    finally
+      Encoding.Free;
+    end;
+  finally
+    Stream.Free;
+  end;
+end;
+
+procedure BitmapFromBase64(Base64: string; Bitmap: TBitmap);
+var
+  Stream: TBytesStream;
+  Bytes: TBytes;
+  Encoding: TBase64Encoding;
+begin
+  Stream := TBytesStream.Create;
+  try
+    Encoding := TBase64Encoding.Create(0);
+    try
+      Bytes := Encoding.DecodeStringToBytes(Base64);
+      Stream.WriteData(Bytes, Length(Bytes));
+      Stream.Position := 0;
+      Bitmap.LoadFromStream(Stream);
+    finally
+      Encoding.Free;
+    end;
+  finally
+    Stream.Free;
+  end;
 end;
 
 end.

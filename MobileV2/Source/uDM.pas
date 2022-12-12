@@ -185,76 +185,76 @@ begin
 
     try
       LRESTRequest.Execute;
-
-      {$IFDEF DEBUG}
-      // LogApp( //
-      // 'DEBUG: TDM.doLogin' //
-      // , EmptyStr //
-      // , EmptyStr //
-      // , 'POST' //
-      // , LRESTClient.BaseURL //
-      // , LParam.Name + ' | ' + LParam.Value //
-      // , LRESTRequest.GetFullRequestBody //
-      // , LRESTResponse.Content);
-      {$ENDIF}
-      if FLogin.Active then
-      begin
-        if not FLogin.IsEmpty then
-        begin
-          FUser.Id := FLogin.FindField('id').AsInteger;
-          FUser.Username := FLogin.FindField('username').AsString;
-          FUser.Password := APassword;
-          FUser.Name := FLogin.FindField('name').AsString;
-          FUser.Mobile := FLogin.FindField('phonenumber').AsString;
-          FUser.Email := FLogin.FindField('email').AsString;
-          FUser.Role := FLogin.FindField('role').AsString;
-
-          FUser.CreatedAt := FLogin.FindField('createdat').AsString;
-          FUser.UpdatedAt := FLogin.FindField('updatedat').AsString;
-          FUser.LastLogin := FLogin.FindField('lastlogin').AsString;
-
-          FUser.GroupId := FLogin.FindField('groupid').AsInteger;
-          FUser.GroupName := FLogin.FindField('groupname').AsString;
-
-          FUser.EntityId := FLogin.FindField('entity.id').AsInteger;
-          FUser.EntityName := FLogin.FindField('entity.name').AsString;
-
-          FUser.EntityTypeId := FLogin.FindField('entity.entitytypeid').AsInteger;
-          FUser.EntityTypeName := FLogin.FindField('entity.entitytypename').AsString;
-
-          FUser.Cooperative := FLogin.FindField('entity.cooperative').AsBoolean;
-          FUser.JuridicalPerson := FLogin.FindField('entity.juridicalperson').AsBoolean;
-
-          FUser.TokenType := FLogin.FindField('token.type').AsString;
-          FUser.TokenCredential := LRESTResponse.JSONValue.FindValue('token.credential').Value;
-          FUser.TokenEmission := FLogin.FindField('token.emission').AsString;
-          FUser.TokenLifetime := FLogin.FindField('token.lifetime').AsInteger;
-
-          TThread.Queue(nil,
-            procedure
-            begin
-              insereDadosLogin;
-            end);
-
-          Result := True;
-        end;
-      end;
     except
       on E: Exception do
       begin
         LError := //
-           E.ClassName + '. ' + E.Message + sLineBreak + //
-           LRESTClient.BaseURL + sLineBreak + //
-           LRESTClient.Params[0].Name + sLineBreak + //
-           LRESTClient.Params[0].Value + sLineBreak + //
+           E.ClassName + '. ' + E.Message  + sLineBreak + //
+        // LRESTClient.BaseURL + sLineBreak + //
+        // LRESTClient.Params[0].Name + sLineBreak + //
+        // LRESTClient.Params[0].Value + sLineBreak + //
            '';
 
-        LogApp( //
-           'TDM.doLogin' //
-           , LError //
-           , EmptyStr);
+        // LogApp( //
+        // 'TDM.doLogin' //
+        // , LError //
+        // , EmptyStr);
       end;
     end;
+    {$IFDEF DEBUG}
+    // LogApp( //
+    // 'DEBUG: TDM.doLogin' //
+    // , EmptyStr //
+    // , EmptyStr //
+    // , 'POST' //
+    // , LRESTClient.BaseURL //
+    // , LParam.Name + ' | ' + LParam.Value //
+    // , LRESTRequest.GetFullRequestBody //
+    // , LRESTResponse.Content);
+    {$ENDIF}
+    if FLogin.Active then
+    begin
+      if not FLogin.IsEmpty then
+      begin
+        FUser.Id := FLogin.FindField('id').AsInteger;
+        FUser.Username := FLogin.FindField('username').AsString;
+        FUser.Password := APassword;
+        FUser.Name := FLogin.FindField('name').AsString;
+        FUser.Mobile := FLogin.FindField('phonenumber').AsString;
+        FUser.Email := FLogin.FindField('email').AsString;
+        FUser.Role := FLogin.FindField('role').AsString;
+
+        FUser.CreatedAt := FLogin.FindField('createdat').AsString;
+        FUser.UpdatedAt := FLogin.FindField('updatedat').AsString;
+        FUser.LastLogin := FLogin.FindField('lastlogin').AsString;
+
+        FUser.GroupId := FLogin.FindField('groupid').AsInteger;
+        FUser.GroupName := FLogin.FindField('groupname').AsString;
+
+        FUser.EntityId := FLogin.FindField('entity.id').AsInteger;
+        FUser.EntityName := FLogin.FindField('entity.name').AsString;
+
+        FUser.EntityTypeId := FLogin.FindField('entity.entitytypeid').AsInteger;
+        FUser.EntityTypeName := FLogin.FindField('entity.entitytypename').AsString;
+
+        FUser.Cooperative := FLogin.FindField('entity.cooperative').AsBoolean;
+        FUser.JuridicalPerson := FLogin.FindField('entity.juridicalperson').AsBoolean;
+
+        FUser.TokenType := FLogin.FindField('token.type').AsString;
+        FUser.TokenCredential := LRESTResponse.JSONValue.FindValue('token.credential').Value;
+        FUser.TokenEmission := FLogin.FindField('token.emission').AsString;
+        FUser.TokenLifetime := FLogin.FindField('token.lifetime').AsInteger;
+
+        TThread.Queue(nil,
+          procedure
+          begin
+            insereDadosLogin;
+          end);
+
+        Result := True;
+      end;
+    end;
+
   finally
     {$IFDEF MSWINDOWS}
     FreeAndNil(LRESTClient);
@@ -335,102 +335,102 @@ begin
 
     try
       LRESTRequest.Execute;
-
-      {$IFDEF DEBUG}
-      // LogApp( //
-      // 'DEBUG: TDM.doPositionLast' //
-      // , EmptyStr //
-      // , EmptyStr //
-      // , 'GET' //
-      // , LRESTClient.BaseURL //
-      // , LParam.Name + ' | ' + LParam.Value //
-      // , LRESTRequest.GetFullRequestBody //
-      // , LRESTResponse.Content);
-      {$ENDIF}
-      if FPositionLast.Active then
-      begin
-        if not FPositionLast.IsEmpty then
-        begin
-          LJsonResult := LRESTResponse.Content;
-          LTotal := CountWords(cID, LJsonResult);
-
-          // Limpar a Tabela
-          LSQL := //
-             'DELETE' + sLineBreak + //
-             'FROM POSITIONS_LAST' + sLineBreak + //
-             '';
-
-          {$IFDEF DEBUG}
-          // LogApp('DEBUG', EmptyStr, LSQL);
-          {$ENDIF}
-          FQry := TFDQuery.Create(nil);
-          try
-            FQry.Connection := FDConn;
-
-            try
-              FQry.ExecSQL(LSQL);
-            except
-              on E: Exception do
-              begin
-                LogApp( //
-                   'TDM.doPositionLast' //
-                   , E.ClassName + '. ' + E.Message //
-                   , LSQL);
-              end;
-            end;
-          finally
-            {$IFDEF MSWINDOWS}
-            FreeAndNil(FQry);
-            {$ENDIF}
-            {$IFDEF ANDROID}
-            FQry.DisposeOf;
-            {$ENDIF}
-          end;
-
-          for LCount := 0 to Pred(LTotal) do
-          begin
-            // Application.ProcessMessages;
-
-            LJsonObjectData := TJSONObject.ParseJSONValue(LJsonResult) as TJSONObject;
-            LJsonValueData := LJsonObjectData.GetValue('data');
-
-            if not(LJsonValueData = nil) then
-            begin
-              LJsonObjectDatas := TJSONObject.ParseJSONValue(LJsonValueData.ToJSON) as TJSONObject;
-              LJsonValueDatas := LJsonObjectDatas.GetValue(LCount.ToString);
-
-              if not(LJsonValueDatas = nil) then
-              begin
-                LJsonData := LJsonValueDatas.ToJSON;
-
-                TThread.Queue(nil,
-                  procedure
-                  begin
-                    insereDadosUltimaPosicao(LJsonData);
-                  end);
-              end;
-            end;
-          end;
-          Toast('Últimas Posições Atualizadas!', 3);
-          Result := True;
-        end;
-      end;
     except
       on E: Exception do
       begin
         LError := //
            E.ClassName + '. ' + E.Message + sLineBreak + //
-           LRESTClient.BaseURL + sLineBreak + //
-           LRESTClient.Params[0].Name + sLineBreak + //
-           LRESTClient.Params[0].Value + sLineBreak + //
-           '';
+        // LRESTClient.BaseURL + sLineBreak + //
+        // LRESTClient.Params[0].Name + sLineBreak + //
+        // LRESTClient.Params[0].Value + sLineBreak + //
+        '';
 
-        LogApp( //
-           'TDM.doPositionLast' //
-           , LError //
-           , EmptyStr);
+        // LogApp( //
+        // 'TDM.doPositionLast' //
+        // , LError //
+        // , EmptyStr);
       end;
     end;
+    {$IFDEF DEBUG}
+    // LogApp( //
+    // 'DEBUG: TDM.doPositionLast' //
+    // , EmptyStr //
+    // , EmptyStr //
+    // , 'GET' //
+    // , LRESTClient.BaseURL //
+    // , LParam.Name + ' | ' + LParam.Value //
+    // , LRESTRequest.GetFullRequestBody //
+    // , LRESTResponse.Content);
+    {$ENDIF}
+    if FPositionLast.Active then
+    begin
+      if not FPositionLast.IsEmpty then
+      begin
+        LJsonResult := LRESTResponse.Content;
+        LTotal := CountWords(cID, LJsonResult);
+
+        // Limpar a Tabela
+        LSQL := //
+           'DELETE' + sLineBreak + //
+           'FROM POSITIONS_LAST' + sLineBreak + //
+           '';
+
+        {$IFDEF DEBUG}
+        // LogApp('DEBUG', EmptyStr, LSQL);
+        {$ENDIF}
+        FQry := TFDQuery.Create(nil);
+        try
+          FQry.Connection := FDConn;
+
+          try
+            FQry.ExecSQL(LSQL);
+          except
+            on E: Exception do
+            begin
+              LogApp( //
+                 'TDM.doPositionLast' //
+                 , E.ClassName + '. ' + E.Message //
+                 , LSQL);
+            end;
+          end;
+        finally
+          {$IFDEF MSWINDOWS}
+          FreeAndNil(FQry);
+          {$ENDIF}
+          {$IFDEF ANDROID}
+          FQry.DisposeOf;
+          {$ENDIF}
+        end;
+
+        for LCount := 0 to Pred(LTotal) do
+        begin
+          // Application.ProcessMessages;
+
+          LJsonObjectData := TJSONObject.ParseJSONValue(LJsonResult) as TJSONObject;
+          LJsonValueData := LJsonObjectData.GetValue('data');
+
+          if not(LJsonValueData = nil) then
+          begin
+            LJsonObjectDatas := TJSONObject.ParseJSONValue(LJsonValueData.ToJSON) as TJSONObject;
+            LJsonValueDatas := LJsonObjectDatas.GetValue(LCount.ToString);
+
+            if not(LJsonValueDatas = nil) then
+            begin
+              LJsonData := LJsonValueDatas.ToJSON;
+
+              TThread.Queue(nil,
+                procedure
+                begin
+                  insereDadosUltimaPosicao(LJsonData);
+                end);
+            end;
+          end;
+        end;
+        Toast('Últimas Posições Atualizadas!', 3);
+        Result := True;
+      end;
+    end;
+
   finally
     {$IFDEF MSWINDOWS}
     FreeAndNil(LRESTClient);

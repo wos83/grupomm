@@ -81,7 +81,6 @@ uses
   FMX.TMSFNCCloudBase,
   FMX.TMSFNCCustomControl,
   FMX.TMSFNCGeoCoding,
-  FMX.TMSFNCGoogleMaps,
   FMX.TMSFNCGraphics,
   FMX.TMSFNCGraphicsTypes,
   FMX.TMSFNCMaps,
@@ -109,7 +108,8 @@ uses
   //
   uConsts,
   uLibrary,
-  uDM;
+  uDM,
+  FMX.MultiView;
 
 type
   TFrmMain = class(TForm)
@@ -137,21 +137,23 @@ type
     lytMapa: TLayout;
     lytTituloMapa: TLayout;
     rectBtnEntrar: TRectangle;
-    rectBtnMenu: TRectangle;
+    rectMenu: TRectangle;
     rectMenuMapa: TRectangle;
     rectNavMapa: TRectangle;
     tbcMain: TTabControl;
     tbiLogin: TTabItem;
     tbiMapa: TTabItem;
-    TMSFNCGoogleMapsDebug: TTMSFNCGoogleMaps;
     ImageList128: TImageList;
+    rectBtnMenu: TRectangle;
+    rectBtnListaVeiculos: TRectangle;
+    mapsDebug: TTMSFNCMaps;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-
-    procedure imgBtnListaVeiculosClick(Sender: TObject);
     procedure lblEntrarClick(Sender: TObject);
-    procedure lstvListaVeiculosItemClickEx(const Sender: TObject; ItemIndex: Integer; const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+    procedure lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
+    procedure rectBtnMenuClick(Sender: TObject);
+    procedure rectBtnListaVeiculosClick(Sender: TObject);
 
   private
     FPanelMap: TPanel;
@@ -168,6 +170,7 @@ type
     procedure loginUsuario;
     procedure listarVeiculos;
 
+    procedure doMapInitialized(Sender: TObject);
     procedure doUpdatePositionLast(Sender: TObject);
     procedure doUpdateDrawOnMap(Sender: TObject);
     procedure doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
@@ -179,7 +182,7 @@ type
 
 var
   FrmMain: TFrmMain;
-  Map: TTMSFNCGoogleMaps;
+  Map: TTMSFNCMaps;
 
 const
   cCACHE = 'cache';
@@ -335,18 +338,12 @@ begin
 
   if LLogin then
   begin
-    Toast(FUser.Name + ', login realizado com sucesso!', 3);
+    tbcMain.ActiveTab := tbiMapa;
 
     FTimerPositionLast.Enabled := True;
     FTimerDrawOnMap.Enabled := True;
 
-    tbcMain.ActiveTab := tbiMapa;
-
-    Map.Options.DefaultLatitude := cLat;
-    Map.Options.DefaultLongitude := cLng;
-    Map.Options.DefaultZoomLevel := cZoom;
-
-    Map.Visible := True;
+    Toast(FUser.Name + ', login realizado com sucesso!', 3);
   end;
 
   if not(LError = EmptyStr) then
@@ -354,6 +351,28 @@ begin
     TDialogService.ShowMessage(cMSG_SUPORTE + sLineBreak + LError);
     Exit;
   end;
+end;
+
+procedure TFrmMain.doMapInitialized(Sender: TObject);
+begin
+  Map.BeginUpdate;
+
+  Map.Options.DefaultLatitude := cLat;
+  Map.Options.DefaultLongitude := cLng;
+  Map.Options.DefaultZoomLevel := cZoom;
+
+  Map.Options.ShowZoomControl := True;
+  Map.Options.ShowMapTypeControl := False;
+
+  Map.Options.Console := False;
+  Map.Options.Panning := True;
+
+  Map.Options.ZoomOnDblClick := True;
+  Map.Options.ZoomOnWheelScroll := True;
+
+  Map.SetCenterCoordinate(cLat, cLng);
+
+  Map.EndUpdate;
 end;
 
 procedure TFrmMain.doUpdatePositionLast(Sender: TObject);
@@ -401,8 +420,7 @@ var
 
   LCaracter: Integer;
 
-  LMarker: TTMSFNCGoogleMapsMarker;
-  LOverlayView: TTMSFNCGoogleMapsOverlayView;
+  LMarker: TTMSFNCMapsMarker;
 
   LContent: string;
 
@@ -484,6 +502,18 @@ begin
                 Exit;
               end;
 
+              Map.Clear;
+              Map.ClearCache;
+              Map.ClearHeadLinks;
+              Map.ClearMarkers;
+              Map.ClearElementContainers;
+              Map.ClearPolylines;
+              Map.ClearPolygons;
+              Map.ClearCircles;
+              Map.ClearRectangles;
+
+              Map.CloseAllPopups;
+
               Map.Markers.Clear;
 
               while not FQry.Eof do
@@ -543,7 +573,8 @@ begin
                 LAlarms := FQry.FindField('ALARMS').AsString;
 
                 LTitle := //
-                   RosaDosVentos(LCourse, True) + ' ' + LPlate;
+                   RosaDosVentos(LCourse, True) + ' ' + LPlate + //
+                   ''; // sLineBreak + LIgnitionStatus_;
 
                 LData := //
                    '<br><b>Cliente: </b>' + LCustomerName + sLineBreak + //
@@ -557,17 +588,38 @@ begin
                    '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
                    '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
                    '';
+
+                (*
+                  '<!-- Tab links -->' + sLineBreak + //
+                  '<div class="tab">' + sLineBreak + //
+                  '  <button class="tablinks" onclick="openCity(event, ''London'')">London</button>' + sLineBreak + //
+                  '  <button class="tablinks" onclick="openCity(event, ''Paris'')">Paris</button>' + sLineBreak + //
+                  '  <button class="tablinks" onclick="openCity(event, ''Tokyo'')">Tokyo</button>' + sLineBreak + //
+                  '</div>' + sLineBreak + //
+                  '' + sLineBreak + //
+                  '<!-- Tab content -->' + sLineBreak + //
+                  '<div id="London" class="tabcontent">' + sLineBreak + //
+                  '  <h3>London</h3>' + sLineBreak + //
+                  '  <p>London is the capital city of England.</p>' + sLineBreak + //
+                  '</div>' + sLineBreak + //
+                  '' + sLineBreak + //
+                  '<div id="Paris" class="tabcontent">' + sLineBreak + //
+                  '  <h3>Paris</h3>' + sLineBreak + //
+                  '  <p>Paris is the capital of France.</p>' + sLineBreak + //
+                  '</div>' + sLineBreak + //
+                  '' + sLineBreak + //
+                  '<div id="Tokyo" class="tabcontent">' + sLineBreak + //
+                  '  <h3>Tokyo</h3>' + sLineBreak + //
+                  '  <p>Tokyo is the capital of Japan.</p>' + sLineBreak + //
+                  '</div>' + sLineBreak + //
+                  '' + sLineBreak + //
+                  '';
+                *)
+
                 { todo -o@WOS83:Posição Atual no Mapa }
                 Map.BeginUpdate;
 
                 LMarker := Map.Markers.Add;
-                LMarker.Latitude := LLatitude;
-                LMarker.Longitude := LLongitude;
-
-                LMarker.Clickable := True;
-
-                LMarker.Title := LTitle;
-                LMarker.DataString := LData;
 
                 {$IFDEF MSWINDOWS}
                 if LIgnitionStatus then
@@ -583,37 +635,29 @@ begin
                 {$ENDIF}
                 {$IFDEF ANDROID}
                 if LIgnitionStatus then
-                  LMarker.IconURL := FImageCarOn48
-                else
-                  LMarker.IconURL := FImageCarOff48;
-                {$ENDIF}
-                LOverlayView := Map.AddOverlayView;
-                LOverlayView.Clickable := True;
-                LOverlayView.CoordinateOffsetTop := 16;
-
-                LOverlayView.Mode := omCoordinate;
-                LOverlayView.Coordinate.Latitude := LLatitude;
-                LOverlayView.Coordinate.Longitude := LLongitude;
-                LOverlayView.CoordinatePosition := cpBottomLeft;
-
-                LOverlayView.Text := LTitle;
-                LOverlayView.DataString := LData;
-
-                LOverlayView.Font.Size := 11;
-                LOverlayView.BorderColor := 0;
-
-                if LIgnitionStatus then
                 begin
-                  LOverlayView.Font.Color := TAlphaColorRec.White;
-                  LOverlayView.BackgroundColor := cIgnitionColor;
+                  LMarker.IconURL := FImageCarOn48;
                 end
                 else
                 begin
-                  LOverlayView.Font.Color := TAlphaColorRec.White;
-                  LOverlayView.BackgroundColor := cIgnitionColor;
+                  LMarker.IconURL := FImageCarOff48;
                 end;
+                {$ENDIF}
+                LMarker.Latitude := LLatitude;
+                LMarker.Longitude := LLongitude;
 
-                LOverlayView.Visible := True;
+                // LMarker.Clickable := True;
+
+                LMarker.Title := LTitle;
+                LMarker.DisplayName := LTitle;
+                LMarker.DataString := LData;
+
+                LTitle := //
+                   '<img src="' + LMarker.IconURL + '"><br>' + sLineBreak + //
+                   LTitle + sLineBreak + //
+                   '';
+
+                Map.ShowPopup(LLatitude, LLongitude, LTitle, 0, 0);
 
                 Map.EndUpdate;
                 //
@@ -652,14 +696,18 @@ var
   LSQL: string;
 
   LItem: TListViewItem;
+  LImage: TListItemImage;
+  LText: TListItemText;
+
+  LBitmap: TBitmap;
+  LStream: TMemoryStream;
 
   bExists: Boolean;
   iTotal: Integer;
 
   LCaracter: Integer;
 
-  LMarker: TTMSFNCGoogleMapsMarker;
-  LOverlayView: TTMSFNCGoogleMapsOverlayView;
+  LMarker: TTMSFNCMapsMarker;
 
   LContent: string;
 
@@ -735,6 +783,11 @@ begin
           Exit;
         end;
 
+        lstvListaVeiculos.SearchVisible := True;
+        lstvListaVeiculos.SearchAlwaysOnTop := True;
+
+        lstvListaVeiculos.ItemAppearance.ItemHeight := 66;
+
         lstvListaVeiculos.Items.Clear;
 
         while not FQry.Eof do
@@ -792,7 +845,6 @@ begin
           LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
           LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
           LAlarms := FQry.FindField('ALARMS').AsString;
-          //
 
           LItem := lstvListaVeiculos.Items.Add;
 
@@ -827,6 +879,45 @@ begin
             LItem.Data['GSM_SIGNAL_STRENGTH'] := LGsmSignalStrength;
             LItem.Data['ALARMS'] := LAlarms;
 
+            if not(LBitmap = nil) then
+              LBitmap := nil;
+
+            LBitmap := TBitmap.Create;
+
+            // {$IFDEF MSWINDOWS}
+            if LIgnitionStatus then
+            begin
+              BitmapFromBase64(cImageBase64CarOn48, LBitmap);
+              TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap := LBitmap;
+              TListItemText(Objects.FindDrawable('lblEvent1')).TextColor := cIgnitionOnColor;
+            end
+            else
+            begin
+              BitmapFromBase64(cImageBase64CarOff48, LBitmap);
+              TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap := LBitmap;
+              TListItemText(Objects.FindDrawable('lblEvent1')).TextColor := cIgnitionOffColor;
+            end;
+
+            if LCharge then
+            begin
+              TListItemText(Objects.FindDrawable('lblEvent2')).TextColor := cBatteryOnColor;
+            end
+            else
+            begin
+              TListItemText(Objects.FindDrawable('lblEvent2')).TextColor := cBatteryOffColor;
+            end;
+
+            // {$ENDIF}
+            // {$IFDEF ANDROID}
+            // if LIgnitionStatus then
+            // begin
+            // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap.LoadFromURL(cImageBase64CarOn48);
+            // end
+            // else
+            // begin
+            // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap.LoadFromURL(cImageBase64CarOff48);
+            // end;
+            // {$ENDIF}
             TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlate;
             TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
 
@@ -838,6 +929,12 @@ begin
 
             TListItemText(Objects.FindDrawable('lblEvent2')).Text := LCharge_;
             TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
+
+            TListItemText(Objects.FindDrawable('lblEvent2')).Text := LCharge_;
+            TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
+
+            TListItemText(Objects.FindDrawable('lblEvent3')).Text := formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate);
+            TListItemText(Objects.FindDrawable('lblEvent3')).Font.Size := 9;
           end;
 
           {$ENDREGION}
@@ -881,7 +978,7 @@ begin
 
   tbcMain.TabPosition := TTabPosition.Dots;
 
-  LDir := ExtractFileDir(ParamStr(0)) + PathDelim + cCACHE;
+  // LDir := ExtractFileDir(ParamStr(0)) + PathDelim + cCACHE;
   {$ENDIF}
   {$IFDEF ANDROID}
   PermissionsService.RequestPermissions([ //
@@ -889,50 +986,108 @@ begin
      , PermissionWriteExternalStorage //
      ], PermissionResult, PermissionMessage);
 
-  LDir := TPath.GetDocumentsPath + PathDelim + cCACHE;
+  // LDir := TPath.GetDocumentsPath + PathDelim + cCACHE;
   {$ENDIF}
-  DM.doCreateDB;
-
-  if not DirectoryExists(LDir) then
-    ForceDirectories(LDir);
+  // if not DirectoryExists(LDir) then
+  // ForceDirectories(LDir);
 
   // Application.ProcessMessages;
 
+  DM.doCreateDB;
+
+  // mvMenu.Visible := False;
   tbcMain.ActiveTab := tbiLogin;
 
   FPanelMap := TPanel.Create(Self);
   FPanelMap.Parent := lytMapa;
   FPanelMap.Align := TAlignLayout.Client;
 
-  Map := TTMSFNCGoogleMaps.Create(lytMapa);
+  Map := TTMSFNCMaps.Create(lytMapa);
+  Map.Service := TTMSFNCMapsService.msGoogleMaps;
   Map.APIKey := cGoogleMapsWebAPI;
 
-  Map.BeginUpdate;
-
-  Map.Options.MapTypeID := TTMSFNCGoogleMapsMapTypeID.gmtDefault;
   Map.Options.Locale := 'pt-BR';
   Map.ReInitialize;
 
-  Map.SetCenterCoordinate(cLat, cLng);
+  // Map.Service := TTMSFNCMapsService.msOpenLayers;
+  // Map.APIKey := cOSMMapsWebAPI;
 
-  Map.Options.DefaultLatitude := cLat;
-  Map.Options.DefaultLongitude := cLng;
-  Map.Options.DefaultZoomLevel := cZoom;
+  Map.HeadLinks.Clear;
+  (*
+    Map.HeadLinks.Add.Content.Text := //
+    '/* Style the tab */' + sLineBreak + //
+    '.tab {' + sLineBreak + //
+    '  overflow: hidden;' + sLineBreak + //
+    '  border: 1px solid #ccc;' + sLineBreak + //
+    '  background-color: #f1f1f1;' + sLineBreak + //
+    '}' + sLineBreak + //
+    '' + sLineBreak + //
+    '/* Style the buttons that are used to open the tab content */' + sLineBreak + //
+    '.tab button {' + sLineBreak + //
+    '  background-color: inherit;' + sLineBreak + //
+    '  float: left;' + sLineBreak + //
+    '  border: none;' + sLineBreak + //
+    '  outline: none;' + sLineBreak + //
+    '  cursor: pointer;' + sLineBreak + //
+    '  padding: 14px 16px;' + sLineBreak + //
+    '  transition: 0.3s;' + sLineBreak + //
+    '}' + sLineBreak + //
+    '' + sLineBreak + //
+    '/* Change background color of buttons on hover */' + sLineBreak + //
+    '.tab button:hover {' + sLineBreak + //
+    '  background-color: #ddd;' + sLineBreak + //
+    '}' + sLineBreak + //
+    '' + sLineBreak + //
+    '/* Create an active/current tablink class */' + sLineBreak + //
+    '.tab button.active {' + sLineBreak + //
+    '  background-color: #ccc;' + sLineBreak + //
+    '}' + sLineBreak + //
+    '' + sLineBreak + //
+    '/* Style the tab content */' + sLineBreak + //
+    '.tabcontent {' + sLineBreak + //
+    '  display: none;' + sLineBreak + //
+    '  padding: 6px 12px;' + sLineBreak + //
+    '  border: 1px solid #ccc;' + sLineBreak + //
+    '  border-top: none;' + sLineBreak + //
+    '}' + sLineBreak + //
 
-  Map.Options.ShowMapTypeControl := False;
-  Map.Options.ShowBicycling := False;
-  Map.Options.ShowStreetViewControl := False;
-  Map.Options.ShowScaleControl := False;
-  Map.Options.ShowTraffic := False;
-  Map.Options.Tilt := 68;
+    '' + sLineBreak + //
 
+    'function openCity(evt, cityName) {' + sLineBreak + //
+    '  // Declare all variables' + sLineBreak + //
+    '  var i, tabcontent, tablinks;' + sLineBreak + //
+    '' + sLineBreak + //
+    '  // Get all elements with class="tabcontent" and hide them' + sLineBreak + //
+    '  tabcontent = document.getElementsByClassName("tabcontent");' + sLineBreak + //
+    '  for (i = 0; i < tabcontent.length; i++) {' + sLineBreak + //
+    '    tabcontent[i].style.display = "none";' + sLineBreak + //
+    '  }' + sLineBreak + //
+    '' + sLineBreak + //
+    '  // Get all elements with class="tablinks" and remove the class "active"' + sLineBreak + //
+    '  tablinks = document.getElementsByClassName("tablinks");' + sLineBreak + //
+    '  for (i = 0; i < tablinks.length; i++) {' + sLineBreak + //
+    '    tablinks[i].className = tablinks[i].className.replace(" active", "");' + sLineBreak + //
+    '  }' + sLineBreak + //
+    '' + sLineBreak + //
+    '  // Show the current tab, and add an "active" class to the button that opened the tab' + sLineBreak + //
+    '  document.getElementById(cityName).style.display = "block";' + sLineBreak + //
+    '  evt.currentTarget.className += " active";' + sLineBreak + //
+    '}' + sLineBreak + //
+    '';
+  *)
+
+  Map.OnMapInitialized := doMapInitialized;
   Map.OnMarkerClick := doMarkerClick;
-  Map.OnOverlayViewClick := doOverlayViewClick;
+  // Map.OnOverlayViewClick := doOverlayViewClick;
 
   Map.Align := TAlignLayout.Client;
   Map.Parent := FPanelMap;
 
-  Map.EndUpdate;
+  Map.Enabled := True;
+  Map.Visible := True;
+
+  FPanelMap.Enabled := True;
+  FPanelMap.Visible := True;
 
   tbcMain.TabPosition := TTabPosition.None;
 
@@ -990,28 +1145,60 @@ begin
     end);
 end;
 
-procedure TFrmMain.imgBtnListaVeiculosClick(Sender: TObject);
+procedure TFrmMain.lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
+var
+  LLatitude: double;
+  LLongitude: double;
+
+  LLatitude_: string;
+  LLongitude_: string;
 begin
-  Map.Opacity := 0.3;
+  Map.Visible := True;
+  lytMapa.Visible := True;
+  lytMapa.BringToFront;
+
+  lytMapa.Opacity := 1;
+  Map.Opacity := 1;
+
+  lytListaVeiculos.SendToBack;
+  lytListaVeiculos.Visible := False;
+
+  LLatitude_ := AItem.Data['LATITUDE'].AsVariant;
+  LLatitude := StrToFloat(LLatitude_);
+
+  LLongitude_ := AItem.Data['LONGITUDE'].AsVariant;
+  LLongitude := StrToFloat(LLongitude_);
+
+  Map.SetCenterCoordinate(LLatitude, LLongitude);
+end;
+
+procedure TFrmMain.rectBtnListaVeiculosClick(Sender: TObject);
+begin
   Map.Visible := False;
+  lytMapa.Visible := False;
+  lytMapa.SendToBack;
+
+  lytMapa.Opacity := 0.3;
+  Map.Opacity := 0.3;
+
+  lytListaVeiculos.Margins.Top := 8;
+  lytListaVeiculos.Margins.Left := 4;
+  lytListaVeiculos.Margins.Right := 4;
   lytListaVeiculos.BringToFront;
+  lytListaVeiculos.Visible := True;
 
   TThread.Queue(nil,
     procedure
     begin
       listarVeiculos;
     end);
-
-  lytListaVeiculos.Visible := True;
 end;
 
-procedure TFrmMain.lstvListaVeiculosItemClickEx(const Sender: TObject; ItemIndex: Integer; const LocalClickPos: TPointF; const ItemObject: TListItemDrawable);
+procedure TFrmMain.rectBtnMenuClick(Sender: TObject);
 begin
-  Map.Opacity := 1;
-  Map.Visible := True;
-  lytListaVeiculos.SendToBack;
-  lytListaVeiculos.Visible := False;
-
+  // lytMapa.SendToBack;
+  // mvMenu.BringToFront;
+  // ShowMessage('clicou');
 end;
 
 end.
