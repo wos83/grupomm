@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<reversegeocode timestamp='Sat, 05 Nov 22 19:05:43 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='format=xml&amp;zoom=18&amp;lat=-23.88762&amp;lon=-46.10517'>
-<result place_id="297938254" osm_type="relation" osm_id="298204" ref="SP" lat="-22.0702705" lon="-48.4333875" boundingbox="-25.4832679,-19.7823272,-53.109,-44.1613652" place_rank='8' address_rank='8'>São Paulo, Região Sudeste, Brasil</result><addressparts><state>São Paulo</state><ISO3166-2-lvl4>BR-SP</ISO3166-2-lvl4><region>Região Sudeste</region><country>Brasil</country><country_code>br</country_code></addressparts></reversegeocode>

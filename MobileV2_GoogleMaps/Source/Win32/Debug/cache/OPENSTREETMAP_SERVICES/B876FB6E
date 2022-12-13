@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<reversegeocode timestamp='Sat, 05 Nov 22 20:17:25 +0000' attribution='Data © OpenStreetMap contributors, ODbL 1.0. http://www.openstreetmap.org/copyright' querystring='format=xml&amp;zoom=18&amp;lat=0.00000&amp;lon=0.00000'>
-<result place_id="46054995" osm_type="node" osm_id="3815077900" ref="Null Island" lat="0" lon="0" boundingbox="-5.0E-5,5.0E-5,-5.0E-5,5.0E-5" place_rank='30' address_rank='30'>Soul Buoy</result><addressparts><man_made>Soul Buoy</man_made></addressparts></reversegeocode>
