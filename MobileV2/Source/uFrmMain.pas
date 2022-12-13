@@ -681,6 +681,7 @@ begin
 
                 LMarker.Visible := True;
                 {$ENDREGION}
+                //
                 {$REGION 'OverlayView'}
                 LOverlayView := Map.AddOverlayView;
                 LOverlayView.Clickable := True;
