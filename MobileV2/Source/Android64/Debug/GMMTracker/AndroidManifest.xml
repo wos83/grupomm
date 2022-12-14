@@ -3,7 +3,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.gmm.mobile"
     android:versionCode="1"
-    android:versionName="2022.11.15a"
+    android:versionName="2022.12.13a"
     android:installLocation="auto">
     <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="32" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

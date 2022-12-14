@@ -291,7 +291,17 @@ $(PreBuildEvent)]]></PreBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Android64)'!=''">
         <VerInfo_Build>1</VerInfo_Build>
-        <VerInfo_Keys>package=br.gmm.mobile;label=GMM Tracker;versionCode=1;versionName=2022.11.15a;persistent=False;restoreAnyVersion=True;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <VerInfo_Keys>package=br.gmm.mobile;label=GMM Tracker;versionCode=1;versionName=2022.12.13a;persistent=False;restoreAnyVersion=True;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=</VerInfo_Keys>
+        <Android_LauncherIcon36>..\Images\Android\FM_LauncherIcon_36x36.png</Android_LauncherIcon36>
+        <Android_LauncherIcon48>..\Images\Android\FM_LauncherIcon_48x48.png</Android_LauncherIcon48>
+        <Android_LauncherIcon72>..\Images\Android\FM_LauncherIcon_72x72.png</Android_LauncherIcon72>
+        <Android_LauncherIcon96>..\Images\Android\FM_LauncherIcon_96x96.png</Android_LauncherIcon96>
+        <Android_LauncherIcon144>..\Images\Android\FM_LauncherIcon_144x144.png</Android_LauncherIcon144>
+        <Android_LauncherIcon192>..\Images\Android\FM_LauncherIcon_192x192.png</Android_LauncherIcon192>
+        <Android_SplashImage426>..\Images\Android\FM_SplashImage_426x320.png</Android_SplashImage426>
+        <Android_SplashImage470>..\Images\Android\FM_SplashImage_470x320.png</Android_SplashImage470>
+        <Android_SplashImage640>..\Images\Android\FM_SplashImage_640x480.png</Android_SplashImage640>
+        <Android_SplashImage960>..\Images\Android\FM_SplashImage_960x720.png</Android_SplashImage960>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -302,8 +312,8 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1046</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.202;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
-        <VerInfo_Build>202</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.203;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
+        <VerInfo_Build>203</VerInfo_Build>
         <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>

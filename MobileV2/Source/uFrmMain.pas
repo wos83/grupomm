@@ -420,8 +420,8 @@ begin
      AEventData.Coordinate.Latitude //
      , AEventData.Coordinate.Longitude //
      , AEventData.Marker.DataString //
-     , 48 //
-     , 48);
+     , 24//
+     , -42);
 end;
 
 procedure TFrmMain.doUpdateDrawOnMap(Sender: TObject);
