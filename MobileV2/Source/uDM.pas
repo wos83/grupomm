@@ -404,7 +404,7 @@ begin
 
         for LCount := 0 to Pred(LTotal) do
         begin
-          // Application.ProcessMessages;
+          Application.ProcessMessages;
 
           LJsonObjectData := TJSONObject.ParseJSONValue(LJsonResult) as TJSONObject;
           LJsonValueData := LJsonObjectData.GetValue('data');

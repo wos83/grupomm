@@ -420,8 +420,8 @@ begin
      AEventData.Coordinate.Latitude //
      , AEventData.Coordinate.Longitude //
      , AEventData.Marker.DataString //
-     , 0 //
-     , 0);
+     , 48 //
+     , 48);
 end;
 
 procedure TFrmMain.doUpdateDrawOnMap(Sender: TObject);
@@ -574,7 +574,6 @@ begin
                 LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
 
                 LCharge := FQry.FindField('CHARGE').AsBoolean;
-                LCharge_ := LPowerVoltage.ToString;
 
                 if LCharge then
                 begin
@@ -592,39 +591,53 @@ begin
                 LAlarms := FQry.FindField('ALARMS').AsString;
 
                 {$REGION 'Verifica os Dados'}
-                (*
-                  LTerminalId = EmptyStr ) then
-                  LEquipmentBrandName = EmptyStr ) then
-                  LEquipmentModelName = EmptyStr ) then
+                if (LTerminalId = EmptyStr) then
+                  LTerminalId := 'N/D';
 
-                  LCustomerId: Integer;
-                  LCustomerName = EmptyStr ) then
-                  LPlate = EmptyStr ) then
-                  LVehicleBrandName = EmptyStr ) then
-                  LVehicleModelName = EmptyStr ) then
-                  LVehicleColorId: Integer;
-                  LVehicleColor = EmptyStr ) then
+                if (LEquipmentBrandName = EmptyStr) then
+                  LEquipmentBrandName := 'N/D';
 
-                  LEventDate: TDateTime;
-                  LSatellites: Integer;
-                  LLatitude: double;
-                  LLongitude: double;
-                  LCourse: Integer;
-                  LAddress = EmptyStr ) then
+                if (LEquipmentModelName = EmptyStr) then
+                  LEquipmentModelName := 'N/D';
 
-                  LIgnitionStatus: Boolean;
-                  LIgnitionStatus_ = EmptyStr ) then
-                  LSpeed: Integer;
-                  LOdometer: Integer;
-                  LHorimeter: Integer;
-                  LPowerVoltage: double;
-                  LCharge: Boolean;
-                  LCharge_ = EmptyStr ) then
-                  LBatteryVoltage: Integer;
-                  LGsmSignalStrength: Integer;
-                  LAlarms = EmptyStr ) then
-                *)
+                // if ( LCustomerId: Integer;  LCustomerId := 'N/D';
+
+                if (LCustomerName = EmptyStr) then
+                  LCustomerName := 'N/D';
+
+                if (LPlate = EmptyStr) then
+                  LPlate := 'Novo';
+
+                if (LVehicleBrandName = EmptyStr) then
+                  LVehicleBrandName := 'N/D';
+
+                if (LVehicleModelName = EmptyStr) then
+                  LVehicleModelName := 'N/D';
+
+                // if ( LVehicleColorId: Integer;  LVehicleColorId := 'N/D';
+                // if ( LVehicleColor = EmptyStr ) then  LVehicleColor := 'N/D';
+                //
+                // if ( LEventDate: TDateTime;  LEventDate := 'N/D';
+                // if ( LSatellites: Integer;  LSatellites := 'N/D';
+                // if ( LLatitude: double;  LLatitude := 'N/D';
+                // if ( LLongitude: double;  LLongitude := 'N/D';
+                // if ( LCourse: Integer;  LCourse := 'N/D';
+                // if ( LAddress = EmptyStr ) then  LAddress := 'N/D';
+                //
+                // if ( LIgnitionStatus: Boolean;  LIgnitionStatus := 'N/D';
+                // if ( LIgnitionStatus_ = EmptyStr ) then  LIgnitionStatus_ := 'N/D';
+                // if ( LSpeed: Integer;  LSpeed := 'N/D';
+                // if ( LOdometer: Integer;  LOdometer := 'N/D';
+                // if ( LHorimeter: Integer;  LHorimeter := 'N/D';
+                // if ( LPowerVoltage: double;  LPowerVoltage := 'N/D';
+                // if ( LCharge: Boolean;  LCharge := 'N/D';
+                // if ( LCharge_ = EmptyStr ) then  LCharge_ := 'N/D';
+                // if ( LBatteryVoltage: Integer;  LBatteryVoltage := 'N/D';
+                // if ( LGsmSignalStrength: Integer;  LGsmSignalStrength := 'N/D';
+                // if ( LAlarms = EmptyStr ) then  LAlarms := 'N/D';
                 {$ENDREGION}
+                //
+
                 LTitle := //
                    RosaDosVentos(LCourse, True) + ' ' + LPlate + //
                    ''; // sLineBreak + LIgnitionStatus_;
@@ -684,13 +697,15 @@ begin
                 //
                 {$REGION 'OverlayView'}
                 LOverlayView := Map.AddOverlayView;
-                LOverlayView.Clickable := True;
-                LOverlayView.CoordinateOffsetTop := 16;
+                LOverlayView.Clickable := False;
 
                 LOverlayView.Mode := omCoordinate;
                 LOverlayView.Coordinate.Latitude := LLatitude;
                 LOverlayView.Coordinate.Longitude := LLongitude;
-                LOverlayView.CoordinatePosition := cpBottomLeft;
+
+                LOverlayView.CoordinatePosition := cpTopCenter;
+                LOverlayView.CoordinateOffsetTop := Trunc(LMarker.IconHeight * -1) + 14;
+                LOverlayView.CoordinateOffsetLeft := Trunc(LMarker.IconWidth) + 8;
 
                 LOverlayView.Text := LTitle;
                 LOverlayView.DataString := LData;
@@ -710,6 +725,7 @@ begin
                 end;
 
                 LOverlayView.Visible := True;
+
                 {$ENDREGION}
                 Map.EndUpdate;
                 //
@@ -736,7 +752,7 @@ begin
           {$ENDIF}
         end;
       finally
-        FTimerDrawOnMap.Interval := 90000;
+        FTimerDrawOnMap.Interval := 60000;
         FTimerDrawOnMap.Enabled := True;
       end;
     end);
@@ -835,8 +851,16 @@ begin
           Exit;
         end;
 
+        lstvListaVeiculos.AllowSelection := True;
+        lstvListaVeiculos.AlternatingColors := True;
+        lstvListaVeiculos.AutoTapScroll := True;
+
+        lstvListaVeiculos.CanSwipeDelete := False;
+        lstvListaVeiculos.DeleteButtonText := EmptyStr;
+
         lstvListaVeiculos.SearchVisible := True;
         lstvListaVeiculos.SearchAlwaysOnTop := True;
+        lstvListaVeiculos.SelectionCrossfade := False;
 
         lstvListaVeiculos.ItemAppearance.ItemHeight := 66;
 
@@ -887,22 +911,88 @@ begin
 
           if LCharge then
           begin
-            LCharge_ := cBatteryOnText;
+            // LCharge_ := cBatteryOnText;
+            LCharge_ := LPowerVoltage.ToString;
           end
           else
           begin
-            LCharge_ := cBatteryOffText;
+            // LCharge_ := cBatteryOffText;
+            LCharge_ := '0';
           end;
 
           LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
           LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
           LAlarms := FQry.FindField('ALARMS').AsString;
 
+          {$REGION 'Verifica os Dados'}
+          if (LTerminalId = EmptyStr) then
+            LTerminalId := 'N/D';
+
+          if (LEquipmentBrandName = EmptyStr) then
+            LEquipmentBrandName := 'N/D';
+
+          if (LEquipmentModelName = EmptyStr) then
+            LEquipmentModelName := 'N/D';
+
+          // if ( LCustomerId: Integer;  LCustomerId := 'N/D';
+
+          if (LCustomerName = EmptyStr) then
+            LCustomerName := 'N/D';
+
+          if (LPlate = EmptyStr) then
+            LPlate := 'Novo';
+
+          if (LVehicleBrandName = EmptyStr) then
+            LVehicleBrandName := 'N/D';
+
+          if (LVehicleModelName = EmptyStr) then
+            LVehicleModelName := 'N/D';
+
+          // if ( LVehicleColorId: Integer;  LVehicleColorId := 'N/D';
+          // if ( LVehicleColor = EmptyStr ) then  LVehicleColor := 'N/D';
+          //
+          // if ( LEventDate: TDateTime;  LEventDate := 'N/D';
+          // if ( LSatellites: Integer;  LSatellites := 'N/D';
+          // if ( LLatitude: double;  LLatitude := 'N/D';
+          // if ( LLongitude: double;  LLongitude := 'N/D';
+          // if ( LCourse: Integer;  LCourse := 'N/D';
+          // if ( LAddress = EmptyStr ) then  LAddress := 'N/D';
+          //
+          // if ( LIgnitionStatus: Boolean;  LIgnitionStatus := 'N/D';
+          // if ( LIgnitionStatus_ = EmptyStr ) then  LIgnitionStatus_ := 'N/D';
+          // if ( LSpeed: Integer;  LSpeed := 'N/D';
+          // if ( LOdometer: Integer;  LOdometer := 'N/D';
+          // if ( LHorimeter: Integer;  LHorimeter := 'N/D';
+          // if ( LPowerVoltage: double;  LPowerVoltage := 'N/D';
+          // if ( LCharge: Boolean;  LCharge := 'N/D';
+          // if ( LCharge_ = EmptyStr ) then  LCharge_ := 'N/D';
+          // if ( LBatteryVoltage: Integer;  LBatteryVoltage := 'N/D';
+          // if ( LGsmSignalStrength: Integer;  LGsmSignalStrength := 'N/D';
+          // if ( LAlarms = EmptyStr ) then  LAlarms := 'N/D';
+          {$ENDREGION}
+          //
+
+          LTitle := //
+             RosaDosVentos(LCourse, True) + ' ' + LPlate + //
+             ''; // sLineBreak + LIgnitionStatus_;
+
+          LData := //
+             '<br><b>Placa: </b>' + LPlate + sLineBreak + //
+             '<br><b>Associado: </b>' + LCustomerName + sLineBreak + //
+             '<br><b>Marca Veíc.: </b>' + LVehicleBrandName + sLineBreak + //
+             '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
+          // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
+             '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
+             '<br><b>Últ. Posição: </b> ⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+          // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
+             '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
+             '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
+             '';
+
           LItem := lstvListaVeiculos.Items.Add;
 
           with LItem do
           begin
-            Height := 50;
             TagString := LTerminalId;
 
             LItem.Data['TERMINAL_ID'] := LTerminalId;
@@ -973,21 +1063,28 @@ begin
 
             TListItemText(Objects.FindDrawable('lblVeiculo')).Text := LPlate;
             TListItemText(Objects.FindDrawable('lblVeiculo')).Font.Size := 10;
+            TListItemText(Objects.FindDrawable('lblVeiculo')).TextAlign := TTextAlign.Leading;
 
             TListItemText(Objects.FindDrawable('lblDescricao')).Text := LCustomerName;
             TListItemText(Objects.FindDrawable('lblDescricao')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblDescricao')).TextAlign := TTextAlign.Leading;
 
-            TListItemText(Objects.FindDrawable('lblEvent1')).Text := LIgnitionStatus_;
+            TListItemText(Objects.FindDrawable('lblEvent1')).Text := '🔑 ' + LIgnitionStatus_;
             TListItemText(Objects.FindDrawable('lblEvent1')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblEvent1')).TextAlign := TTextAlign.Leading;
 
-            TListItemText(Objects.FindDrawable('lblEvent2')).Text := LCharge_;
+            TListItemText(Objects.FindDrawable('lblEvent2')).Text := '🔋 ' + LCharge_;
             TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblEvent2')).TextAlign := TTextAlign.Leading;
 
-            TListItemText(Objects.FindDrawable('lblEvent2')).Text := LCharge_;
-            TListItemText(Objects.FindDrawable('lblEvent2')).Font.Size := 9;
-
-            TListItemText(Objects.FindDrawable('lblEvent3')).Text := formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate);
+            TListItemText(Objects.FindDrawable('lblEvent3')).Text := LSpeed.ToString + ' km/h';
             TListItemText(Objects.FindDrawable('lblEvent3')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblEvent3')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblEvent4')).Text := '⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate);
+            TListItemText(Objects.FindDrawable('lblEvent4')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblEvent4')).TextAlign := TTextAlign.Leading;
+            TListItemText(Objects.FindDrawable('lblEvent4')).Width := 120;
           end;
 
           {$ENDREGION}
@@ -1100,7 +1197,7 @@ begin
   FTimerPositionLast.OnTimer := doUpdatePositionLast;
 
   FTimerDrawOnMap := TTimer.Create(Self);
-  FTimerDrawOnMap.Interval := 2000;
+  FTimerDrawOnMap.Interval := 1500;
   FTimerDrawOnMap.Enabled := False;
   FTimerDrawOnMap.OnTimer := doUpdateDrawOnMap;
 
@@ -1153,7 +1250,7 @@ begin
   LLongitude := StrToFloat(LLongitude_);
 
   Map.SetCenterCoordinate(LLatitude, LLongitude);
-  Map.SetZoomLevel(18);
+  Map.SetZoomLevel(21);
 end;
 
 procedure TFrmMain.rectBtnListaVeiculosClick(Sender: TObject);

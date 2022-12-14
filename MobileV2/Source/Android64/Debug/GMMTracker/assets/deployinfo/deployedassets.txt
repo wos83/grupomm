@@ -1,8 +1,0 @@
-.\assets\internal\images\car-64.png
-.\assets\internal\images\car-on-48.png
-.\assets\internal\images\car-48.png
-.\assets\internal\libssl.so
-.\assets\internal\libcrypto.so
-.\assets\internal\images\car-128.png
-.\assets\internal\FDConnectionDefs.ini
-.\assets\internal\images\car-off-48.png
