@@ -172,8 +172,11 @@ http://vps35067.publiccloud.com.br/api/position/history/{id}/{type}/{parm1}[/par
 
 1. ID do equipamento
 2. Informações do período desejado, cujos parâmetros são:
- - type: o tipo do período desejado, cujos valores podem ser:   'hours': para uma quantidade de horas à partir da hora atual,  'days': para uma quantidade de dias à partir da hora atual, 'period': para um período especificado
- - start: a quantidade de tempo a ser considerada (no caso de estarmos solicitando um período de horas ou dias) ou a data inicial do período, - end: a data final do período
+ - type: o tipo do período desejado, cujos valores podem ser:   
+        - 'hours': para uma quantidade de horas à partir da hora atual,  
+		- 'days': para uma quantidade de dias à partir da hora atual, 
+		- 'period': para um período especificado
+					- start: a quantidade de tempo a ser considerada (no caso de estarmos solicitando um período de horas ou dias) ou a data inicial do período, - end: a data final do período
  
  Exemplo: obter o histórico de duas últimas horas
  

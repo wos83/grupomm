@@ -119,7 +119,6 @@ type
   TFrmMain = class(TForm)
     edtLoginNome: TEdit;
     edtLoginSenha: TEdit;
-    imgBtnListaVeiculos: TImage;
     imgBtnMenu: TImage;
     imglMain48: TImageList;
     imgLogo: TImage;
@@ -129,7 +128,6 @@ type
     lblLoginSenha: TLabel;
     lblTituloMapa: TLabel;
     lstvListaVeiculos: TListView;
-    lytBtnListaVeiculos: TLayout;
     lytContentLogin: TLayout;
     lytContentMapa: TLayout;
     lytEntrar: TLayout;
@@ -142,21 +140,33 @@ type
     lytTituloMapa: TLayout;
     rectBtnEntrar: TRectangle;
     rectMenu: TRectangle;
-    rectMenuMapa: TRectangle;
     rectNavMapa: TRectangle;
     tbcMain: TTabControl;
     tbiLogin: TTabItem;
     tbiMapa: TTabItem;
     ImageList128: TImageList;
     rectBtnMenu: TRectangle;
-    rectBtnListaVeiculos: TRectangle;
+    mvMenuView: TMultiView;
+    imgMenuView: TImage;
+    rectMenuView: TRectangle;
+    btnListaVeiculos2: TButton;
+    actlMain: TActionList;
+    actListarVeiculos: TAction;
+    lytListaVeiculos2: TLayout;
+    imgListaVeiculos2: TImage;
+    btnListaVeiculos2_: TSpeedButton;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
 
     procedure lblEntrarClick(Sender: TObject);
     procedure lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
-    procedure rectBtnListaVeiculosClick(Sender: TObject);
+    procedure mvMenuViewStartShowing(Sender: TObject);
+    procedure mvMenuViewStartHiding(Sender: TObject);
+    procedure actListarVeiculosExecute(Sender: TObject);
+    procedure btnListaVeiculos2Click(Sender: TObject);
+    procedure imgListaVeiculos2Click(Sender: TObject);
+    procedure btnListaVeiculos2_Click(Sender: TObject);
 
   private
     FPanelMap: TPanel;
@@ -180,6 +190,7 @@ type
     procedure doUpdateDrawOnMap(Sender: TObject);
 
     procedure doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
+    procedure doListaVeiculos;
 
     { Private declarations }
   public
@@ -420,8 +431,33 @@ begin
      AEventData.Coordinate.Latitude //
      , AEventData.Coordinate.Longitude //
      , AEventData.Marker.DataString //
-     , 24//
+     , 24 //
      , -42);
+end;
+
+procedure TFrmMain.doListaVeiculos;
+begin
+  if mvMenuView.Visible then
+  begin
+    mvMenuView.HideMaster;
+    mvMenuView.Visible := False;
+  end;
+
+  Map.Visible := False;
+  lytMapa.Visible := False;
+  lytMapa.SendToBack;
+
+  // lytMapa.Opacity := 0.3;
+  // Map.Opacity := 0.3;
+
+  lytListaVeiculos.BringToFront;
+  lytListaVeiculos.Visible := True;
+
+  TThread.Queue(nil,
+    procedure
+    begin
+      listarVeiculos;
+    end);
 end;
 
 procedure TFrmMain.doUpdateDrawOnMap(Sender: TObject);
@@ -821,7 +857,7 @@ begin
      'FROM POSITIONS_LAST' + sLineBreak + //
      'WHERE 1 = 1' + sLineBreak + //
      'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
-     'ORDER BY ID_POSITION_LAST DESC';
+     'ORDER BY PLATE';
 
   {$IFDEF DEBUG}
   // LogApp('DEBUG', EmptyStr, LSQL);
@@ -1145,7 +1181,7 @@ begin
 
   DM.doCreateDB;
 
-  // mvMenu.Visible := False;
+  mvMenuView.Width := Self.Width - 80;
   tbcMain.ActiveTab := tbiLogin;
 
   FPanelMap := TPanel.Create(Self);
@@ -1233,12 +1269,23 @@ var
   LLatitude_: string;
   LLongitude_: string;
 begin
+  if mvMenuView.Visible then
+  begin
+    FPanelMap.Opacity := 1;
+    FPanelMap.Visible := True;
+    mvMenuView.HideMaster;
+    mvMenuView.Visible := False;
+  end;
+
   Map.Visible := True;
   lytMapa.Visible := True;
   lytMapa.BringToFront;
 
-  lytMapa.Opacity := 1;
-  Map.Opacity := 1;
+  // lytMapa.Opacity := 1;
+  // Map.Opacity := 1;
+
+  FPanelMap.BringToFront;
+  FPanelMap.Opacity := 1;
 
   lytListaVeiculos.SendToBack;
   lytListaVeiculos.Visible := False;
@@ -1253,26 +1300,40 @@ begin
   Map.SetZoomLevel(21);
 end;
 
-procedure TFrmMain.rectBtnListaVeiculosClick(Sender: TObject);
+procedure TFrmMain.mvMenuViewStartHiding(Sender: TObject);
 begin
-  Map.Visible := False;
-  lytMapa.Visible := False;
-  lytMapa.SendToBack;
-
-  lytMapa.Opacity := 0.3;
-  Map.Opacity := 0.3;
-
-  lytListaVeiculos.Margins.Top := 8;
-  lytListaVeiculos.Margins.Left := 4;
-  lytListaVeiculos.Margins.Right := 4;
-  lytListaVeiculos.BringToFront;
-  lytListaVeiculos.Visible := True;
-
-  TThread.Queue(nil,
-    procedure
-    begin
-      listarVeiculos;
-    end);
+  FPanelMap.Opacity := 1;
+  FPanelMap.Visible := True;
+  mvMenuView.Visible := False;
 end;
+
+procedure TFrmMain.mvMenuViewStartShowing(Sender: TObject);
+begin
+  FPanelMap.Opacity := 0.3;
+  FPanelMap.Visible := False;
+  mvMenuView.Visible := True;
+end;
+
+procedure TFrmMain.actListarVeiculosExecute(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+procedure TFrmMain.imgListaVeiculos2Click(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+procedure TFrmMain.btnListaVeiculos2Click(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+procedure TFrmMain.btnListaVeiculos2_Click(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+// * Testando *//
 
 end.

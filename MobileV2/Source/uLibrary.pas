@@ -388,7 +388,7 @@ function RosaDosVentos(ACourse: Integer): string;
 begin
    case ACourse of
       000 .. 022:
-         Result := '↗️ ' + ACourse.ToString + '° N';
+         Result := '⬆️ ' + ACourse.ToString + '° N';
       023 .. 045:
          Result := '↗️ ' + ACourse.ToString + '° NNE';
       046 .. 067:
@@ -396,7 +396,7 @@ begin
       068 .. 090:
          Result := '➡️' + ACourse.ToString + '° ENE';
       091 .. 112:
-         Result := '↘️ ' + ACourse.ToString + '° E';
+         Result := '➡️'  + ACourse.ToString + '° E';
       113 .. 135:
          Result := '↘️ ' + ACourse.ToString + '° ESE';
       136 .. 157:
@@ -404,15 +404,15 @@ begin
       158 .. 180:
          Result := '⬇️ ' + ACourse.ToString + '° SSE';
       181 .. 202:
-         Result := '↙️ ' + ACourse.ToString + '° S';
+         Result := '⬇️ ' + ACourse.ToString + '° S';
       203 .. 225:
          Result := '↙️ ' + ACourse.ToString + '° SSO';
       226 .. 247:
-         Result := '↗️ ' + ACourse.ToString + '° SO';
+         Result := '↙️ ' + ACourse.ToString + '° SO';
       248 .. 270:
          Result := '⬅️ ' + ACourse.ToString + '° OSO';
       271 .. 292:
-         Result := '↖️ ' + ACourse.ToString + '° O';
+         Result := '⬅️ ' + ACourse.ToString + '° O';
       293 .. 315:
          Result := '↖️ ' + ACourse.ToString + '° ONO';
       316 .. 337:

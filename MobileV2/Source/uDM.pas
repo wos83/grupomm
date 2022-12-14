@@ -107,6 +107,8 @@ type
     function doCreateDB: boolean;
 
     function doLogin(AUsername, APassword, AUUID: string): boolean;
+
+    procedure ThreadInsereDadosUltimaPosicao(Sender: TObject);
     function doPositionLast(AToken: string): boolean;
     { Public declarations }
   end;
@@ -189,7 +191,7 @@ begin
       on E: Exception do
       begin
         LError := //
-           E.ClassName + '. ' + E.Message  + sLineBreak + //
+           E.ClassName + '. ' + E.Message + sLineBreak + //
         // LRESTClient.BaseURL + sLineBreak + //
         // LRESTClient.Params[0].Name + sLineBreak + //
         // LRESTClient.Params[0].Value + sLineBreak + //
@@ -271,6 +273,15 @@ begin
   end;
 end;
 
+procedure TDM.ThreadInsereDadosUltimaPosicao(Sender: TObject);
+begin
+  if Assigned(TThread(Sender).FatalException) then
+    LogApp('ERROR' //
+       , Exception(TThread(Sender).FatalException).ClassName + '. ' + //
+       Exception(TThread(Sender).FatalException).Message //
+       , EmptyStr);
+end;
+
 function TDM.doPositionLast(AToken: string): boolean;
 var
   FQry: TFDQuery;
@@ -343,7 +354,7 @@ begin
         // LRESTClient.BaseURL + sLineBreak + //
         // LRESTClient.Params[0].Name + sLineBreak + //
         // LRESTClient.Params[0].Value + sLineBreak + //
-        '';
+           '';
 
         // LogApp( //
         // 'TDM.doPositionLast' //
