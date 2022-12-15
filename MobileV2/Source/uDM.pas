@@ -687,6 +687,9 @@ begin
     LFirmwareVersion := Trim(LJsonObject.Values['firmwareversion'].Value);
     LPlate := Trim(LJsonObject.Values['plate'].Value);
 
+    if (LPlate = 'null') or (LPlate = EmptyStr) or (Length(LPlate) = 0) then
+      LPlate := 'Novo';
+
     LVehicleId := StrToIntDef(LJsonObject.Values['vehicleid'].Value, 0);
 
     LVehicleTypeId := StrToIntDef(LJsonObject.Values['vehicletypeid'].Value, 0);
@@ -873,6 +876,7 @@ var
   sLng: string;
   sDirection: string;
 begin
+  {$REGION 'LOGS'}
   // LSQL := 'DROP TABLE IF EXISTS LOGS';
   // FDConn.ExecSQL(LSQL);
 
@@ -891,7 +895,8 @@ begin
      ')' + sLineBreak + //
      '';
   FDConn.ExecSQL(LSQL);
-
+  {$ENDREGION}
+  {$REGION 'USERS'}
   // LSQL := 'DROP TABLE IF EXISTS USERS';
   // FDConn.ExecSQL(LSQL);
 
@@ -919,6 +924,7 @@ begin
      ',DT_TOKEN DATETIME' + sLineBreak + //
      ',NR_TOKEN_LIFETIME INTEGER' + sLineBreak + //
      ',DT_TOKEN_EXPIRE DATETIME' + sLineBreak + //
+     ',FL_LOGGED INTEGER DEFAULT 1' + sLineBreak + //
      ',FL_REG_STATUS INTEGER DEFAULT 1' + sLineBreak + //
      ',DT_REG_INS DATETIME DEFAULT CURRENT_TIMESTAMP' + sLineBreak + //
      ',DT_REG_UPD DATETIME' + sLineBreak + //
@@ -926,7 +932,8 @@ begin
      ')' + sLineBreak + //
      '';
   FDConn.ExecSQL(LSQL);
-
+  {$ENDREGION}
+  {$REGION 'POSITIONS_LAST'}
   // LSQL := 'DROP TABLE IF EXISTS POSITIONS_LAST';
   // FDConn.ExecSQL(LSQL);
 
@@ -988,6 +995,70 @@ begin
 
   // LSQL := 'CREATE UNIQUE INDEX IDX_POSITIONS_LAST_ID_POSITION_LAST ON POSITIONS_LAST (ID_POSITION_LAST)';
   // FDConn.ExecSQL(LSQL);
+  {$ENDREGION}
+  {$REGION 'POSITIONS_HISTORY'}
+  // LSQL := 'DROP TABLE IF EXISTS POSITIONS_HISTORY';
+  // FDConn.ExecSQL(LSQL);
+
+  LSQL := //
+     'CREATE TABLE IF NOT EXISTS POSITIONS_HISTORY (' + sLineBreak + //
+     'ID INTEGER PRIMARY KEY AUTOINCREMENT' + sLineBreak + //
+     ',ID_USER INTEGER' + sLineBreak + //
+
+     ',ID_POSITION_HISTORY INTEGER -- : 1930,' + sLineBreak + //
+     ',DS_TYPE VARCHAR(255) -- : TRACKING,' + sLineBreak + //
+     ',EQUIPMENT_ID INTEGER -- : 3250,' + sLineBreak + //
+     ',EQUIPMENT_MODEL_ID INTEGER -- : 60,' + sLineBreak + //
+     ',EQUIPMENT_MODEL_NAME VARCHAR(255) -- : NT20,' + sLineBreak + //
+     ',EQUIPMENT_BRAND_ID INTEGER -- : 26,' + sLineBreak + //
+     ',EQUIPMENT_BRAND_NAME VARCHAR(255) -- : X3TECH,' + sLineBreak + //
+     ',TERMINAL_ID VARCHAR(255) -- : 0359510081341955,' + sLineBreak + //
+     ',FIRMWARE_VERSION VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',VEHICLE_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',PLATE VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',VEHICLE_TYPE_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',VEHICLE_TYPE_NAME VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',VEHICLE_SUB_TYPE_ID INTEGER -- : 0,' + sLineBreak + //
+     ',VEHICLE_SUB_TYPE_NAME VARCHAR(255) -- : NÃO INFORMADO,' + sLineBreak + //
+     ',VEHICLE_BRAND_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',VEHICLE_BRAND_NAME VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',VEHICLE_MODEL_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',VEHICLE_MODEL_NAME VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',VEHICLE_COLOR_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',VEHICLE_COLOR VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',CUSTOMER_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',CUSTOMER_NAME VARCHAR(255) -- : NULL,' + sLineBreak + //
+     ',SUBSIDIARY_ID INTEGER -- : NULL,' + sLineBreak + //
+     ',EVENT_DATE DATETIME -- : 2022-11-12T20:49:26.000000Z,' + sLineBreak + //
+     ',SYSTEM_DATE DATETIME -- : 2022-11-12T20:49:50.000000Z,' + sLineBreak + //
+     ',LATITUDE REAL -- : -23.733922,' + sLineBreak + //
+     ',LONGITUDE REAL -- : -47.325266,' + sLineBreak + //
+     ',SATELLITES INTEGER -- : 11,' + sLineBreak + //
+     ',COURSE INTEGER -- : 260,' + sLineBreak + //
+     ',ADDRESS VARCHAR(512) -- : NULL' + sLineBreak + //
+     ',IGNITION_STATUS BOOLEAN -- : TRUE,' + sLineBreak + //
+     ',SPEED INTEGER -- : 30,' + sLineBreak + //
+     ',ODOMETER INTEGER -- : 410,' + sLineBreak + //
+     ',HORIMETER INTEGER -- : 1418,' + sLineBreak + //
+     ',POWER_VOLTAGE REAL -- : 13.5,' + sLineBreak + //
+     ',CHARGE BOOLEAN -- : TRUE,' + sLineBreak + //
+     ',BATTERY_VOLTAGE REAL -- : 4,' + sLineBreak + //
+     ',GSM_SIGNAL_STRENGTH INTEGER -- : 38,' + sLineBreak + //
+     ',INPUTS TEXT -- : [],' + sLineBreak + //
+     ',OUTPUTS TEXT -- : [],' + sLineBreak + //
+     ',ALARMS VARCHAR(255) -- : NONE,' + sLineBreak + //
+
+     ',FL_REG_STATUS INTEGER DEFAULT 1' + sLineBreak + //
+     ',DT_REG_INS DATETIME DEFAULT CURRENT_TIMESTAMP' + sLineBreak + //
+     ',DT_REG_UPD DATETIME' + sLineBreak + //
+     ',DT_REG_DEL DATETIME' + sLineBreak + //
+     ')' + sLineBreak + //
+     '';
+  FDConn.ExecSQL(LSQL);
+
+  // LSQL := 'CREATE UNIQUE INDEX IDX_POSITIONS_HISTORY_ID_POSITION_HISTORY ON POSITIONS_HISTORY (ID_POSITION_HISTORY)';
+  // FDConn.ExecSQL(LSQL);
+  {$ENDREGION}
 end;
 
 procedure TDM.FDConnBeforeConnect(Sender: TObject);
