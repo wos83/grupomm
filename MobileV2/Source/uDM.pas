@@ -107,8 +107,6 @@ type
     function doCreateDB: boolean;
 
     function doLogin(AUsername, APassword, AUUID: string): boolean;
-
-    procedure ThreadInsereDadosUltimaPosicao(Sender: TObject);
     function doPositionLast(AToken: string): boolean;
     { Public declarations }
   end;
@@ -273,15 +271,6 @@ begin
   end;
 end;
 
-procedure TDM.ThreadInsereDadosUltimaPosicao(Sender: TObject);
-begin
-  if Assigned(TThread(Sender).FatalException) then
-    LogApp('ERROR' //
-       , Exception(TThread(Sender).FatalException).ClassName + '. ' + //
-       Exception(TThread(Sender).FatalException).Message //
-       , EmptyStr);
-end;
-
 function TDM.doPositionLast(AToken: string): boolean;
 var
   FQry: TFDQuery;
@@ -429,11 +418,11 @@ begin
             begin
               LJsonData := LJsonValueDatas.ToJSON;
 
-              TThread.Queue(nil,
-                procedure
-                begin
-                  insereDadosUltimaPosicao(LJsonData);
-                end);
+              // TThread.Queue(nil,
+              // procedure
+              // begin
+              insereDadosUltimaPosicao(LJsonData);
+              // end);
             end;
           end;
         end;

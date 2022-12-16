@@ -149,12 +149,24 @@ type
     mvMenuView: TMultiView;
     imgMenuView: TImage;
     rectMenuView: TRectangle;
-    btnListaVeiculos2: TButton;
     actlMain: TActionList;
     actListarVeiculos: TAction;
-    lytListaVeiculos2: TLayout;
-    imgListaVeiculos2: TImage;
-    btnListaVeiculos2_: TSpeedButton;
+    lytMenuListaVeiculos: TLayout;
+    imgMenuListaVeiculos: TImage;
+    btnMenuListaVeiculos: TSpeedButton;
+    rectMenuMapa: TRectangle;
+    lytBtnListaVeiculos: TLayout;
+    imgBtnListaVeiculos: TImage;
+    rectBtnListaVeiculos: TRectangle;
+    lytBtnMostraMapa: TLayout;
+    imgBtnMostraMapa: TImage;
+    rectBtnMostraMapa: TRectangle;
+    lstbMenuMapa: TListBox;
+    lstiBtnMostraMapa: TListBoxItem;
+    lstiBtnListaVeiculos: TListBoxItem;
+    lytMenuMostraMapa: TLayout;
+    imgMenuMostraMapa: TImage;
+    btnMenuMostraMapa: TSpeedButton;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -164,9 +176,12 @@ type
     procedure mvMenuViewStartShowing(Sender: TObject);
     procedure mvMenuViewStartHiding(Sender: TObject);
     procedure actListarVeiculosExecute(Sender: TObject);
-    procedure btnListaVeiculos2Click(Sender: TObject);
-    procedure imgListaVeiculos2Click(Sender: TObject);
+    procedure imgMenuListaVeiculosClick(Sender: TObject);
     procedure btnListaVeiculos2_Click(Sender: TObject);
+    procedure rectBtnListaVeiculosClick(Sender: TObject);
+    procedure rectBtnMostraMapaClick(Sender: TObject);
+    procedure btnMenuMostraMapaClick(Sender: TObject);
+    procedure imgMenuMostraMapaClick(Sender: TObject);
 
   private
     FPanelMap: TPanel;
@@ -190,6 +205,7 @@ type
     procedure doUpdateDrawOnMap(Sender: TObject);
 
     procedure doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
+    procedure doMostraMapa;
     procedure doListaVeiculos;
 
     { Private declarations }
@@ -417,7 +433,11 @@ begin
     begin
       try
         FTimerPositionLast.Enabled := False;
-        DM.doPositionLast(FUser.TokenCredential);
+        TThread.Synchronize(nil,
+          procedure
+          begin
+            DM.doPositionLast(FUser.TokenCredential);
+          end);
       finally
         FTimerPositionLast.Interval := 60000;
         FTimerPositionLast.Enabled := True;
@@ -433,6 +453,25 @@ begin
      , AEventData.Marker.DataString //
      , 24 //
      , -42);
+end;
+
+procedure TFrmMain.doMostraMapa;
+begin
+  if mvMenuView.Visible then
+  begin
+    mvMenuView.HideMaster;
+    mvMenuView.Visible := False;
+  end;
+
+  Map.Visible := True;
+  lytMapa.Visible := True;
+  lytMapa.BringToFront;
+
+  // lytMapa.Opacity := 0.3;
+  // Map.Opacity := 0.3;
+
+  lytListaVeiculos.SendToBack;
+  lytListaVeiculos.Visible := False;
 end;
 
 procedure TFrmMain.doListaVeiculos;
@@ -1314,25 +1353,42 @@ begin
   mvMenuView.Visible := True;
 end;
 
+procedure TFrmMain.rectBtnListaVeiculosClick(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+procedure TFrmMain.btnMenuMostraMapaClick(Sender: TObject);
+begin
+  doMostraMapa;
+end;
+
+procedure TFrmMain.rectBtnMostraMapaClick(Sender: TObject);
+begin
+  doMostraMapa;
+end;
+
 procedure TFrmMain.actListarVeiculosExecute(Sender: TObject);
 begin
   doListaVeiculos;
 end;
 
-procedure TFrmMain.imgListaVeiculos2Click(Sender: TObject);
+procedure TFrmMain.imgMenuListaVeiculosClick(Sender: TObject);
 begin
   doListaVeiculos;
 end;
 
-procedure TFrmMain.btnListaVeiculos2Click(Sender: TObject);
+procedure TFrmMain.imgMenuMostraMapaClick(Sender: TObject);
 begin
-  doListaVeiculos;
+  doMostraMapa;
 end;
 
 procedure TFrmMain.btnListaVeiculos2_Click(Sender: TObject);
 begin
   doListaVeiculos;
 end;
+
+
 
 // * Testando *//
 
