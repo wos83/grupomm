@@ -42,6 +42,8 @@ uses
   System.DateUtils,
   System.IOUtils,
   System.JSON,
+  System.Sensors,
+  System.Sensors.Components,
   System.StrUtils,
   System.SysUtils,
   //
@@ -81,6 +83,19 @@ type
     TokenLifetime: integer;
   end;
 
+  TGeoInfo = record
+    AdminArea: string;
+    CountryCode: string;
+    CountryName: string;
+    FeatureName: string;
+    Locality: string;
+    PostalCode: string;
+    SubAdminArea: string;
+    SubLocality: string;
+    SubThoroughfare: string;
+    Thoroughfare: string;
+  end;
+
   TDM = class(TDataModule)
     FDPhysSQLiteDriverLink: TFDPhysSQLiteDriverLink;
     FDGUIxWaitCursor: TFDGUIxWaitCursor;
@@ -97,6 +112,9 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
+    FGeocoder: TGeocoder;
+    procedure OnGeocodeReverseEvent(const Address: TCivicAddress);
+
     procedure insereDadosLogin;
     procedure insereDadosUltimaPosicao(AJsonData: string);
     { Private declarations }
@@ -106,7 +124,7 @@ type
 
     function doCreateDB: boolean;
 
-    function doLogin(AUsername, APassword, AUUID: string): boolean;
+    function doLogin(AUsername, APassword, AUUID: string; out AError: string): boolean;
     function doPositionLast(AToken: string): boolean;
     { Public declarations }
   end;
@@ -114,6 +132,7 @@ type
 var
   DM: TDM;
   FUser: TUser;
+  FGeoInfo: TGeoInfo;
 
 const
   cNameConnDef = 'GMMTrakerSQLite';
@@ -134,9 +153,22 @@ implementation
 
 {$R *.dfm}
 
-function TDM.doLogin(AUsername, APassword, AUUID: string): boolean;
+procedure TDM.OnGeocodeReverseEvent(const Address: TCivicAddress);
+begin
+  FGeoInfo.AdminArea := Address.AdminArea;
+  FGeoInfo.CountryCode := Address.CountryCode;
+  FGeoInfo.CountryName := Address.CountryName;
+  FGeoInfo.FeatureName := Address.FeatureName;
+  FGeoInfo.Locality := Address.Locality;
+  FGeoInfo.PostalCode := Address.PostalCode;
+  FGeoInfo.SubAdminArea := Address.SubAdminArea;
+  FGeoInfo.SubLocality := Address.SubLocality;
+  FGeoInfo.SubThoroughfare := Address.SubThoroughfare;
+  FGeoInfo.Thoroughfare := Address.Thoroughfare;
+end;
+
+function TDM.doLogin(AUsername, APassword, AUUID: string; out AError: string): boolean;
 var
-  LError: string;
   LRESTClient: TRESTClient;
   LRESTRequest: TRESTRequest;
   LRESTResponse: TRESTResponse;
@@ -147,7 +179,7 @@ const
   cBody = '{"username":"%s","password":"%s","uuid":"%s"}';
 
 begin
-  LError := EmptyStr;
+  AError := EmptyStr;
 
   LRESTClient := TRESTClient.Create(nil);
   LRESTRequest := TRESTRequest.Create(nil);
@@ -188,20 +220,22 @@ begin
     except
       on E: Exception do
       begin
-        LError := //
+        AError := //
            E.ClassName + '. ' + E.Message + sLineBreak + //
         // LRESTClient.BaseURL + sLineBreak + //
         // LRESTClient.Params[0].Name + sLineBreak + //
         // LRESTClient.Params[0].Value + sLineBreak + //
            '';
 
-        // LogApp( //
-        // 'TDM.doLogin' //
-        // , LError //
-        // , EmptyStr);
+        LogApp( //
+           'TDM.doLogin' //
+           , AError //
+           , EmptyStr);
+
+        Exit;
       end;
     end;
-    {$IFDEF DEBUG}
+    // {$IFDEF DEBUG}
     // LogApp( //
     // 'DEBUG: TDM.doLogin' //
     // , EmptyStr //
@@ -211,7 +245,7 @@ begin
     // , LParam.Name + ' | ' + LParam.Value //
     // , LRESTRequest.GetFullRequestBody //
     // , LRESTResponse.Content);
-    {$ENDIF}
+    // {$ENDIF}
     if FLogin.Active then
     begin
       if not FLogin.IsEmpty then
@@ -451,6 +485,14 @@ procedure TDM.DataModuleCreate(Sender: TObject);
 begin
   FLogin := TFDMemTable.Create(nil);
   FPositionLast := TFDMemTable.Create(nil);
+
+  if not Assigned(FGeocoder) then
+  begin
+    if Assigned(TGeocoder.Current) then
+      FGeocoder := TGeocoder.Current.Create;
+    if Assigned(FGeocoder) then
+      FGeocoder.OnGeocodeReverse := OnGeocodeReverseEvent;
+  end;
 end;
 
 procedure TDM.DataModuleDestroy(Sender: TObject);
@@ -458,10 +500,12 @@ begin
   {$IFDEF MSWINDOWS}
   FreeAndNil(FLogin);
   FreeAndNil(FPositionLast);
+  FreeAndNil(FGeocoder);
   {$ENDIF}
   {$IFDEF ANDROID}
   FLogin.DisposeOf;
   FPositionLast.DisposeOf;
+  FGeocoder.DisposeOf;
   {$ENDIF}
 end;
 
@@ -610,6 +654,8 @@ var
   LAlarms: string; // None ,
   LAddress: string; // null
 
+  LLocation: TLocationCoord2D;
+
 begin
   bExists := False;
 
@@ -708,6 +754,16 @@ begin
     LLatitude := LJsonObject.Values['latitude'].Value; // StrToFloatDef(StringReplace(LJsonObject.Values['latitude'].Value, '.', ',', [rfReplaceAll]), 0);
     LLongitude := LJsonObject.Values['longitude'].Value; // StrToFloatDef(StringReplace(LJsonObject.Values['longitude'].Value, '.', ',', [rfReplaceAll]), 0);
     LAddress := Trim(LJsonObject.Values['address'].Value);
+
+    if (LAddress = EmptyStr) or (LAddress = 'null') or (Length(LAddress) = 0) then
+    begin
+      LLocation.Latitude := StrToFloat(LLatitude);
+      LLocation.Longitude := StrToFloat(LLongitude);
+
+      if Assigned(FGeocoder) and not FGeocoder.Geocoding then
+        FGeocoder.GeocodeReverse(LLocation);
+    end;
+
     LCourse := StrToIntDef(LJsonObject.Values['course'].Value, 0);
     LSpeed := StrToIntDef(LJsonObject.Values['speed'].Value, 0);
     LIgnitionStatus := StrToBool(LJsonObject.Values['ignitionstatus'].Value);

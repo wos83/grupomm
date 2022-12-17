@@ -167,6 +167,11 @@ type
     lytMenuMostraMapa: TLayout;
     imgMenuMostraMapa: TImage;
     btnMenuMostraMapa: TSpeedButton;
+    grdLytMenuMapa: TGridLayout;
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Image1: TImage;
+    Image2: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -208,6 +213,7 @@ type
     procedure doMostraMapa;
     procedure doListaVeiculos;
 
+
     { Private declarations }
   public
     { Public declarations }
@@ -216,6 +222,7 @@ type
 var
   FrmMain: TFrmMain;
   Map: TTMSFNCGoogleMaps;
+  IsPositionFirst: boolean;
 
 const
   cCACHE = 'cache';
@@ -230,7 +237,7 @@ const
 
   cLat = -23.5653541;
   cLng = -46.6533425;
-  cZoom = 10;
+  cZoom = 18;
 
 implementation
 
@@ -343,7 +350,7 @@ var
   LUsername: string;
   LPassword: string;
   LError: string;
-  LLogin: Boolean;
+  LLogin: boolean;
 begin
   LLogin := False;
   LError := EmptyStr;
@@ -367,7 +374,7 @@ begin
     Exit;
   end;
 
-  LLogin := DM.doLogin(LUsername, LPassword, EmptyStr);
+  LLogin := DM.doLogin(LUsername, LPassword, EmptyStr, LError);
 
   if LLogin then
   begin
@@ -377,11 +384,15 @@ begin
     FTimerDrawOnMap.Enabled := True;
 
     Toast(FUser.Name + ', login realizado com sucesso!', 3);
-  end;
-
-  if not(LError = EmptyStr) then
+  end
+  else if not(LError = EmptyStr) then
   begin
     TDialogService.ShowMessage(cMSG_SUPORTE + sLineBreak + LError);
+    Exit;
+  end
+  else
+  begin
+    TDialogService.ShowMessage(cMSG_SUPORTE);
     Exit;
   end;
 end;
@@ -401,9 +412,9 @@ begin
   Map.ExecuteJavaScript('initAutoComplete();');
   Map.ExecuteJavaScript('new AutocompleteDirectionsHandler(map);');
 
-  Map.Options.DefaultLatitude := cLat;
-  Map.Options.DefaultLongitude := cLng;
-  Map.Options.DefaultZoomLevel := cZoom;
+  // Map.Options.DefaultLatitude := cLat;
+  // Map.Options.DefaultLongitude := cLng;
+  // Map.Options.DefaultZoomLevel := cZoom;
 
   Map.Options.ShowTraffic := False;
   Map.Options.ShowBicycling := False;
@@ -504,7 +515,7 @@ var
   FQry: TFDQuery;
   LSQL: string;
 
-  bExists: Boolean;
+  bExists: boolean;
   iTotal: Integer;
 
   LCaracter: Integer;
@@ -533,13 +544,13 @@ var
   LCourse: Integer;
   LAddress: string;
 
-  LIgnitionStatus: Boolean;
+  LIgnitionStatus: boolean;
   LIgnitionStatus_: string;
   LSpeed: Integer;
   LOdometer: Integer;
   LHorimeter: Integer;
   LPowerVoltage: double;
-  LCharge: Boolean;
+  LCharge: boolean;
   LCharge_: string;
   LBatteryVoltage: Integer;
   LGsmSignalStrength: Integer;
@@ -728,6 +739,7 @@ begin
                 // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
                    '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
                    '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
+                   '<br><b>Localização: </b>' + LAddress + sLineBreak + //
                    '';
 
                 { todo -o@WOS83:Posição Atual no Mapa }
@@ -805,6 +817,13 @@ begin
                 Map.EndUpdate;
                 //
                 {$ENDREGION}
+                { todo -o@WOS83:Primeira Posição no Mapa }
+                if IsPositionFirst then
+                begin
+                  Map.SetCenterCoordinate(LLatitude, LLongitude);
+                  IsPositionFirst := False;
+                end;
+
                 FQry.Next;
               end;
             end;
@@ -845,7 +864,7 @@ var
   LBitmap: TBitmap;
   LStream: TMemoryStream;
 
-  bExists: Boolean;
+  bExists: boolean;
   iTotal: Integer;
 
   LCaracter: Integer;
@@ -873,13 +892,13 @@ var
   LCourse: Integer;
   LAddress: string;
 
-  LIgnitionStatus: Boolean;
+  LIgnitionStatus: boolean;
   LIgnitionStatus_: string;
   LSpeed: Integer;
   LOdometer: Integer;
   LHorimeter: Integer;
   LPowerVoltage: double;
-  LCharge: Boolean;
+  LCharge: boolean;
   LCharge_: string;
   LBatteryVoltage: Integer;
   LGsmSignalStrength: Integer;
@@ -1221,6 +1240,7 @@ begin
   DM.doCreateDB;
 
   mvMenuView.Width := Self.Width - 80;
+  grdLytMenuMapa.ItemWidth := Trunc(Self.Width / 2) - 8;
   tbcMain.ActiveTab := tbiLogin;
 
   FPanelMap := TPanel.Create(Self);
@@ -1230,6 +1250,10 @@ begin
   Map := TTMSFNCGoogleMaps.Create(lytMapa);
   Map.APIKey := cGoogleMapsWebAPI;
   Map.Options.Locale := 'pt-BR';
+
+  Map.Options.DefaultLatitude := cLat;
+  Map.Options.DefaultLongitude := cLng;
+  Map.Options.DefaultZoomLevel := cZoom;
 
   Map.OnCustomizeHeadLinks := doCustomizeHeadLinks;
   Map.OnMapInitialized := doMapInitialized;
@@ -1243,6 +1267,8 @@ begin
 
   FPanelMap.Enabled := True;
   FPanelMap.Visible := True;
+
+  IsPositionFirst := True;
 
   tbcMain.TabPosition := TTabPosition.None;
 
