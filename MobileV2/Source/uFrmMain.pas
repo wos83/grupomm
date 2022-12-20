@@ -50,6 +50,7 @@ uses
   FMX.ListView.Types,
   FMX.Media,
   FMX.MediaLibrary.Actions,
+  FMX.MultiView,
   FMX.Objects,
   FMX.Platform,
   FMX.StdActns,
@@ -96,6 +97,7 @@ uses
   System.Actions,
   System.AnsiStrings,
   System.Classes,
+  System.DateUtils,
   System.Generics.Collections,
   System.ImageList,
   System.IOUtils,
@@ -110,10 +112,11 @@ uses
   System.UITypes,
   System.Variants,
   //
+  uLoading,
+  SaveStateHelper,
   uConsts,
   uLibrary,
-  uDM,
-  FMX.MultiView;
+  uDM;
 
 type
   TFrmMain = class(TForm)
@@ -155,11 +158,11 @@ type
     imgMenuListaVeiculos: TImage;
     btnMenuListaVeiculos: TSpeedButton;
     rectMenuMapa: TRectangle;
-    lytBtnListaVeiculos: TLayout;
-    imgBtnListaVeiculos: TImage;
+    lytBtnListaVeiculos__: TLayout;
+    imgBtnListaVeiculos__: TImage;
     rectBtnListaVeiculos: TRectangle;
-    lytBtnMostraMapa: TLayout;
-    imgBtnMostraMapa: TImage;
+    lytBtnMostraMapa__: TLayout;
+    imgBtnMostraMapa__: TImage;
     rectBtnMostraMapa: TRectangle;
     lstbMenuMapa: TListBox;
     lstiBtnMostraMapa: TListBoxItem;
@@ -168,10 +171,40 @@ type
     imgMenuMostraMapa: TImage;
     btnMenuMostraMapa: TSpeedButton;
     grdLytMenuMapa: TGridLayout;
-    Layout1: TLayout;
-    Layout2: TLayout;
-    Image1: TImage;
-    Image2: TImage;
+    lytBtnMostraMapa: TLayout;
+    lytBtnListaVeiculos: TLayout;
+    imgBtnMostraMapa: TImage;
+    imgBtnListaVeiculos: TImage;
+    actMostrarMapa: TAction;
+    lytSempreLogado: TLayout;
+    swtSempreLogado: TSwitch;
+    lblSempreLogado: TLabel;
+    lytBtnHistoricoPosicoes: TLayout;
+    imgBtnHistoricoPosicoes: TImage;
+    lytMenuHistoricoPosicoes: TLayout;
+    imgMenuHistoricoPosicoes: TImage;
+    btnMenuHistoricoPosicoes: TSpeedButton;
+    actHistoricoPosicoes: TAction;
+    lytHistoricoPosicoes: TLayout;
+    lstvHistoricoPosicoes: TListView;
+    lytMenuEventos: TLayout;
+    imgMenuEventos: TImage;
+    btnMenuEventos: TSpeedButton;
+    actEventos: TAction;
+    actComandos: TAction;
+    actConfiguracoes: TAction;
+    lytBtnEventos: TLayout;
+    imgBtnEventos: TImage;
+    lytBtnComandos: TLayout;
+    imgBtnComandos: TImage;
+    lytMenuComandos: TLayout;
+    imgMenuComandos: TImage;
+    btnMenuComandos: TSpeedButton;
+    lytMenuConfiguracoes: TLayout;
+    imgMenuConfiguracoes: TImage;
+    btnMenuConfiguracoes: TSpeedButton;
+    lytBtnConfiguracoes: TLayout;
+    imgBtnConfiguracoes: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -187,10 +220,22 @@ type
     procedure rectBtnMostraMapaClick(Sender: TObject);
     procedure btnMenuMostraMapaClick(Sender: TObject);
     procedure imgMenuMostraMapaClick(Sender: TObject);
+    procedure actMostrarMapaExecute(Sender: TObject);
+    procedure imgBtnMostraMapaClick(Sender: TObject);
+    procedure imgBtnListaVeiculosClick(Sender: TObject);
+    procedure FormSaveState(Sender: TObject);
+    procedure actHistoricoPosicoesExecute(Sender: TObject);
+    procedure btnMenuHistoricoPosicoesClick(Sender: TObject);
+    procedure btnMenuListaVeiculosClick(Sender: TObject);
+    procedure imgBtnHistoricoPosicoesClick(Sender: TObject);
+    procedure actEventosExecute(Sender: TObject);
+    procedure actComandosExecute(Sender: TObject);
+    procedure actConfiguracoesExecute(Sender: TObject);
 
   private
     FPanelMap: TPanel;
     FTimerPositionLast: TTimer;
+    FTimerPositionHistory: TTimer;
     FTimerDrawOnMap: TTimer;
 
     FImageCarOn48: string;
@@ -202,17 +247,19 @@ type
     {$ENDIF}
     procedure loginUsuario;
     procedure listarVeiculos;
+    procedure historicoPosicoes;
 
     procedure doCustomizeHeadLinks(Sender: TObject; AList: TTMSFNCMapsLinksList);
     procedure doMapInitialized(Sender: TObject);
 
     procedure doUpdatePositionLast(Sender: TObject);
+    procedure doUpdatePositionHistory(Sender: TObject);
     procedure doUpdateDrawOnMap(Sender: TObject);
 
     procedure doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
     procedure doMostraMapa;
     procedure doListaVeiculos;
-
+    procedure doHistoricoPosicoes;
 
     { Private declarations }
   public
@@ -223,6 +270,7 @@ var
   FrmMain: TFrmMain;
   Map: TTMSFNCGoogleMaps;
   IsPositionFirst: boolean;
+  StateBinaryReader: TBinaryReader;
 
 const
   cCACHE = 'cache';
@@ -381,6 +429,7 @@ begin
     tbcMain.ActiveTab := tbiMapa;
 
     FTimerPositionLast.Enabled := True;
+    FTimerPositionHistory.Enabled := True;
     FTimerDrawOnMap.Enabled := True;
 
     Toast(FUser.Name + ', login realizado com sucesso!', 3);
@@ -442,8 +491,8 @@ begin
   TThread.Queue(nil,
     procedure
     begin
+      FTimerPositionLast.Enabled := False;
       try
-        FTimerPositionLast.Enabled := False;
         TThread.Synchronize(nil,
           procedure
           begin
@@ -452,6 +501,104 @@ begin
       finally
         FTimerPositionLast.Interval := 60000;
         FTimerPositionLast.Enabled := True;
+      end;
+    end);
+end;
+
+procedure TFrmMain.doUpdatePositionHistory(Sender: TObject);
+var
+  LSQL: string;
+  FQry: TFDQuery;
+
+  bExists: boolean;
+  iTotal: Integer;
+  iPageTotal: Integer;
+
+  LEquipmentId: Integer;
+begin
+  TThread.Queue(nil,
+    procedure
+    begin
+      FTimerPositionHistory.Enabled := False;
+      try
+        TThread.Synchronize(nil,
+          procedure
+          begin
+            LSQL := //
+               'SELECT' + sLineBreak + //
+               'EQUIPMENT_ID' + sLineBreak + //
+               'FROM POSITIONS_LAST' + sLineBreak + //
+               'WHERE 1 = 1' + sLineBreak + //
+               'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
+               'ORDER BY EQUIPMENT_ID';
+
+            {$IFDEF DEBUG}
+            // LogApp('DEBUG', EmptyStr, LSQL);
+            {$ENDIF}
+            FQry := TFDQuery.Create(nil);
+            try
+              FQry.Connection := DM.FDConn;
+
+              try
+                FQry.Open(LSQL);
+
+                if not FQry.IsEmpty then
+                begin
+                  bExists := not FQry.IsEmpty;
+                  iTotal := FQry.RecordCount;
+                  iPageTotal := 0;
+
+                  if not bExists then
+                  begin
+                    LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
+                    Exit;
+                  end;
+
+                  if (iTotal = 0) then
+                  begin
+                    LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
+                    Exit;
+                  end;
+
+                  FQry.First;
+
+                  while not FQry.Eof do
+                  begin
+                    LEquipmentId := FQry.FindField('EQUIPMENT_ID').AsInteger;
+
+                    try
+                      DM.doPositionHistory( //
+                         FUser.TokenCredential //
+                         , LEquipmentId //
+                         , FormatDateTime('yyyy-mm-dd', IncDay(Now, 0)) //
+                         , '00:00:00' //
+                         , FormatDateTime('yyyy-mm-dd', IncDay(Now, 0)) //
+                         , '23:59:59' //
+                         , 1 //
+                         , iPageTotal //
+                         );
+                    except
+                    end;
+
+                    FQry.Next;
+                  end;
+
+                end;
+              finally
+
+              end;
+            finally
+              {$IFDEF MSWINDOWS}
+              FreeAndNil(FQry);
+              {$ENDIF}
+              {$IFDEF ANDROID}
+              FQry.DisposeOf;
+              {$ENDIF}
+            end;
+          end);
+      finally
+        // FTimerPositionHistory.Interval := 60000;
+        // FTimerPositionHistory.Enabled := True;
       end;
     end);
 end;
@@ -508,6 +655,69 @@ begin
     begin
       listarVeiculos;
     end);
+end;
+
+procedure TFrmMain.doHistoricoPosicoes;
+begin
+  (*
+    if mvMenuView.Visible then
+    begin
+    mvMenuView.HideMaster;
+    mvMenuView.Visible := False;
+    end;
+
+    Map.Visible := False;
+    lytMapa.Visible := False;
+    lytMapa.SendToBack;
+
+    // lytMapa.Opacity := 0.3;
+    // Map.Opacity := 0.3;
+
+    lytHistoricoPosicoes.BringToFront;
+    lytHistoricoPosicoes.Visible := True;
+
+    //  TThread.Queue(nil,
+    //    procedure
+    //    begin
+    //      doUpdatePositionHistory;
+    //      historicoPosicoes;
+    //    end);
+
+  *)
+
+  TLoading.Show(FrmMain, 'Consultando Histórico de Posições...');
+
+  // TThread.CreateAnonymousThread(
+  TThread.Queue(nil,
+    procedure
+    begin
+      if mvMenuView.Visible then
+      begin
+        mvMenuView.HideMaster;
+        mvMenuView.Visible := False;
+      end;
+
+      Map.Visible := False;
+      lytMapa.Visible := False;
+      lytMapa.SendToBack;
+
+      // lytMapa.Opacity := 0.3;
+      // Map.Opacity := 0.3;
+
+      lytHistoricoPosicoes.BringToFront;
+      lytHistoricoPosicoes.Visible := True;
+
+      // doUpdatePositionHistory;
+      historicoPosicoes;
+
+      TThread.Synchronize(nil,
+        procedure
+        begin
+          TLoading.Hide;
+        end);
+
+    end);
+  // end).Start;
 end;
 
 procedure TFrmMain.doUpdateDrawOnMap(Sender: TObject);
@@ -617,6 +827,8 @@ begin
 
               Map.Markers.Clear;
               Map.OverlayViews.Clear;
+
+              FQry.First;
 
               while not FQry.Eof do
               begin
@@ -735,7 +947,7 @@ begin
                    '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
                 // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
                    '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
-                   '<br><b>Últ. Posição: </b> ⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+                   '<br><b>Últ. Posição: </b> ⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
                 // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
                    '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
                    '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
@@ -1077,7 +1289,7 @@ begin
              '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
           // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
              '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
-             '<br><b>Últ. Posição: </b> ⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+             '<br><b>Últ. Posição: </b> ⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
           // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
              '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
              '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
@@ -1175,10 +1387,370 @@ begin
             TListItemText(Objects.FindDrawable('lblEvent3')).Font.Size := 9;
             TListItemText(Objects.FindDrawable('lblEvent3')).TextAlign := TTextAlign.Leading;
 
-            TListItemText(Objects.FindDrawable('lblEvent4')).Text := '⏱ ' + formatdatetime('dd/mm/yyyy hh:nn:ss', LEventDate);
+            TListItemText(Objects.FindDrawable('lblEvent4')).Text := '⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate);
             TListItemText(Objects.FindDrawable('lblEvent4')).Font.Size := 9;
             TListItemText(Objects.FindDrawable('lblEvent4')).TextAlign := TTextAlign.Leading;
             TListItemText(Objects.FindDrawable('lblEvent4')).Width := 120;
+          end;
+
+          {$ENDREGION}
+          FQry.Next;
+        end;
+      end;
+      {$ENDREGION}
+    except
+      on E: Exception do
+      begin
+        LogApp( //
+           'TFrmMain.carregarVeiculos' //
+           , E.ClassName + '. ' + E.Message //
+           , LSQL);
+      end;
+    end;
+  finally
+    {$IFDEF MSWINDOWS}
+    FreeAndNil(FQry);
+    {$ENDIF}
+    {$IFDEF ANDROID}
+    FQry.DisposeOf;
+    {$ENDIF}
+  end;
+end;
+
+procedure TFrmMain.historicoPosicoes;
+var
+  FQry: TFDQuery;
+  LSQL: string;
+
+  LItem: TListViewItem;
+  LImage: TListItemImage;
+  LText: TListItemText;
+
+  LBitmap: TBitmap;
+  LStream: TMemoryStream;
+
+  bExists: boolean;
+  iTotal: Integer;
+
+  LCaracter: Integer;
+
+  LMarker: TTMSFNCGoogleMapsMarker;
+
+  LContent: string;
+
+  LTerminalId: string;
+  LEquipmentBrandName: string;
+  LEquipmentModelName: string;
+
+  LCustomerId: Integer;
+  LCustomerName: string;
+  LPlate: string;
+  LVehicleBrandName: string;
+  LVehicleModelName: string;
+  LVehicleColorId: Integer;
+  LVehicleColor: string;
+
+  LEventDate: TDateTime;
+  LSatellites: Integer;
+  LLatitude: double;
+  LLongitude: double;
+  LCourse: Integer;
+  LAddress: string;
+
+  LIgnitionStatus: boolean;
+  LIgnitionStatus_: string;
+  LSpeed: Integer;
+  LOdometer: Integer;
+  LHorimeter: Integer;
+  LPowerVoltage: double;
+  LCharge: boolean;
+  LCharge_: string;
+  LBatteryVoltage: Integer;
+  LGsmSignalStrength: Integer;
+  LAlarms: string;
+
+  LTitle: string;
+  LData: string;
+
+const
+  cCaracter = 80;
+begin
+  LSQL := //
+     'SELECT *' + sLineBreak + //
+     'FROM POSITIONS_HISTORY' + sLineBreak + //
+     'WHERE 1 = 1' + sLineBreak + //
+     'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
+     'ORDER BY PLATE';
+
+  {$IFDEF DEBUG}
+  // LogApp('DEBUG', EmptyStr, LSQL);
+  {$ENDIF}
+  FQry := TFDQuery.Create(nil);
+  try
+    FQry.Connection := DM.FDConn;
+
+    try
+      FQry.Open(LSQL);
+
+      {$REGION 'Carregar Veiculos'}
+      if not FQry.IsEmpty then
+      begin
+        bExists := not FQry.IsEmpty;
+        iTotal := FQry.RecordCount;
+
+        if not bExists then
+        begin
+          LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
+          Exit;
+        end;
+
+        if (iTotal = 0) then
+        begin
+          LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
+          Exit;
+        end;
+
+        lstvHistoricoPosicoes.AllowSelection := True;
+        lstvHistoricoPosicoes.AlternatingColors := True;
+        lstvHistoricoPosicoes.AutoTapScroll := True;
+
+        lstvHistoricoPosicoes.CanSwipeDelete := False;
+        lstvHistoricoPosicoes.DeleteButtonText := EmptyStr;
+
+        lstvHistoricoPosicoes.SearchVisible := True;
+        lstvHistoricoPosicoes.SearchAlwaysOnTop := True;
+        lstvHistoricoPosicoes.SelectionCrossfade := False;
+
+        lstvHistoricoPosicoes.ItemAppearance.ItemHeight := 66;
+
+        lstvHistoricoPosicoes.NativeOptions := [TListViewNativeOption.Grouped, TListViewNativeOption.Indexed];
+
+        lstvHistoricoPosicoes.Items.Clear;
+
+        while not FQry.Eof do
+        begin
+          // Application.ProcessMessages;
+
+          {$REGION 'Carregar Variaveis'}
+          //
+          LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
+          LEquipmentBrandName := FQry.FindField('EQUIPMENT_BRAND_NAME').AsString;
+          LEquipmentModelName := FQry.FindField('EQUIPMENT_MODEL_NAME').AsString;
+
+          LCustomerId := FQry.FindField('CUSTOMER_ID').AsInteger;
+          LCustomerName := FQry.FindField('CUSTOMER_NAME').AsString;
+          LPlate := FQry.FindField('PLATE').AsString;
+          LVehicleBrandName := FQry.FindField('VEHICLE_BRAND_NAME').AsString;
+          LVehicleModelName := FQry.FindField('VEHICLE_MODEL_NAME').AsString;
+          LVehicleColorId := FQry.FindField('VEHICLE_COLOR_ID').AsInteger;
+          LVehicleColor := FQry.FindField('VEHICLE_COLOR').AsString;
+
+          LEventDate := FQry.FindField('EVENT_DATE').AsDateTime;
+          LSatellites := FQry.FindField('SATELLITES').AsInteger;
+          LLatitude := FQry.FindField('LATITUDE').AsFloat;
+          LLongitude := FQry.FindField('LONGITUDE').AsFloat;
+          LCourse := FQry.FindField('COURSE').AsInteger;
+          LAddress := FQry.FindField('ADDRESS').AsString;
+
+          LIgnitionStatus := FQry.FindField('IGNITION_STATUS').AsBoolean;
+
+          if LIgnitionStatus then
+          begin
+            LIgnitionStatus_ := cIgnitionOnText;
+          end
+          else
+          begin
+            LIgnitionStatus_ := cIgnitionOffText;
+          end;
+
+          LSpeed := FQry.FindField('SPEED').AsInteger;
+          LOdometer := FQry.FindField('ODOMETER').AsInteger;
+          LHorimeter := FQry.FindField('HORIMETER').AsInteger;
+          LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
+
+          LCharge := FQry.FindField('CHARGE').AsBoolean;
+
+          if LCharge then
+          begin
+            // LCharge_ := cBatteryOnText;
+            LCharge_ := LPowerVoltage.ToString;
+          end
+          else
+          begin
+            // LCharge_ := cBatteryOffText;
+            LCharge_ := '0';
+          end;
+
+          LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
+          LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
+          LAlarms := FQry.FindField('ALARMS').AsString;
+
+          {$REGION 'Verifica os Dados'}
+          if (LTerminalId = EmptyStr) then
+            LTerminalId := 'N/D';
+
+          if (LEquipmentBrandName = EmptyStr) then
+            LEquipmentBrandName := 'N/D';
+
+          if (LEquipmentModelName = EmptyStr) then
+            LEquipmentModelName := 'N/D';
+
+          // if ( LCustomerId: Integer;  LCustomerId := 'N/D';
+
+          if (LCustomerName = EmptyStr) then
+            LCustomerName := 'N/D';
+
+          if (LPlate = EmptyStr) then
+            LPlate := 'Novo';
+
+          if (LVehicleBrandName = EmptyStr) then
+            LVehicleBrandName := 'N/D';
+
+          if (LVehicleModelName = EmptyStr) then
+            LVehicleModelName := 'N/D';
+
+          // if ( LVehicleColorId: Integer;  LVehicleColorId := 'N/D';
+          // if ( LVehicleColor = EmptyStr ) then  LVehicleColor := 'N/D';
+          //
+          // if ( LEventDate: TDateTime;  LEventDate := 'N/D';
+          // if ( LSatellites: Integer;  LSatellites := 'N/D';
+          // if ( LLatitude: double;  LLatitude := 'N/D';
+          // if ( LLongitude: double;  LLongitude := 'N/D';
+          // if ( LCourse: Integer;  LCourse := 'N/D';
+          // if ( LAddress = EmptyStr ) then  LAddress := 'N/D';
+          //
+          // if ( LIgnitionStatus: Boolean;  LIgnitionStatus := 'N/D';
+          // if ( LIgnitionStatus_ = EmptyStr ) then  LIgnitionStatus_ := 'N/D';
+          // if ( LSpeed: Integer;  LSpeed := 'N/D';
+          // if ( LOdometer: Integer;  LOdometer := 'N/D';
+          // if ( LHorimeter: Integer;  LHorimeter := 'N/D';
+          // if ( LPowerVoltage: double;  LPowerVoltage := 'N/D';
+          // if ( LCharge: Boolean;  LCharge := 'N/D';
+          // if ( LCharge_ = EmptyStr ) then  LCharge_ := 'N/D';
+          // if ( LBatteryVoltage: Integer;  LBatteryVoltage := 'N/D';
+          // if ( LGsmSignalStrength: Integer;  LGsmSignalStrength := 'N/D';
+          // if ( LAlarms = EmptyStr ) then  LAlarms := 'N/D';
+          {$ENDREGION}
+          //
+
+          // LTitle := //
+          // RosaDosVentos(LCourse, True) + ' ' + LPlate + //
+          // ''; // sLineBreak + LIgnitionStatus_;
+
+          // LData := //
+          // '<br><b>Placa: </b>' + LPlate + sLineBreak + //
+          // '<br><b>Associado: </b>' + LCustomerName + sLineBreak + //
+          // '<br><b>Marca Veíc.: </b>' + LVehicleBrandName + sLineBreak + //
+          // '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
+          // // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
+          // '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
+          // '<br><b>Últ. Posição: </b> ⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+          // // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
+          // '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
+          // '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
+          // '';
+
+          LItem := lstvHistoricoPosicoes.Items.Add;
+
+          with LItem do
+          begin
+            TagString := LTerminalId;
+
+            LItem.Data['TERMINAL_ID'] := LTerminalId;
+            LItem.Data['EQUIPMENT_BRAND_NAME'] := LEquipmentBrandName;
+            LItem.Data['EQUIPMENT_MODEL_NAME'] := LEquipmentModelName;
+            LItem.Data['CUSTOMER_ID'] := LCustomerId;
+            LItem.Data['CUSTOMER_NAME'] := LCustomerName;
+            LItem.Data['PLATE'] := LPlate;
+            LItem.Data['VEHICLE_BRAND_NAME'] := LVehicleBrandName;
+            LItem.Data['VEHICLE_MODEL_NAME'] := LVehicleModelName;
+            LItem.Data['VEHICLE_COLOR_ID'] := LVehicleColorId;
+            LItem.Data['VEHICLE_COLOR'] := LVehicleColor;
+            LItem.Data['EVENT_DATE'] := LEventDate;
+            LItem.Data['SATELLITES'] := LSatellites;
+            LItem.Data['LATITUDE'] := LLatitude;
+            LItem.Data['LONGITUDE'] := LLongitude;
+            LItem.Data['COURSE'] := LCourse;
+            LItem.Data['ADDRESS'] := LAddress;
+            LItem.Data['IGNITION_STATUS'] := LIgnitionStatus;
+            LItem.Data['SPEED'] := LSpeed;
+            LItem.Data['ODOMETER'] := LOdometer;
+            LItem.Data['HORIMETER'] := LHorimeter;
+            LItem.Data['POWER_VOLTAGE'] := LPowerVoltage;
+            LItem.Data['CHARGE'] := LCharge;
+            LItem.Data['BATTERY_VOLTAGE'] := LBatteryVoltage;
+            LItem.Data['GSM_SIGNAL_STRENGTH'] := LGsmSignalStrength;
+            LItem.Data['ALARMS'] := LAlarms;
+
+            if not(LBitmap = nil) then
+              LBitmap := nil;
+
+            LBitmap := TBitmap.Create;
+
+            // {$IFDEF MSWINDOWS}
+            if LIgnitionStatus then
+            begin
+              // BitmapFromBase64(cImageBase64CarOn48, LBitmap);
+              // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap := LBitmap;
+              // TListItemText(Objects.FindDrawable('lblEvent1')).TextColor := cIgnitionOnColor;
+            end
+            else
+            begin
+              // BitmapFromBase64(cImageBase64CarOff48, LBitmap);
+              // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap := LBitmap;
+              // TListItemText(Objects.FindDrawable('lblEvent1')).TextColor := cIgnitionOffColor;
+            end;
+
+            if LCharge then
+            begin
+              // TListItemText(Objects.FindDrawable('lblEvent2')).TextColor := cBatteryOnColor;
+            end
+            else
+            begin
+              // TListItemText(Objects.FindDrawable('lblEvent2')).TextColor := cBatteryOffColor;
+            end;
+
+            // {$ENDIF}
+            // {$IFDEF ANDROID}
+            // if LIgnitionStatus then
+            // begin
+            // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap.LoadFromURL(cImageBase64CarOn48);
+            // end
+            // else
+            // begin
+            // TListItemImage(Objects.FindDrawable('imgVeiculo')).Bitmap.LoadFromURL(cImageBase64CarOff48);
+            // end;
+            // {$ENDIF}
+
+            TListItemText(Objects.FindDrawable('lblPlaca')).Text := LPlate;
+            TListItemText(Objects.FindDrawable('lblPlaca')).Font.Size := 12;
+            TListItemText(Objects.FindDrawable('lblPlaca')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblEventoData')).Text := //
+               'Evento: ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + ' - ' + //
+               'Ignição: ' + LIgnitionStatus_;
+            TListItemText(Objects.FindDrawable('lblEventoData')).Font.Size := 12;
+            TListItemText(Objects.FindDrawable('lblEventoData')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblLogradouro')).Text := LAddress;
+            TListItemText(Objects.FindDrawable('lblLogradouro')).Font.Size := 9;
+            TListItemText(Objects.FindDrawable('lblLogradouro')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblVelocidade')).Text := 'Velocidade: ' + LSpeed.ToString + ' km/h';
+            TListItemText(Objects.FindDrawable('lblVelocidade')).Font.Size := 10;
+            TListItemText(Objects.FindDrawable('lblVelocidade')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblVoltagem')).Text := 'Voltagem: ' + LPowerVoltage.ToString;
+            TListItemText(Objects.FindDrawable('lblVoltagem')).Font.Size := 10;
+            TListItemText(Objects.FindDrawable('lblVoltagem')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblOdometro')).Text := 'Odômetro: ' + LOdometer.ToString;
+            TListItemText(Objects.FindDrawable('lblOdometro')).Font.Size := 10;
+            TListItemText(Objects.FindDrawable('lblOdometro')).TextAlign := TTextAlign.Leading;
+
+            TListItemText(Objects.FindDrawable('lblHorimetro')).Text := 'Horímetro: ' + LHorimeter.ToString;
+            TListItemText(Objects.FindDrawable('lblHorimetro')).Font.Size := 10;
+            TListItemText(Objects.FindDrawable('lblHorimetro')).TextAlign := TTextAlign.Leading;
           end;
 
           {$ENDREGION}
@@ -1210,6 +1782,7 @@ var
   LDir: string;
   LFile: string;
 begin
+  LoadFormState;
   {$IFDEF MSWINDOWS}
   Self.Left := 16;
   Self.Top := 16;
@@ -1219,6 +1792,9 @@ begin
   Self.Fill.Color := $FFFFFFFF;
   edtLoginNome.TextSettings.FontColor := $FF000000;
   edtLoginSenha.TextSettings.FontColor := $FF000000;
+  lblEsqueciSenha.TextSettings.FontColor := $FF000000;
+  lblSempreLogado.TextSettings.FontColor := $FF000000;
+  lblSempreLogado.Text := PadL(lblSempreLogado.Text, Trunc(swtSempreLogado.Width), ' ');
 
   tbcMain.TabPosition := TTabPosition.Dots;
 
@@ -1240,7 +1816,7 @@ begin
   DM.doCreateDB;
 
   mvMenuView.Width := Self.Width - 80;
-  grdLytMenuMapa.ItemWidth := Trunc(Self.Width / 2) - 8;
+  grdLytMenuMapa.ItemWidth := Trunc(Self.Width / 6) -0;
   tbcMain.ActiveTab := tbiLogin;
 
   FPanelMap := TPanel.Create(Self);
@@ -1293,13 +1869,18 @@ begin
 
   {$ENDIF}
   FTimerPositionLast := TTimer.Create(Self);
-  FTimerPositionLast.Interval := 1000;
   FTimerPositionLast.Enabled := False;
+  FTimerPositionLast.Interval := 1000;
   FTimerPositionLast.OnTimer := doUpdatePositionLast;
 
+  FTimerPositionHistory := TTimer.Create(Self);
+  FTimerPositionHistory.Enabled := False;
+  FTimerPositionHistory.Interval := 15000;
+  FTimerPositionHistory.OnTimer := doUpdatePositionHistory;
+
   FTimerDrawOnMap := TTimer.Create(Self);
-  FTimerDrawOnMap.Interval := 1500;
   FTimerDrawOnMap.Enabled := False;
+  FTimerDrawOnMap.Interval := 1500;
   FTimerDrawOnMap.OnTimer := doUpdateDrawOnMap;
 
   edtLoginNome.Text := 'william';
@@ -1311,19 +1892,38 @@ begin
   {$IFDEF MSWINDOWS}
   FreeAndNil(Map);
   FreeAndNil(FPanelMap);
+  FreeAndNil(FTimerPositionLast);
+  FreeAndNil(FTimerPositionHistory);
+  FreeAndNil(FTimerDrawOnMap);
   {$ELSE}
   Map.DisposeOf;
   FPanelMap.DisposeOf;
+  FTimerPositionLast.DisposeOf;
+  FTimerPositionHistory.DisposeOf;
+  FTimerDrawOnMap.DisposeOf;
   {$ENDIF}
+end;
+
+procedure TFrmMain.FormSaveState(Sender: TObject);
+begin
+  SaveFormState;
 end;
 
 procedure TFrmMain.lblEntrarClick(Sender: TObject);
 begin
+  TLoading.Show(FrmMain, 'Carregando dados do usuário..');
+  // TThread.CreateAnonymousThread(
   TThread.Queue(nil,
     procedure
     begin
       loginUsuario;
+      TThread.Synchronize(nil,
+        procedure
+        begin
+          TLoading.Hide;
+        end);
     end);
+  // end).Start;
 end;
 
 procedure TFrmMain.lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
@@ -1384,6 +1984,16 @@ begin
   doListaVeiculos;
 end;
 
+procedure TFrmMain.btnMenuHistoricoPosicoesClick(Sender: TObject);
+begin
+  doHistoricoPosicoes;
+end;
+
+procedure TFrmMain.btnMenuListaVeiculosClick(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
 procedure TFrmMain.btnMenuMostraMapaClick(Sender: TObject);
 begin
   doMostraMapa;
@@ -1394,9 +2004,49 @@ begin
   doMostraMapa;
 end;
 
+procedure TFrmMain.actMostrarMapaExecute(Sender: TObject);
+begin
+  doMostraMapa;
+end;
+
+procedure TFrmMain.actComandosExecute(Sender: TObject);
+begin
+  ShowMessage('Em fase de teste no Depto. de Desenvolvimento!');
+end;
+
+procedure TFrmMain.actConfiguracoesExecute(Sender: TObject);
+begin
+  ShowMessage('Em fase de teste no Depto. de Desenvolvimento!');
+end;
+
+procedure TFrmMain.actEventosExecute(Sender: TObject);
+begin
+  ShowMessage('Em fase de teste no Depto. de Desenvolvimento!');
+end;
+
+procedure TFrmMain.actHistoricoPosicoesExecute(Sender: TObject);
+begin
+  doHistoricoPosicoes;
+end;
+
 procedure TFrmMain.actListarVeiculosExecute(Sender: TObject);
 begin
   doListaVeiculos;
+end;
+
+procedure TFrmMain.imgBtnHistoricoPosicoesClick(Sender: TObject);
+begin
+  doHistoricoPosicoes;
+end;
+
+procedure TFrmMain.imgBtnListaVeiculosClick(Sender: TObject);
+begin
+  doListaVeiculos;
+end;
+
+procedure TFrmMain.imgBtnMostraMapaClick(Sender: TObject);
+begin
+  doMostraMapa;
 end;
 
 procedure TFrmMain.imgMenuListaVeiculosClick(Sender: TObject);
@@ -1413,8 +2063,6 @@ procedure TFrmMain.btnListaVeiculos2_Click(Sender: TObject);
 begin
   doListaVeiculos;
 end;
-
-
 
 // * Testando *//
 

@@ -366,6 +366,7 @@ Ou seja, na primeira vc têm "nextPage" mas não têm "previousPage". Nas do mei
 Se for por período, a URL fica
 
 http://vps35067.publiccloud.com.br/api/position/history/3250/period/2022-12-02%2008%3A00%3A00/2022-12-02%2012%3A00%3A00 
+http://vps35067.publiccloud.com.br/api/position/history/3250/period/2022-12-02 08:00:00/2022-12-02 12:00:00
 
 
 Aqui estou solicitando o mesmo equipamento, do período de 2022-12-02 08:00:00 às 2022-12-02 12:00:00

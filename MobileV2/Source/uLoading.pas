@@ -62,16 +62,16 @@ begin
       end;
     end;
   finally
-//    if not(Mensagem = nil) then
-//      Mensagem := nil;
-//    if not(Animacao = nil) then
-//      Animacao := nil;
-//    if not(Arco = nil) then
-//      Arco := nil;
-//    if not(Layout = nil) then
-//      Layout := nil;
-//    if not(Fundo = nil) then
-//      Fundo := nil;
+    if not(Mensagem = nil) then
+      Mensagem := nil;
+    if not(Animacao = nil) then
+      Animacao := nil;
+    if not(Arco = nil) then
+      Arco := nil;
+    if not(Layout = nil) then
+      Layout := nil;
+    if not(Fundo = nil) then
+      Fundo := nil;
   end;
 end;
 

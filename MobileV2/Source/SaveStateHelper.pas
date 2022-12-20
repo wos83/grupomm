@@ -46,7 +46,7 @@ var
   FMXJObj: TJSONObject;
 begin
   try
-    SaveState.StoragePath := System.IOUtils.TPath.GetHomePath;
+    SaveState.StoragePath := TPath.GetHomePath;
     if not(SaveState.Stream.Size > 0) then
       exit;
     // Recover previously typed values in all control.
