@@ -11,6 +11,7 @@ uses
   System.SysConst,
   System.SysUtils,
   System.StrUtils,
+  System.IOUtils,
   System.NetEncoding,
   //
   {$IFDEF ANDROID}
@@ -27,10 +28,6 @@ uses
   //
   FMX.Graphics,
   FMX.DialogService;
-
-procedure LogApp(ARegistro, AErro: string); overload;
-procedure LogApp(ARegistro, AErro, AInstrucaoSQL: string); overload;
-procedure LogApp(ARegistro, AErro, AInstrucaoSQL, ARequisicaoREST, ARequisicaoURI, ARequisicaoParam, ARequisicaoJSON, ARespostaJSON: string); overload;
 
 function GenerateRandomStringOnlyLetter(ALength: Integer): String;
 function GenerateRandomStringOnlyNumber(ALength: Integer): String;
@@ -53,134 +50,6 @@ implementation
 
 uses
   uDM;
-
-procedure LogApp(ARegistro, AErro: string);
-var
-  LQry: TFDQuery;
-  LSQL: string;
-  LError: string;
-begin
-  {$IFDEF DEBUG}
-  LQry := TFDQuery.Create(nil);
-  try
-    LSQL := 'INSERT INTO LOGS (DS_LOG,DS_ERRO,DS_SQL) VALUES (:DS_LOG,:DS_ERRO,:DS_SQL)';
-    LQry.Name := 'QryTemp' + FormatDateTime('yyyymddhhnnsszzz', Now);
-    LQry.Close;
-    LQry.Connection := DM.FDConn;
-    LQry.SQL.Clear;
-    LQry.SQL.Text := Trim(LSQL);
-    try
-      LQry.Params.ParamByName('DS_LOG').AsString := Trim(ARegistro);
-      LQry.Params.ParamByName('DS_ERRO').AsString := Trim(AErro);
-      LQry.ExecSQL;
-    except
-      on E: Exception do
-      begin
-        LError := 'Error: ' + E.ClassName + '. ' + E.Message + sLineBreak + LSQL;
-        TDialogService.ShowMessage(LError);
-        Exit;
-      end;
-    end;
-  finally
-    {$IFDEF MSWINDOWS}
-    FreeAndNil(LQry);
-    {$ENDIF}
-    {$IFDEF ANDROID}
-    LQry.DisposeOf;
-    {$ENDIF}
-  end;
-  {$ENDIF}
-end;
-
-procedure LogApp(ARegistro, AErro, AInstrucaoSQL: string);
-var
-  LQry: TFDQuery;
-  LSQL: string;
-  LError: string;
-begin
-  {$IFDEF DEBUG}
-  LQry := TFDQuery.Create(nil);
-  try
-    LSQL := 'INSERT INTO LOGS (DS_LOG,DS_ERRO,DS_SQL) VALUES (:DS_LOG,:DS_ERRO,:DS_SQL)';
-
-    LQry.Name := 'QryTemp' + FormatDateTime('yyyymddhhnnsszzz', Now);
-    LQry.Close;
-    LQry.Connection := DM.FDConn;
-    LQry.SQL.Clear;
-    LQry.SQL.Text := Trim(LSQL);
-    try
-      LQry.Params.ParamByName('DS_LOG').AsString := Trim(ARegistro);
-      LQry.Params.ParamByName('DS_ERRO').AsString := Trim(AErro);
-      LQry.Params.ParamByName('DS_SQL').AsString := Trim(AInstrucaoSQL);
-      LQry.ExecSQL;
-    except
-      on E: Exception do
-      begin
-        LError := 'Error: ' + E.ClassName + '. ' + E.Message + sLineBreak + LSQL;
-        TDialogService.ShowMessage(LError);
-        Exit;
-      end;
-    end;
-  finally
-    {$IFDEF MSWINDOWS}
-    FreeAndNil(LQry);
-    {$ENDIF}
-    {$IFDEF ANDROID}
-    LQry.DisposeOf;
-    {$ENDIF}
-  end;
-  {$ENDIF}
-end;
-
-procedure LogApp(ARegistro, AErro, AInstrucaoSQL, ARequisicaoREST, ARequisicaoURI, ARequisicaoParam, ARequisicaoJSON, ARespostaJSON: string);
-var
-  LQry: TFDQuery;
-  LSQL: string;
-  LError: string;
-begin
-  {$IFDEF DEBUG}
-  LQry := TFDQuery.Create(nil);
-  try
-    LSQL := //
-       'INSERT INTO LOGS (' + sLineBreak + //
-       'DS_LOG,DS_ERRO,DS_SQL,DS_REST,DS_REST_URI,DS_REST_PARAM,DS_REST_REQUEST,DS_REST_RESPONSE' + sLineBreak + //
-       ') VALUES (' + sLineBreak + //
-       ':DS_LOG,:DS_ERRO,:DS_SQL,:DS_REST,:DS_REST_URI,:DS_REST_PARAM,:DS_REST_REQUEST,:DS_REST_RESPONSE' + sLineBreak + //
-       ')';
-
-    LQry.Name := 'QryTemp' + FormatDateTime('yyyymddhhnnsszzz', Now);
-    LQry.Close;
-    LQry.Connection := DM.FDConn;
-    LQry.SQL.Clear;
-    LQry.SQL.Text := Trim(LSQL);
-    try
-      LQry.Params.ParamByName('DS_LOG').AsString := Trim(ARegistro);
-      LQry.Params.ParamByName('DS_ERRO').AsString := Trim(AErro);
-      LQry.Params.ParamByName('DS_SQL').AsString := Trim(AInstrucaoSQL);
-      LQry.Params.ParamByName('DS_REST').AsString := Trim(ARequisicaoREST);
-      LQry.Params.ParamByName('DS_REST_URI').AsString := Trim(ARequisicaoURI);
-      LQry.Params.ParamByName('DS_REST_PARAM').AsString := Trim(ARequisicaoParam);
-      LQry.Params.ParamByName('DS_REST_REQUEST').AsString := Trim(ARequisicaoJSON);
-      LQry.Params.ParamByName('DS_REST_RESPONSE').AsString := Trim(ARespostaJSON);
-      LQry.ExecSQL;
-    except
-      on E: Exception do
-      begin
-        LError := 'Error: ' + E.ClassName + '. ' + E.Message + sLineBreak + LSQL;
-        TDialogService.ShowMessage(LError);
-        Exit;
-      end;
-    end;
-  finally
-    {$IFDEF MSWINDOWS}
-    FreeAndNil(LQry);
-    {$ENDIF}
-    {$IFDEF ANDROID}
-    LQry.DisposeOf;
-    {$ENDIF}
-  end;
-  {$ENDIF}
-end;
 
 function GenerateRandomStringOnlyLetter(ALength: Integer): String;
 var

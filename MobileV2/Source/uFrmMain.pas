@@ -50,9 +50,12 @@ uses
   FMX.ListView.Types,
   FMX.Media,
   FMX.MediaLibrary.Actions,
+  FMX.Memo,
+  FMX.Memo.Types,
   FMX.MultiView,
   FMX.Objects,
   FMX.Platform,
+  FMX.ScrollBox,
   FMX.StdActns,
   FMX.StdCtrls,
   FMX.TabControl,
@@ -69,6 +72,7 @@ uses
   AndroidApi.JNIBridge,
   FMX.Maps.Android,
   FMX.Platform.Android,
+  System.Android.Service,
   {$ENDIF}
   // IdBaseComponent,
   // IdComponent,
@@ -112,130 +116,134 @@ uses
   System.UITypes,
   System.Variants,
   //
+  uLog,
   uLoading,
   SaveStateHelper,
   uConsts,
   uLibrary,
+  uUser,
+  uLogin,
+  uPositionLast,
   uDM;
 
 type
   TFrmMain = class(TForm)
+    actComandos: TAction;
+    actConfiguracoes: TAction;
+    actEventos: TAction;
+    actHistoricoPosicoes: TAction;
+    actListarVeiculos: TAction;
+    actlMain: TActionList;
+    actMostrarMapa: TAction;
+    btnMenuComandos: TSpeedButton;
+    btnMenuConfiguracoes: TSpeedButton;
+    btnMenuEventos: TSpeedButton;
+    btnMenuHistoricoPosicoes: TSpeedButton;
+    btnMenuListaVeiculos: TSpeedButton;
+    btnMenuMostraMapa: TSpeedButton;
     edtLoginNome: TEdit;
     edtLoginSenha: TEdit;
+    grdLytMenuMapa: TGridLayout;
+    ImageList128: TImageList;
+    imgBtnComandos: TImage;
+    imgBtnConfiguracoes: TImage;
+    imgBtnEventos: TImage;
+    imgBtnHistoricoPosicoes: TImage;
+    imgBtnListaVeiculos: TImage;
+    imgBtnListaVeiculos__: TImage;
     imgBtnMenu: TImage;
+    imgBtnMostraMapa: TImage;
+    imgBtnMostraMapa__: TImage;
     imglMain48: TImageList;
     imgLogo: TImage;
+    imgMenuComandos: TImage;
+    imgMenuConfiguracoes: TImage;
+    imgMenuEventos: TImage;
+    imgMenuHistoricoPosicoes: TImage;
+    imgMenuListaVeiculos: TImage;
+    imgMenuMostraMapa: TImage;
+    imgMenuView: TImage;
     lblEntrar: TLabel;
     lblEsqueciSenha: TLabel;
     lblLoginNome: TLabel;
     lblLoginSenha: TLabel;
+    lblSempreLogado: TLabel;
     lblTituloMapa: TLabel;
+    lstbMenuMapa: TListBox;
+    lstiBtnListaVeiculos: TListBoxItem;
+    lstiBtnMostraMapa: TListBoxItem;
+    lstvHistoricoPosicoes: TListView;
     lstvListaVeiculos: TListView;
+    lytBtnComandos: TLayout;
+    lytBtnConfiguracoes: TLayout;
+    lytBtnEventos: TLayout;
+    lytBtnHistoricoPosicoes: TLayout;
+    lytBtnListaVeiculos: TLayout;
+    lytBtnListaVeiculos__: TLayout;
+    lytBtnMostraMapa: TLayout;
+    lytBtnMostraMapa__: TLayout;
     lytContentLogin: TLayout;
     lytContentMapa: TLayout;
     lytEntrar: TLayout;
+    lytHistoricoPosicoes: TLayout;
     lytListaVeiculos: TLayout;
     lytLogar: TLayout;
     lytLoginNome: TLayout;
     lytLoginSenha: TLayout;
     lytLogo: TLayout;
     lytMapa: TLayout;
+    lytMenuComandos: TLayout;
+    lytMenuConfiguracoes: TLayout;
+    lytMenuEventos: TLayout;
+    lytMenuHistoricoPosicoes: TLayout;
+    lytMenuListaVeiculos: TLayout;
+    lytMenuMostraMapa: TLayout;
+    lytSempreLogado: TLayout;
     lytTituloMapa: TLayout;
+    mmoDebug: TMemo;
+    mvMenuView: TMultiView;
     rectBtnEntrar: TRectangle;
+    rectBtnListaVeiculos: TRectangle;
+    rectBtnMenu: TRectangle;
+    rectBtnMostraMapa: TRectangle;
     rectMenu: TRectangle;
+    rectMenuMapa: TRectangle;
+    rectMenuView: TRectangle;
     rectNavMapa: TRectangle;
+    swtSempreLogado: TSwitch;
     tbcMain: TTabControl;
+    tbiDebug: TTabItem;
     tbiLogin: TTabItem;
     tbiMapa: TTabItem;
-    ImageList128: TImageList;
-    rectBtnMenu: TRectangle;
-    mvMenuView: TMultiView;
-    imgMenuView: TImage;
-    rectMenuView: TRectangle;
-    actlMain: TActionList;
-    actListarVeiculos: TAction;
-    lytMenuListaVeiculos: TLayout;
-    imgMenuListaVeiculos: TImage;
-    btnMenuListaVeiculos: TSpeedButton;
-    rectMenuMapa: TRectangle;
-    lytBtnListaVeiculos__: TLayout;
-    imgBtnListaVeiculos__: TImage;
-    rectBtnListaVeiculos: TRectangle;
-    lytBtnMostraMapa__: TLayout;
-    imgBtnMostraMapa__: TImage;
-    rectBtnMostraMapa: TRectangle;
-    lstbMenuMapa: TListBox;
-    lstiBtnMostraMapa: TListBoxItem;
-    lstiBtnListaVeiculos: TListBoxItem;
-    lytMenuMostraMapa: TLayout;
-    imgMenuMostraMapa: TImage;
-    btnMenuMostraMapa: TSpeedButton;
-    grdLytMenuMapa: TGridLayout;
-    lytBtnMostraMapa: TLayout;
-    lytBtnListaVeiculos: TLayout;
-    imgBtnMostraMapa: TImage;
-    imgBtnListaVeiculos: TImage;
-    actMostrarMapa: TAction;
-    lytSempreLogado: TLayout;
-    swtSempreLogado: TSwitch;
-    lblSempreLogado: TLabel;
-    lytBtnHistoricoPosicoes: TLayout;
-    imgBtnHistoricoPosicoes: TImage;
-    lytMenuHistoricoPosicoes: TLayout;
-    imgMenuHistoricoPosicoes: TImage;
-    btnMenuHistoricoPosicoes: TSpeedButton;
-    actHistoricoPosicoes: TAction;
-    lytHistoricoPosicoes: TLayout;
-    lstvHistoricoPosicoes: TListView;
-    lytMenuEventos: TLayout;
-    imgMenuEventos: TImage;
-    btnMenuEventos: TSpeedButton;
-    actEventos: TAction;
-    actComandos: TAction;
-    actConfiguracoes: TAction;
-    lytBtnEventos: TLayout;
-    imgBtnEventos: TImage;
-    lytBtnComandos: TLayout;
-    imgBtnComandos: TImage;
-    lytMenuComandos: TLayout;
-    imgMenuComandos: TImage;
-    btnMenuComandos: TSpeedButton;
-    lytMenuConfiguracoes: TLayout;
-    imgMenuConfiguracoes: TImage;
-    btnMenuConfiguracoes: TSpeedButton;
-    lytBtnConfiguracoes: TLayout;
-    imgBtnConfiguracoes: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
 
-    procedure lblEntrarClick(Sender: TObject);
-    procedure lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
-    procedure mvMenuViewStartShowing(Sender: TObject);
-    procedure mvMenuViewStartHiding(Sender: TObject);
-    procedure actListarVeiculosExecute(Sender: TObject);
-    procedure imgMenuListaVeiculosClick(Sender: TObject);
-    procedure btnListaVeiculos2_Click(Sender: TObject);
-    procedure rectBtnListaVeiculosClick(Sender: TObject);
-    procedure rectBtnMostraMapaClick(Sender: TObject);
-    procedure btnMenuMostraMapaClick(Sender: TObject);
-    procedure imgMenuMostraMapaClick(Sender: TObject);
-    procedure actMostrarMapaExecute(Sender: TObject);
-    procedure imgBtnMostraMapaClick(Sender: TObject);
-    procedure imgBtnListaVeiculosClick(Sender: TObject);
-    procedure FormSaveState(Sender: TObject);
-    procedure actHistoricoPosicoesExecute(Sender: TObject);
-    procedure btnMenuHistoricoPosicoesClick(Sender: TObject);
-    procedure btnMenuListaVeiculosClick(Sender: TObject);
-    procedure imgBtnHistoricoPosicoesClick(Sender: TObject);
-    procedure actEventosExecute(Sender: TObject);
     procedure actComandosExecute(Sender: TObject);
     procedure actConfiguracoesExecute(Sender: TObject);
+    procedure actEventosExecute(Sender: TObject);
+    procedure actHistoricoPosicoesExecute(Sender: TObject);
+    procedure actListarVeiculosExecute(Sender: TObject);
+    procedure actMostrarMapaExecute(Sender: TObject);
+    procedure btnListaVeiculos2_Click(Sender: TObject);
+    procedure btnMenuHistoricoPosicoesClick(Sender: TObject);
+    procedure btnMenuListaVeiculosClick(Sender: TObject);
+    procedure btnMenuMostraMapaClick(Sender: TObject);
+    procedure FormSaveState(Sender: TObject);
+    procedure imgBtnHistoricoPosicoesClick(Sender: TObject);
+    procedure imgBtnListaVeiculosClick(Sender: TObject);
+    procedure imgBtnMostraMapaClick(Sender: TObject);
+    procedure imgMenuListaVeiculosClick(Sender: TObject);
+    procedure imgMenuMostraMapaClick(Sender: TObject);
+    procedure lblEntrarClick(Sender: TObject);
+    procedure lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
+    procedure mvMenuViewStartHiding(Sender: TObject);
+    procedure mvMenuViewStartShowing(Sender: TObject);
+    procedure rectBtnListaVeiculosClick(Sender: TObject);
+    procedure rectBtnMostraMapaClick(Sender: TObject);
 
   private
     FPanelMap: TPanel;
-    FTimerPositionLast: TTimer;
-    FTimerPositionHistory: TTimer;
     FTimerDrawOnMap: TTimer;
 
     FImageCarOn48: string;
@@ -245,15 +253,13 @@ type
     procedure PermissionMessage(Sender: TObject; const APermissions: TClassicStringDynArray; const APostRationaleProc: TProc);
     procedure PermissionResult(Sender: TObject; const APermissions: TClassicStringDynArray; const AGrantResults: TClassicPermissionStatusDynArray);
     {$ENDIF}
-    procedure loginUsuario;
+    procedure fazerLogin;
     procedure listarVeiculos;
     procedure historicoPosicoes;
 
     procedure doCustomizeHeadLinks(Sender: TObject; AList: TTMSFNCMapsLinksList);
     procedure doMapInitialized(Sender: TObject);
 
-    procedure doUpdatePositionLast(Sender: TObject);
-    procedure doUpdatePositionHistory(Sender: TObject);
     procedure doUpdateDrawOnMap(Sender: TObject);
 
     procedure doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
@@ -273,7 +279,6 @@ var
   StateBinaryReader: TBinaryReader;
 
 const
-  cCACHE = 'cache';
   {$IFDEF ANDROID}
   PermissionInternet = 'android.permission.INTERNET';
   PermissionReadExternalStorage = 'android.permission.READ_EXTERNAL_STORAGE';
@@ -393,18 +398,18 @@ begin
 end;
 {$ENDIF}
 
-procedure TFrmMain.loginUsuario;
+procedure TFrmMain.fazerLogin;
 var
   LUsername: string;
   LPassword: string;
   LError: string;
-  LLogin: boolean;
+  LLogged: boolean;
 begin
-  LLogin := False;
+  LLogged := False;
   LError := EmptyStr;
 
-  LUsername := edtLoginNome.Text;
-  LPassword := edtLoginSenha.Text;
+  LUsername := Trim(edtLoginNome.Text);
+  LPassword := Trim(edtLoginSenha.Text);
 
   if (LUsername = EmptyStr) then
   begin
@@ -422,17 +427,16 @@ begin
     Exit;
   end;
 
-  LLogin := DM.doLogin(LUsername, LPassword, EmptyStr, LError);
+  LLogged := Login.doLogin(LUsername, LPassword, EmptyStr, LError);
 
-  if LLogin then
+  if LLogged then
   begin
     tbcMain.ActiveTab := tbiMapa;
 
-    FTimerPositionLast.Enabled := True;
-    FTimerPositionHistory.Enabled := True;
+    PositionLast.Timer.Enabled := True;
     FTimerDrawOnMap.Enabled := True;
 
-    Toast(FUser.Name + ', login realizado com sucesso!', 3);
+    Toast(User.Name + ', login realizado com sucesso!', 3);
   end
   else if not(LError = EmptyStr) then
   begin
@@ -461,10 +465,6 @@ begin
   Map.ExecuteJavaScript('initAutoComplete();');
   Map.ExecuteJavaScript('new AutocompleteDirectionsHandler(map);');
 
-  // Map.Options.DefaultLatitude := cLat;
-  // Map.Options.DefaultLongitude := cLng;
-  // Map.Options.DefaultZoomLevel := cZoom;
-
   Map.Options.ShowTraffic := False;
   Map.Options.ShowBicycling := False;
   Map.Options.ShowStreetViewControl := False;
@@ -484,123 +484,6 @@ begin
   Map.SetZoomLevel(cZoom);
 
   Map.EndUpdate;
-end;
-
-procedure TFrmMain.doUpdatePositionLast(Sender: TObject);
-begin
-  TThread.Queue(nil,
-    procedure
-    begin
-      FTimerPositionLast.Enabled := False;
-      try
-        TThread.Synchronize(nil,
-          procedure
-          begin
-            DM.doPositionLast(FUser.TokenCredential);
-          end);
-      finally
-        FTimerPositionLast.Interval := 60000;
-        FTimerPositionLast.Enabled := True;
-      end;
-    end);
-end;
-
-procedure TFrmMain.doUpdatePositionHistory(Sender: TObject);
-var
-  LSQL: string;
-  FQry: TFDQuery;
-
-  bExists: boolean;
-  iTotal: Integer;
-  iPageTotal: Integer;
-
-  LEquipmentId: Integer;
-begin
-  TThread.Queue(nil,
-    procedure
-    begin
-      FTimerPositionHistory.Enabled := False;
-      try
-        TThread.Synchronize(nil,
-          procedure
-          begin
-            LSQL := //
-               'SELECT' + sLineBreak + //
-               'EQUIPMENT_ID' + sLineBreak + //
-               'FROM POSITIONS_LAST' + sLineBreak + //
-               'WHERE 1 = 1' + sLineBreak + //
-               'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
-               'ORDER BY EQUIPMENT_ID';
-
-            {$IFDEF DEBUG}
-            // LogApp('DEBUG', EmptyStr, LSQL);
-            {$ENDIF}
-            FQry := TFDQuery.Create(nil);
-            try
-              FQry.Connection := DM.FDConn;
-
-              try
-                FQry.Open(LSQL);
-
-                if not FQry.IsEmpty then
-                begin
-                  bExists := not FQry.IsEmpty;
-                  iTotal := FQry.RecordCount;
-                  iPageTotal := 0;
-
-                  if not bExists then
-                  begin
-                    LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
-                    Exit;
-                  end;
-
-                  if (iTotal = 0) then
-                  begin
-                    LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
-                    Exit;
-                  end;
-
-                  FQry.First;
-
-                  while not FQry.Eof do
-                  begin
-                    LEquipmentId := FQry.FindField('EQUIPMENT_ID').AsInteger;
-
-                    try
-                      DM.doPositionHistory( //
-                         FUser.TokenCredential //
-                         , LEquipmentId //
-                         , FormatDateTime('yyyy-mm-dd', IncDay(Now, 0)) //
-                         , '00:00:00' //
-                         , FormatDateTime('yyyy-mm-dd', IncDay(Now, 0)) //
-                         , '23:59:59' //
-                         , 1 //
-                         , iPageTotal //
-                         );
-                    except
-                    end;
-
-                    FQry.Next;
-                  end;
-
-                end;
-              finally
-
-              end;
-            finally
-              {$IFDEF MSWINDOWS}
-              FreeAndNil(FQry);
-              {$ENDIF}
-              {$IFDEF ANDROID}
-              FQry.DisposeOf;
-              {$ENDIF}
-            end;
-          end);
-      finally
-        // FTimerPositionHistory.Interval := 60000;
-        // FTimerPositionHistory.Enabled := True;
-      end;
-    end);
 end;
 
 procedure TFrmMain.doMarkerClick(Sender: TObject; AEventData: TTMSFNCMapsEventData);
@@ -625,9 +508,6 @@ begin
   lytMapa.Visible := True;
   lytMapa.BringToFront;
 
-  // lytMapa.Opacity := 0.3;
-  // Map.Opacity := 0.3;
-
   lytListaVeiculos.SendToBack;
   lytListaVeiculos.Visible := False;
 end;
@@ -644,9 +524,6 @@ begin
   lytMapa.Visible := False;
   lytMapa.SendToBack;
 
-  // lytMapa.Opacity := 0.3;
-  // Map.Opacity := 0.3;
-
   lytListaVeiculos.BringToFront;
   lytListaVeiculos.Visible := True;
 
@@ -659,35 +536,8 @@ end;
 
 procedure TFrmMain.doHistoricoPosicoes;
 begin
-  (*
-    if mvMenuView.Visible then
-    begin
-    mvMenuView.HideMaster;
-    mvMenuView.Visible := False;
-    end;
-
-    Map.Visible := False;
-    lytMapa.Visible := False;
-    lytMapa.SendToBack;
-
-    // lytMapa.Opacity := 0.3;
-    // Map.Opacity := 0.3;
-
-    lytHistoricoPosicoes.BringToFront;
-    lytHistoricoPosicoes.Visible := True;
-
-    //  TThread.Queue(nil,
-    //    procedure
-    //    begin
-    //      doUpdatePositionHistory;
-    //      historicoPosicoes;
-    //    end);
-
-  *)
-
   TLoading.Show(FrmMain, 'Consultando Histórico de Posições...');
 
-  // TThread.CreateAnonymousThread(
   TThread.Queue(nil,
     procedure
     begin
@@ -701,13 +551,9 @@ begin
       lytMapa.Visible := False;
       lytMapa.SendToBack;
 
-      // lytMapa.Opacity := 0.3;
-      // Map.Opacity := 0.3;
-
       lytHistoricoPosicoes.BringToFront;
       lytHistoricoPosicoes.Visible := True;
 
-      // doUpdatePositionHistory;
       historicoPosicoes;
 
       TThread.Synchronize(nil,
@@ -717,7 +563,6 @@ begin
         end);
 
     end);
-  // end).Start;
 end;
 
 procedure TFrmMain.doUpdateDrawOnMap(Sender: TObject);
@@ -778,285 +623,288 @@ begin
     begin
       FTimerDrawOnMap.Enabled := False;
       try
-        LSQL := //
-           'SELECT *' + sLineBreak + //
-           'FROM POSITIONS_LAST' + sLineBreak + //
-           'WHERE 1 = 1' + sLineBreak + //
-           'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
-           'ORDER BY ID_POSITION_LAST DESC';
+        TThread.Synchronize(nil,
+          procedure
+          begin
+            {$REGION 'Synchronize'}
+            LSQL := //
+               'SELECT *' + sLineBreak + //
+               'FROM POSITIONS_LAST' + sLineBreak + //
+               'WHERE 1 = 1' + sLineBreak + //
+               'AND ID_USER = ' + IntToStr(User.Id) + sLineBreak + //
+               'ORDER BY ID_POSITION_LAST DESC';
 
-        {$IFDEF DEBUG}
-        // LogApp('DEBUG', EmptyStr, LSQL);
-        {$ENDIF}
-        FQry := TFDQuery.Create(nil);
-        try
-          FQry.Connection := DM.FDConn;
+            {$IFDEF DEBUG}
+            // LogApp('DEBUG', EmptyStr, LSQL);
+            {$ENDIF}
+            FQry := TFDQuery.Create(nil);
+            try
+              FQry.Connection := DM.FDConn;
 
-          try
-            FQry.Open(LSQL);
+              try
+                FQry.Open(LSQL);
 
-            {$REGION 'Carregar Veiculos'}
-            if not FQry.IsEmpty then
-            begin
-              bExists := not FQry.IsEmpty;
-              iTotal := FQry.RecordCount;
+                {$REGION 'Carregar Veiculos'}
+                if not FQry.IsEmpty then
+                begin
+                  bExists := not FQry.IsEmpty;
+                  iTotal := FQry.RecordCount;
 
-              if not bExists then
-              begin
-                LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
-                Exit;
+                  if not bExists then
+                  begin
+                    Logg.LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr);
+                    Exit;
+                  end;
+
+                  if (iTotal = 0) then
+                  begin
+                    Logg.LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr);
+                    Exit;
+                  end;
+
+                  // Map.Clear;
+                  // Map.ClearCache;
+                  // Map.ClearHeadLinks;
+                  // Map.ClearMarkers;
+                  // Map.ClearElementContainers;
+                  // Map.ClearOverlayViews;
+                  // Map.ClearPolylines;
+                  // Map.ClearPolygons;
+                  // Map.ClearCircles;
+                  // Map.ClearRectangles;
+                  // Map.CloseAllPopups;
+
+                  Map.Markers.Clear;
+                  Map.OverlayViews.Clear;
+
+                  FQry.First;
+
+                  while not FQry.Eof do
+                  begin
+                    {$REGION 'Carregar Vriaveis'}
+                    //
+                    LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
+                    LEquipmentBrandName := FQry.FindField('EQUIPMENT_BRAND_NAME').AsString;
+                    LEquipmentModelName := FQry.FindField('EQUIPMENT_MODEL_NAME').AsString;
+
+                    LCustomerId := FQry.FindField('CUSTOMER_ID').AsInteger;
+                    LCustomerName := FQry.FindField('CUSTOMER_NAME').AsString;
+                    LPlate := FQry.FindField('PLATE').AsString;
+                    LVehicleBrandName := FQry.FindField('VEHICLE_BRAND_NAME').AsString;
+                    LVehicleModelName := Copy(FQry.FindField('VEHICLE_MODEL_NAME').AsString, 1, 15);
+                    LVehicleColorId := FQry.FindField('VEHICLE_COLOR_ID').AsInteger;
+                    LVehicleColor := FQry.FindField('VEHICLE_COLOR').AsString;
+
+                    LEventDate := FQry.FindField('EVENT_DATE').AsDateTime;
+                    LSatellites := FQry.FindField('SATELLITES').AsInteger;
+                    LLatitude := FQry.FindField('LATITUDE').AsFloat;
+                    LLongitude := FQry.FindField('LONGITUDE').AsFloat;
+                    LCourse := FQry.FindField('COURSE').AsInteger;
+                    LAddress := FQry.FindField('ADDRESS').AsString;
+
+                    LIgnitionStatus := FQry.FindField('IGNITION_STATUS').AsBoolean;
+
+                    if LIgnitionStatus then
+                    begin
+                      LIgnitionStatus_ := cIgnitionOnText;
+                    end
+                    else
+                    begin
+                      LIgnitionStatus_ := cIgnitionOffText;
+                    end;
+
+                    LSpeed := FQry.FindField('SPEED').AsInteger;
+                    LOdometer := FQry.FindField('ODOMETER').AsInteger;
+                    LHorimeter := FQry.FindField('HORIMETER').AsInteger;
+                    LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
+
+                    LCharge := FQry.FindField('CHARGE').AsBoolean;
+
+                    if LCharge then
+                    begin
+                      // LCharge_ := cBatteryOnText;
+                      LCharge_ := LPowerVoltage.ToString;
+                    end
+                    else
+                    begin
+                      // LCharge_ := cBatteryOffText;
+                      LCharge_ := '0';
+                    end;
+
+                    LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
+                    LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
+                    LAlarms := FQry.FindField('ALARMS').AsString;
+
+                    {$REGION 'Verifica os Dados'}
+                    if (LTerminalId = EmptyStr) then
+                      LTerminalId := 'N/D';
+
+                    if (LEquipmentBrandName = EmptyStr) then
+                      LEquipmentBrandName := 'N/D';
+
+                    if (LEquipmentModelName = EmptyStr) then
+                      LEquipmentModelName := 'N/D';
+
+                    // if ( LCustomerId: Integer;  LCustomerId := 'N/D';
+
+                    if (LCustomerName = EmptyStr) then
+                      LCustomerName := 'N/D';
+
+                    if (LPlate = EmptyStr) then
+                      LPlate := 'Novo';
+
+                    if (LVehicleBrandName = EmptyStr) then
+                      LVehicleBrandName := 'N/D';
+
+                    if (LVehicleModelName = EmptyStr) then
+                      LVehicleModelName := 'N/D';
+
+                    // if ( LVehicleColorId: Integer;  LVehicleColorId := 'N/D';
+                    // if ( LVehicleColor = EmptyStr ) then  LVehicleColor := 'N/D';
+                    //
+                    // if ( LEventDate: TDateTime;  LEventDate := 'N/D';
+                    // if ( LSatellites: Integer;  LSatellites := 'N/D';
+                    // if ( LLatitude: double;  LLatitude := 'N/D';
+                    // if ( LLongitude: double;  LLongitude := 'N/D';
+                    // if ( LCourse: Integer;  LCourse := 'N/D';
+                    // if ( LAddress = EmptyStr ) then  LAddress := 'N/D';
+                    //
+                    // if ( LIgnitionStatus: Boolean;  LIgnitionStatus := 'N/D';
+                    // if ( LIgnitionStatus_ = EmptyStr ) then  LIgnitionStatus_ := 'N/D';
+                    // if ( LSpeed: Integer;  LSpeed := 'N/D';
+                    // if ( LOdometer: Integer;  LOdometer := 'N/D';
+                    // if ( LHorimeter: Integer;  LHorimeter := 'N/D';
+                    // if ( LPowerVoltage: double;  LPowerVoltage := 'N/D';
+                    // if ( LCharge: Boolean;  LCharge := 'N/D';
+                    // if ( LCharge_ = EmptyStr ) then  LCharge_ := 'N/D';
+                    // if ( LBatteryVoltage: Integer;  LBatteryVoltage := 'N/D';
+                    // if ( LGsmSignalStrength: Integer;  LGsmSignalStrength := 'N/D';
+                    // if ( LAlarms = EmptyStr ) then  LAlarms := 'N/D';
+                    {$ENDREGION}
+                    //
+
+                    LTitle := //
+                       RosaDosVentos(LCourse, True) + ' ' + LPlate;
+
+                    LData := //
+                       '<br><b>Placa: </b>' + LPlate + sLineBreak + //
+                       '<br><b>Associado: </b>' + LCustomerName + sLineBreak + //
+                       '<br><b>Marca Veíc.: </b>' + LVehicleBrandName + sLineBreak + //
+                       '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
+                    // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
+                       '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
+                       '<br><b>Últ. Posição: </b> ⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
+                    // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
+                       '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
+                       '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
+                       '<br><b>Localização: </b>' + LAddress + sLineBreak + //
+                       '';
+
+                    { todo -o@WOS83:Posição Atual no Mapa }
+                    Map.BeginUpdate;
+
+                    {$REGION 'Markers'}
+                    LMarker := Map.Markers.Add;
+
+                    {$IFDEF MSWINDOWS}
+                    if LIgnitionStatus then
+                    begin
+                      LMarker.IconURL := FImageCarOn48;
+                      // LMarker.Cluster.ImagePath := FImageCarOn48;
+                    end
+                    else
+                    begin
+                      LMarker.IconURL := FImageCarOff48;
+                      // LMarker.Cluster.ImagePath := FImageCarOff48;
+                    end;
+                    {$ENDIF}
+                    {$IFDEF ANDROID}
+                    if LIgnitionStatus then
+                    begin
+                      LMarker.IconURL := FImageCarOn48;
+                    end
+                    else
+                    begin
+                      LMarker.IconURL := FImageCarOff48;
+                    end;
+                    {$ENDIF}
+                    LMarker.Latitude := LLatitude;
+                    LMarker.Longitude := LLongitude;
+
+                    LMarker.Clickable := True;
+
+                    LMarker.Title := LTitle;
+                    LMarker.DisplayName := LTitle;
+                    LMarker.DataString := LData;
+
+                    LMarker.Visible := True;
+                    {$ENDREGION}
+                    //
+                    {$REGION 'OverlayView'}
+                    LOverlayView := Map.AddOverlayView;
+                    LOverlayView.Clickable := False;
+
+                    LOverlayView.Mode := omCoordinate;
+                    LOverlayView.Coordinate.Latitude := LLatitude;
+                    LOverlayView.Coordinate.Longitude := LLongitude;
+
+                    LOverlayView.CoordinatePosition := cpTopCenter;
+                    LOverlayView.CoordinateOffsetTop := Trunc(LMarker.IconHeight * -1) + 14;
+                    LOverlayView.CoordinateOffsetLeft := Trunc(LMarker.IconWidth) + 8;
+
+                    LOverlayView.Text := LTitle;
+                    LOverlayView.DataString := LData;
+
+                    LOverlayView.Font.Size := 11;
+                    LOverlayView.BorderColor := 0;
+
+                    if LIgnitionStatus then
+                    begin
+                      LOverlayView.Font.Color := TAlphaColorRec.White;
+                      LOverlayView.BackgroundColor := cIgnitionColor;
+                    end
+                    else
+                    begin
+                      LOverlayView.Font.Color := TAlphaColorRec.White;
+                      LOverlayView.BackgroundColor := cIgnitionColor;
+                    end;
+
+                    LOverlayView.Visible := True;
+
+                    {$ENDREGION}
+                    Map.EndUpdate;
+                    //
+                    {$ENDREGION}
+                    { todo -o@WOS83:Primeira Posição no Mapa }
+                    if IsPositionFirst then
+                    begin
+                      Map.SetCenterCoordinate(LLatitude, LLongitude);
+                      IsPositionFirst := False;
+                    end;
+
+                    FQry.Next;
+                  end;
+                end;
+                {$ENDREGION}
+              except
+                on E: Exception do
+                begin
+                  Logg.LogAppSQL( //
+                     'TFrmMain.carregarVeiculos' //
+                     , E.ClassName + '. ' + E.Message //
+                     , LSQL);
+                end;
               end;
-
-              if (iTotal = 0) then
-              begin
-                LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
-                Exit;
-              end;
-
-              Map.Clear;
-              Map.ClearCache;
-              Map.ClearHeadLinks;
-              Map.ClearMarkers;
-              Map.ClearElementContainers;
-              Map.ClearOverlayViews;
-              Map.ClearPolylines;
-              Map.ClearPolygons;
-              Map.ClearCircles;
-              Map.ClearRectangles;
-              Map.CloseAllPopups;
-
-              Map.Markers.Clear;
-              Map.OverlayViews.Clear;
-
-              FQry.First;
-
-              while not FQry.Eof do
-              begin
-                // Application.ProcessMessages;
-
-                {$REGION 'Carregar Vriaveis'}
-                //
-                LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
-                LEquipmentBrandName := FQry.FindField('EQUIPMENT_BRAND_NAME').AsString;
-                LEquipmentModelName := FQry.FindField('EQUIPMENT_MODEL_NAME').AsString;
-
-                LCustomerId := FQry.FindField('CUSTOMER_ID').AsInteger;
-                LCustomerName := FQry.FindField('CUSTOMER_NAME').AsString;
-                LPlate := FQry.FindField('PLATE').AsString;
-                LVehicleBrandName := FQry.FindField('VEHICLE_BRAND_NAME').AsString;
-                LVehicleModelName := Copy(FQry.FindField('VEHICLE_MODEL_NAME').AsString, 1, 15);
-                LVehicleColorId := FQry.FindField('VEHICLE_COLOR_ID').AsInteger;
-                LVehicleColor := FQry.FindField('VEHICLE_COLOR').AsString;
-
-                LEventDate := FQry.FindField('EVENT_DATE').AsDateTime;
-                LSatellites := FQry.FindField('SATELLITES').AsInteger;
-                LLatitude := FQry.FindField('LATITUDE').AsFloat;
-                LLongitude := FQry.FindField('LONGITUDE').AsFloat;
-                LCourse := FQry.FindField('COURSE').AsInteger;
-                LAddress := FQry.FindField('ADDRESS').AsString;
-
-                LIgnitionStatus := FQry.FindField('IGNITION_STATUS').AsBoolean;
-
-                if LIgnitionStatus then
-                begin
-                  LIgnitionStatus_ := cIgnitionOnText;
-                end
-                else
-                begin
-                  LIgnitionStatus_ := cIgnitionOffText;
-                end;
-
-                LSpeed := FQry.FindField('SPEED').AsInteger;
-                LOdometer := FQry.FindField('ODOMETER').AsInteger;
-                LHorimeter := FQry.FindField('HORIMETER').AsInteger;
-                LPowerVoltage := FQry.FindField('POWER_VOLTAGE').AsFloat;
-
-                LCharge := FQry.FindField('CHARGE').AsBoolean;
-
-                if LCharge then
-                begin
-                  // LCharge_ := cBatteryOnText;
-                  LCharge_ := LPowerVoltage.ToString;
-                end
-                else
-                begin
-                  // LCharge_ := cBatteryOffText;
-                  LCharge_ := '0';
-                end;
-
-                LBatteryVoltage := FQry.FindField('BATTERY_VOLTAGE').AsInteger;
-                LGsmSignalStrength := FQry.FindField('GSM_SIGNAL_STRENGTH').AsInteger;
-                LAlarms := FQry.FindField('ALARMS').AsString;
-
-                {$REGION 'Verifica os Dados'}
-                if (LTerminalId = EmptyStr) then
-                  LTerminalId := 'N/D';
-
-                if (LEquipmentBrandName = EmptyStr) then
-                  LEquipmentBrandName := 'N/D';
-
-                if (LEquipmentModelName = EmptyStr) then
-                  LEquipmentModelName := 'N/D';
-
-                // if ( LCustomerId: Integer;  LCustomerId := 'N/D';
-
-                if (LCustomerName = EmptyStr) then
-                  LCustomerName := 'N/D';
-
-                if (LPlate = EmptyStr) then
-                  LPlate := 'Novo';
-
-                if (LVehicleBrandName = EmptyStr) then
-                  LVehicleBrandName := 'N/D';
-
-                if (LVehicleModelName = EmptyStr) then
-                  LVehicleModelName := 'N/D';
-
-                // if ( LVehicleColorId: Integer;  LVehicleColorId := 'N/D';
-                // if ( LVehicleColor = EmptyStr ) then  LVehicleColor := 'N/D';
-                //
-                // if ( LEventDate: TDateTime;  LEventDate := 'N/D';
-                // if ( LSatellites: Integer;  LSatellites := 'N/D';
-                // if ( LLatitude: double;  LLatitude := 'N/D';
-                // if ( LLongitude: double;  LLongitude := 'N/D';
-                // if ( LCourse: Integer;  LCourse := 'N/D';
-                // if ( LAddress = EmptyStr ) then  LAddress := 'N/D';
-                //
-                // if ( LIgnitionStatus: Boolean;  LIgnitionStatus := 'N/D';
-                // if ( LIgnitionStatus_ = EmptyStr ) then  LIgnitionStatus_ := 'N/D';
-                // if ( LSpeed: Integer;  LSpeed := 'N/D';
-                // if ( LOdometer: Integer;  LOdometer := 'N/D';
-                // if ( LHorimeter: Integer;  LHorimeter := 'N/D';
-                // if ( LPowerVoltage: double;  LPowerVoltage := 'N/D';
-                // if ( LCharge: Boolean;  LCharge := 'N/D';
-                // if ( LCharge_ = EmptyStr ) then  LCharge_ := 'N/D';
-                // if ( LBatteryVoltage: Integer;  LBatteryVoltage := 'N/D';
-                // if ( LGsmSignalStrength: Integer;  LGsmSignalStrength := 'N/D';
-                // if ( LAlarms = EmptyStr ) then  LAlarms := 'N/D';
-                {$ENDREGION}
-                //
-
-                LTitle := //
-                   RosaDosVentos(LCourse, True) + ' ' + LPlate + //
-                   ''; // sLineBreak + LIgnitionStatus_;
-
-                LData := //
-                   '<br><b>Placa: </b>' + LPlate + sLineBreak + //
-                   '<br><b>Associado: </b>' + LCustomerName + sLineBreak + //
-                   '<br><b>Marca Veíc.: </b>' + LVehicleBrandName + sLineBreak + //
-                   '<br><b>Modelo Veíc.: </b>' + LVehicleModelName + sLineBreak + //
-                // '<br><b>Status Ignição: </b> 🔑 ' + LIgnitionStatus_ + sLineBreak + //
-                   '<br><b>Status Bateria: </b> 🔋 ' + LCharge_ + sLineBreak + //
-                   '<br><b>Últ. Posição: </b> ⏱ ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', LEventDate) + sLineBreak + //
-                // '<br><b>Direção: </b>' + RosaDosVentos(LCourse) + sLineBreak + //
-                   '<br><b>Odometro: </b>' + IntToStr(LOdometer) + sLineBreak + //
-                   '<br><b>Horimetro: </b>' + IntToStr(LHorimeter) + sLineBreak + //
-                   '<br><b>Localização: </b>' + LAddress + sLineBreak + //
-                   '';
-
-                { todo -o@WOS83:Posição Atual no Mapa }
-                Map.BeginUpdate;
-
-                {$REGION 'Markers'}
-                LMarker := Map.Markers.Add;
-
-                {$IFDEF MSWINDOWS}
-                if LIgnitionStatus then
-                begin
-                  LMarker.IconURL := FImageCarOn48;
-                  // LMarker.Cluster.ImagePath := FImageCarOn48;
-                end
-                else
-                begin
-                  LMarker.IconURL := FImageCarOff48;
-                  // LMarker.Cluster.ImagePath := FImageCarOff48;
-                end;
-                {$ENDIF}
-                {$IFDEF ANDROID}
-                if LIgnitionStatus then
-                begin
-                  LMarker.IconURL := FImageCarOn48;
-                end
-                else
-                begin
-                  LMarker.IconURL := FImageCarOff48;
-                end;
-                {$ENDIF}
-                LMarker.Latitude := LLatitude;
-                LMarker.Longitude := LLongitude;
-
-                LMarker.Clickable := True;
-
-                LMarker.Title := LTitle;
-                LMarker.DisplayName := LTitle;
-                LMarker.DataString := LData;
-
-                LMarker.Visible := True;
-                {$ENDREGION}
-                //
-                {$REGION 'OverlayView'}
-                LOverlayView := Map.AddOverlayView;
-                LOverlayView.Clickable := False;
-
-                LOverlayView.Mode := omCoordinate;
-                LOverlayView.Coordinate.Latitude := LLatitude;
-                LOverlayView.Coordinate.Longitude := LLongitude;
-
-                LOverlayView.CoordinatePosition := cpTopCenter;
-                LOverlayView.CoordinateOffsetTop := Trunc(LMarker.IconHeight * -1) + 14;
-                LOverlayView.CoordinateOffsetLeft := Trunc(LMarker.IconWidth) + 8;
-
-                LOverlayView.Text := LTitle;
-                LOverlayView.DataString := LData;
-
-                LOverlayView.Font.Size := 11;
-                LOverlayView.BorderColor := 0;
-
-                if LIgnitionStatus then
-                begin
-                  LOverlayView.Font.Color := TAlphaColorRec.White;
-                  LOverlayView.BackgroundColor := cIgnitionColor;
-                end
-                else
-                begin
-                  LOverlayView.Font.Color := TAlphaColorRec.White;
-                  LOverlayView.BackgroundColor := cIgnitionColor;
-                end;
-
-                LOverlayView.Visible := True;
-
-                {$ENDREGION}
-                Map.EndUpdate;
-                //
-                {$ENDREGION}
-                { todo -o@WOS83:Primeira Posição no Mapa }
-                if IsPositionFirst then
-                begin
-                  Map.SetCenterCoordinate(LLatitude, LLongitude);
-                  IsPositionFirst := False;
-                end;
-
-                FQry.Next;
-              end;
+            finally
+              {$IFDEF MSWINDOWS}
+              FreeAndNil(FQry);
+              {$ENDIF}
+              {$IFDEF ANDROID}
+              FQry.DisposeOf;
+              {$ENDIF}
             end;
             {$ENDREGION}
-          except
-            on E: Exception do
-            begin
-              LogApp( //
-                 'TFrmMain.carregarVeiculos' //
-                 , E.ClassName + '. ' + E.Message //
-                 , LSQL);
-            end;
-          end;
-        finally
-          {$IFDEF MSWINDOWS}
-          FreeAndNil(FQry);
-          {$ENDIF}
-          {$IFDEF ANDROID}
-          FQry.DisposeOf;
-          {$ENDIF}
-        end;
+          end);
       finally
         FTimerDrawOnMap.Interval := 60000;
         FTimerDrawOnMap.Enabled := True;
@@ -1126,7 +974,7 @@ begin
      'SELECT *' + sLineBreak + //
      'FROM POSITIONS_LAST' + sLineBreak + //
      'WHERE 1 = 1' + sLineBreak + //
-     'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
+     'AND ID_USER = ' + IntToStr(User.Id) + sLineBreak + //
      'ORDER BY PLATE';
 
   {$IFDEF DEBUG}
@@ -1147,13 +995,13 @@ begin
 
         if not bExists then
         begin
-          LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
+          Logg.LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr);
           Exit;
         end;
 
         if (iTotal = 0) then
         begin
-          LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
+          Logg.LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr);
           Exit;
         end;
 
@@ -1174,8 +1022,6 @@ begin
 
         while not FQry.Eof do
         begin
-          // Application.ProcessMessages;
-
           {$REGION 'Carregar Variaveis'}
           //
           LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
@@ -1401,7 +1247,7 @@ begin
     except
       on E: Exception do
       begin
-        LogApp( //
+        Logg.LogAppSQL( //
            'TFrmMain.carregarVeiculos' //
            , E.ClassName + '. ' + E.Message //
            , LSQL);
@@ -1479,7 +1325,7 @@ begin
      'SELECT *' + sLineBreak + //
      'FROM POSITIONS_HISTORY' + sLineBreak + //
      'WHERE 1 = 1' + sLineBreak + //
-     'AND ID_USER = ' + IntToStr(FUser.Id) + sLineBreak + //
+     'AND ID_USER = ' + IntToStr(User.Id) + sLineBreak + //
      'ORDER BY PLATE';
 
   {$IFDEF DEBUG}
@@ -1500,13 +1346,13 @@ begin
 
         if not bExists then
         begin
-          LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr, EmptyStr);
+          Logg.LogApp('APP: Nao foi possivel carregar os veiculos', EmptyStr);
           Exit;
         end;
 
         if (iTotal = 0) then
         begin
-          LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr, EmptyStr);
+          Logg.LogApp('APP: Sem veiculos para carregar no mapa', EmptyStr);
           Exit;
         end;
 
@@ -1529,8 +1375,6 @@ begin
 
         while not FQry.Eof do
         begin
-          // Application.ProcessMessages;
-
           {$REGION 'Carregar Variaveis'}
           //
           LTerminalId := FQry.FindField('TERMINAL_ID').AsString;
@@ -1761,7 +1605,7 @@ begin
     except
       on E: Exception do
       begin
-        LogApp( //
+        Logg.LogAppSQL( //
            'TFrmMain.carregarVeiculos' //
            , E.ClassName + '. ' + E.Message //
            , LSQL);
@@ -1778,11 +1622,9 @@ begin
 end;
 
 procedure TFrmMain.FormCreate(Sender: TObject);
-var
-  LDir: string;
-  LFile: string;
 begin
   LoadFormState;
+
   {$IFDEF MSWINDOWS}
   Self.Left := 16;
   Self.Top := 16;
@@ -1797,26 +1639,21 @@ begin
   lblSempreLogado.Text := PadL(lblSempreLogado.Text, Trunc(swtSempreLogado.Width), ' ');
 
   tbcMain.TabPosition := TTabPosition.Dots;
-
-  // LDir := ExtractFileDir(ParamStr(0)) + PathDelim + cCACHE;
   {$ENDIF}
   {$IFDEF ANDROID}
   PermissionsService.RequestPermissions([ //
      PermissionReadExternalStorage //
      , PermissionWriteExternalStorage //
      ], PermissionResult, PermissionMessage);
-
-  // LDir := TPath.GetDocumentsPath + PathDelim + cCACHE;
   {$ENDIF}
-  // if not DirectoryExists(LDir) then
-  // ForceDirectories(LDir);
-
-  // Application.ProcessMessages;
+  User := TUser.Create;
+  Login := TLogin.Create;
+  PositionLast := TPositionLast.Create;
 
   DM.doCreateDB;
 
   mvMenuView.Width := Self.Width - 80;
-  grdLytMenuMapa.ItemWidth := Trunc(Self.Width / 6) -0;
+  grdLytMenuMapa.ItemWidth := Trunc(Self.Width / 6) - 0;
   tbcMain.ActiveTab := tbiLogin;
 
   FPanelMap := TPanel.Create(Self);
@@ -1851,32 +1688,13 @@ begin
   { todo -o@WOS83:Esconde a Lista de Veículos }
   lytListaVeiculos.Visible := False;
 
-  {$IFDEF MSWINDOWS}
-  // LFile := 'file://' + StringReplace(ExtractFilePath(ParamStr(0)), '\', '/', [rfReplaceAll]);
   FImageCarOn48 := cImageUrlCarOn48;
   FImageCarOff48 := cImageUrlCarOff48;
-  {$ENDIF}
-  {$IFDEF ANDROID}
-  LFile := 'file://' + TPath.GetDocumentsPath;
 
-  FImageCarOn48 := TPath.Combine(LFile, cImageCarOn48);
-  if not FileExists(FImageCarOn48) then
-    FImageCarOn48 := cImageUrlCarOn48;
-
-  FImageCarOff48 := TPath.Combine(LFile, cImageCarOff48);
-  if not FileExists(FImageCarOff48) then
-    FImageCarOff48 := cImageUrlCarOff48;
-
-  {$ENDIF}
-  FTimerPositionLast := TTimer.Create(Self);
-  FTimerPositionLast.Enabled := False;
-  FTimerPositionLast.Interval := 1000;
-  FTimerPositionLast.OnTimer := doUpdatePositionLast;
-
-  FTimerPositionHistory := TTimer.Create(Self);
-  FTimerPositionHistory.Enabled := False;
-  FTimerPositionHistory.Interval := 15000;
-  FTimerPositionHistory.OnTimer := doUpdatePositionHistory;
+  // FTimerPositionHistory := TTimer.Create(Self);
+  // FTimerPositionHistory.Enabled := False;
+  // FTimerPositionHistory.Interval := 15000;
+  // FTimerPositionHistory.OnTimer := doUpdatePositionHistory;
 
   FTimerDrawOnMap := TTimer.Create(Self);
   FTimerDrawOnMap.Enabled := False;
@@ -1889,18 +1707,18 @@ end;
 
 procedure TFrmMain.FormDestroy(Sender: TObject);
 begin
+  User.Destroy;
+  Login.Destroy;
+  PositionLast.Destroy;
+
   {$IFDEF MSWINDOWS}
   FreeAndNil(Map);
   FreeAndNil(FPanelMap);
-  FreeAndNil(FTimerPositionLast);
-  FreeAndNil(FTimerPositionHistory);
   FreeAndNil(FTimerDrawOnMap);
   {$ELSE}
   Map.DisposeOf;
   FPanelMap.DisposeOf;
-  FTimerPositionLast.DisposeOf;
-  FTimerPositionHistory.DisposeOf;
-  FTimerDrawOnMap.DisposeOf;
+  // FTimerDrawOnMap.DisposeOf;
   {$ENDIF}
 end;
 
@@ -1912,18 +1730,16 @@ end;
 procedure TFrmMain.lblEntrarClick(Sender: TObject);
 begin
   TLoading.Show(FrmMain, 'Carregando dados do usuário..');
-  // TThread.CreateAnonymousThread(
   TThread.Queue(nil,
     procedure
     begin
-      loginUsuario;
+      fazerLogin;
       TThread.Synchronize(nil,
         procedure
         begin
           TLoading.Hide;
         end);
     end);
-  // end).Start;
 end;
 
 procedure TFrmMain.lstvListaVeiculosItemClick(const Sender: TObject; const AItem: TListViewItem);
@@ -1945,9 +1761,6 @@ begin
   Map.Visible := True;
   lytMapa.Visible := True;
   lytMapa.BringToFront;
-
-  // lytMapa.Opacity := 1;
-  // Map.Opacity := 1;
 
   FPanelMap.BringToFront;
   FPanelMap.Opacity := 1;

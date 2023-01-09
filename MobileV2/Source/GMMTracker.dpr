@@ -2,37 +2,39 @@
 
 uses
   {$IFDEF MSWINDOWS}
-  madLinkDisAsm,
+  madExcept,
   madListHardware,
   madListProcesses,
   madListModules,
-  madExcept,
+  madLinkDisAsm,
   {$ENDIF }
-  System.StartUpCopy,
+  System.Classes,
   System.IOUtils,
+  System.StartUpCopy,
+  System.SysUtils,
   FMX.Forms,
+  FMX.Memo,
   uConsts in 'uConsts.pas',
   uLibrary in 'uLibrary.pas',
   uDM in 'uDM.pas' {DM: TDataModule},
-  uFrmMain in 'uFrmMain.pas' {FrmMain};
+  uFrmMain in 'uFrmMain.pas' {FrmMain},
+  uLogin in 'uLogin.pas',
+  uUser in 'uUser.pas',
+  uGeoInfo in 'uGeoInfo.pas',
+  uPositionLast in 'uPositionLast.pas',
+  uLog in 'uLog.pas',
+  uPositionHistory in 'uPositionHistory.pas';
 
 {$R *.res}
-
-var
-  LFile: string;
 
 begin
   {$IFDEF DEBUG}
   {$IFDEF MSWINDOWS}
-  //ReportMemoryLeaksOnShutdown := True;
+  ReportMemoryLeaksOnShutdown := True;
   {$ENDIF}
   {$ENDIF}
   Application.Initialize;
   Application.FormFactor.Orientations := [TFormOrientation.Portrait];
-  {$IFDEF ANDROID}
-  // IdOpenSSLSetLibPath(TPath.GetDocumentsPath);
-  // LoadOpenSSLLibrary;
-  {$ENDIF}
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFrmMain, FrmMain);
   Application.Run;

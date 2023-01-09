@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Android</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>693267</TargetedPlatforms>
         <AppType>Application</AppType>
         <MainSource>GMMTracker.dpr</MainSource>
@@ -139,6 +139,11 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCC_GenerateAndroidAppBundleFile>true</DCC_GenerateAndroidAppBundleFile>
         <OrientationPortrait>true</OrientationPortrait>
         <DCC_UnitSearchPath>$(BDS)\Components\ACBr\Fontes\ACBrComum;$(BDS)\Components\ACBr\Fontes\ACBrOpenSSL;$(BDS)\Components\ACBr\Fontes\Terceiros\synalist;$(BDS)\Components\ACBr\Fontes\Terceiros\GZIPUtils;$(BDS)\Components\ACBr\Fontes\Terceiros\FastStringReplace;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <PostBuildEventCancelOnError>false</PostBuildEventCancelOnError>
+        <PostBuildEvent><![CDATA[del /s /f /q "$(PROJECTDIR)\*.dcu"
+del /s /f /q "$(PROJECTDIR)\*.drc"
+del /s /f /q "$(PROJECTDIR)\$(PROJECTNAME)*.map"
+$(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <DCC_UsePackage>fmx;DbxCommonDriver;bindengine;IndyIPCommon;emsclient;IndyProtocols;dbxcds;FmxTeeUI;FireDACSqliteDriver;DbxClientDriver;soapmidas;dbexpress;inet;FireDACDBXDriver;CustomIPTransport;IndySystem;ibxbindings;FireDACCommon;bindcompdbx;rtl;DBXSqliteDriver;DataSnapFireDAC;FireDAC;xmlrtl;ibxpress;dsnap;DataSnapNativeClient;FireDACCommonDriver;IndyIPClient;bindcompfmx;ibmonitor;fmxFireDAC;DataSnapCommon;fmxase;dbrtl;DBXInterBaseDriver;bindcomp;IndyCore;RESTBackendComponents;RESTComponents;IndyIPServer;dsnapxml;DataSnapClient;DataSnapProviderClient;emsclientfiredac;FireDACDSDriver;tethering;CloudService;FMXTee;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -302,8 +307,8 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1046</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.244;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
-        <VerInfo_Build>244</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=Grupo M&amp;M - M.S. DE MIRANDA RASTREADORES - EPP;FileDescription=GMM Tracker;FileVersion=2022.11.2.282;InternalName=Rastreamento Online;LegalCopyright=;LegalTrademarks=;OriginalFilename=GMMTracker;ProgramID=br.gmm.mobile;ProductName=GMM Tracker;ProductVersion=2022.11.2.0;Comments=CNPJ: 25.341.741/0001-67</VerInfo_Keys>
+        <VerInfo_Build>282</VerInfo_Build>
         <DCC_Define>madExcept;$(DCC_Define)</DCC_Define>
         <DCC_MapFile>3</DCC_MapFile>
     </PropertyGroup>
@@ -342,12 +347,23 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <DCCReference Include="uFrmMain.pas">
             <Form>FrmMain</Form>
         </DCCReference>
+        <DCCReference Include="uLogin.pas"/>
+        <DCCReference Include="uUser.pas"/>
+        <DCCReference Include="uGeoInfo.pas"/>
+        <DCCReference Include="uPositionLast.pas"/>
+        <DCCReference Include="uLog.pas"/>
+        <DCCReference Include="uPositionHistory.pas">
+            <Form>$R *.res</Form>
+        </DCCReference>
         <JavaReference Include="..\Data\FNCWebChromeClient-dexed.jar">
             <ContainerId>ClassesdexFile64</ContainerId>
             <Disabled/>
         </JavaReference>
         <JavaReference Include="..\Data\JavaScriptHelper-dexed.jar">
             <ContainerId>ClassesdexFile64</ContainerId>
+            <Disabled/>
+        </JavaReference>
+        <JavaReference Include="..\..\Test\ServicePositionLast\Android\Debug\ServicePositionLast.jar">
             <Disabled/>
         </JavaReference>
         <BuildConfiguration Include="Base">
@@ -1853,127 +1869,127 @@ $(PreBuildEvent)]]></PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Android64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='iOSDevice64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='iOSSimARM64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='OSX64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='OSXARM64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Android'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Android64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='iOSDevice64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='iOSSimARM64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='OSX64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='OSXARM64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
         <PreBuildEvent>&quot;C:\Windows\System32\taskkill.exe&quot; -f -im $(OUTPUTNAME)* -t</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>True</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent/>
-        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+        <PostBuildEvent>del /s /f /q &quot;$(PROJECTDIR)\*.dcu&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\*.drc&quot;&amp;del /s /f /q &quot;$(PROJECTDIR)\$(PROJECTNAME)*.map&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>True</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>

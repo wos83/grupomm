@@ -7,6 +7,29 @@ uses
   System.IOUtils;
 
 const
+  cCACHE = 'cache';
+  cLOG = 'log';
+  cDEBUG = 'DEBUG';
+
+  cAppName = 'GMMTraker';
+  cNameConnDef = 'GMMTrakerSQLite';
+
+  cAPI = 'http://vps35067.publiccloud.com.br/api';
+  cAppJson = 'application/json';
+  cBearerToken = 'Bearer %s';
+
+  cUUID = '827d8338-6d0c-bf85-3ea2-ff1f66fd70d3';
+
+  cAPI_Login = '/login';
+  cAPI_PositionLast = '/position/last';
+  cAPI_PositionHistoryHours = '/position/history/%d/hours/%d?page=%d';
+  cAPI_PositionHistoryDays = '/position/history/%d/days/%d?page=%d';
+  cAPI_PositionHistoryPeriod = '/position/history/%d/period/%s %s/%s %s?page=%d';
+  //http://vps35067.publiccloud.com.br/api/position/history/3250/period/2022-12-02 08:00:00/2022-12-02 12:00:00
+
+  cMSG_CAMPO_VAZIO = 'O campo não pode ficar em branco!';
+  cMSG_SUPORTE = 'Entre em contato com o suporte.';
+
   { todo -o@WOS83 -cGoogle Maps:Google Maps API (Web)
     Criada em 15/11/2022 - 16:58:16
     Email: grupomm.dev@gmail.com }
@@ -20,7 +43,7 @@ const
 
   cImageUrlCarOn48 = 'http://i.imgur.com/Hd62TQK.png';
   cImageBase64CarOn48 = //
-     //'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAACN5JREFUaIHFmn9Q1GUex1+P68IGLGmwKEIqAsJ5zrn4I0zxxySUo3hz9uNwpuzOppwTY6rpps5rru6qm82yQk5DafxxWV1zd45n9st0pfT0KO2gRERBXBTFRTBd2oXdhe9zf6xuu+xPdql7/wPP+/Pj+/7s8zz7' + //
+  // 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAACN5JREFUaIHFmn9Q1GUex1+P68IGLGmwKEIqAsJ5zrn4I0zxxySUo3hz9uNwpuzOppwTY6rpps5rru6qm82yQk5DafxxWV1zd45n9st0pfT0KO2gRERBXBTFRTBd2oXdhe9zf6xuu+xPdql7/wPP+/Pj+/7s8zz7' + //
      'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAACN5JREFUaIHFmn9Q1GUex1+P68IGLGmwKEIqAsJ5zrn4I0zxxySUo3hz9uNwpuzOppwTY6rpps5rru6qm82yQk5DafxxWV1zd45n9st0pfT0KO2gRERBXBTFRTBd2oXdhe9zf6xuu+xPdql7/wPP+/Pj+/7s8zz7' + //
      'fJ8PCJ1BxVBg2jk5X2vn0fabxdyuOBKvxBOrCJdN40SO7KE3+TvZMdrCnpOjxaa2EZwYiueKaAu4s1G+cnyMWN2eyE2DicsxS/OYazxZPVG8E83zIy6g8JRc3ThKrG0bQXw0AqZckC0xfTxydJw4EEn8sEiC5jfJf+3PERuiFQ/wdZqYcHScMBY1yiciiR/UDHSs6R921+phjbXpItuffWyPhkXafGZN+QWjb51EUmom/X1OLrc1cu5sLc' + //
      'b6nXzESWzDFb/5F5yS2405YsUPVoC+TZ6pSxcTfHjbSJ65ax3zZv8qrDx/fedxXmipxKLu97EVNcpN+3LFqnA1hV3AvCa55/NsUTyQf2384zywbF24z/seUvLUywVsl1/4mBackqXGHFEZTpqw9kBRo/ztQPGx/YKd89+KTDyAELz89GHWpv3Gx1Q9UbzRsaY/Lpw0qvjC0DVYY4XRGstwT25n0bsU5C8LV25A5E1ZRHzjWT6zfePmpIBD' + //
@@ -37,7 +60,7 @@ const
 
   cImageUrlCarOff48 = 'http://i.imgur.com/KCYhik5.png';
   cImageBase64CarOff48 = //
-     //'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAGu0lEQVRoge2Zf0zU5x3HX19+BzhtsLAJRxGnYuu2glk0a5DKYnULZK1LE9sYDdKsBowZf/Sfqcn+WLqtjd3QpGwBV1bdkqVpRrqGqNXMhlTqNMVax1QyyI3ANfyw2kOOO+DuvT++cN4dX+4XZ12WvZMnuXu+nx/v9+f5cc/3OYMkQZAH1AA7' + //
+  // 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAGu0lEQVRoge2Zf0zU5x3HX19+BzhtsLAJRxGnYuu2glk0a5DKYnULZK1LE9sYDdKsBowZf/Sfqcn+WLqtjd3QpGwBV1bdkqVpRrqGqNXMhlTqNMVax1QyyI3ANfyw2kOOO+DuvT++cN4dX+4XZ12WvZMnuXu+nx/v9+f5cc/3OYMkQZAH1AA7' + //
      'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAGu0lEQVRoge2Zf0zU5x3HX19+BzhtsLAJRxGnYuu2glk0a5DKYnULZK1LE9sYDdKsBowZf/Sfqcn+WLqtjd3QpGwBV1bdkqVpRrqGqNXMhlTqNMVax1QyyI3ANfyw2kOOO+DuvT++cN4dX+4XZ12WvZMnuXu+nx/v9+f5cc/3OYMkQZAH1AA7' + //
      'gBKgEFgJTAPOuXYLeB/4m2H2P3wIvic4L5gRKMbmErwtWP0wiX9TcDoO0lbNKzgmWPFVk6+bSx6ZYHq6lJISi5BBQflXQTxF8IYlibQ0qbpaOnZMunZNGhuTJGl2Vhoeli5elA4fljZsWEzEPcGPHrSA5gWJDUN6/nmpr08x48wZ6cknrUT4ZG4ED4T8SwsSrlghnTsXO/Fg+P3Sa69JqalWC3xDsslvXDDn16+X+vsTIx+Mzk4pJydcRL' + //
      '8gO5kCLoQkyM+XHI6lk5/Hu+9aLfZDySL/g5DAqalSV1fyyM/jyJFwAXeTsr0KPg4JvHfvohz8fr88Ho88Ho9mZmbiE+D1SiUl4SJ+Ho2fEYW8HRgM2GVmwq1bUFKywPbq1as0NzczOjpKWloaWVlZ5OTksGbNGmpqaqioqIherVOnYO/e4J4bBjwRySUlSsgfEixyxw5L8hcuXGDbtm0YhkFDQwNlZWVkZmZSUVHB8PAwtbW1NDY2MjEx' + //
